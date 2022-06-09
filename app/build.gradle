@@ -5,6 +5,10 @@ plugins {
 android {
     compileSdk 32
 
+    packagingOptions {
+        pickFirst 'META-INF/DEPENDENCIES'
+    }
+
     defaultConfig {
         applicationId "com.example.connect_odoo_mobile"
         minSdk 21
@@ -35,4 +39,5 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
 }
