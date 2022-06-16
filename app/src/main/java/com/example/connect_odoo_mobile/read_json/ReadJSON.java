@@ -1,20 +1,12 @@
 package com.example.connect_odoo_mobile.read_json;
 
-import android.content.Context;
-import android.util.Log;
-
-import com.example.connect_odoo_mobile.R;
+import com.example.connect_odoo_mobile.data_models.Company;
 import com.example.connect_odoo_mobile.data_models.Contact;
-import com.example.connect_odoo_mobile.fragment.CustomerFragment;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class ReadJSON {
     private static final String TAG = "Run";
@@ -23,7 +15,6 @@ public class ReadJSON {
     public static Contact readContactJSON(String jsonText) throws IOException, JSONException {
 
         JSONObject jsonRoot = new JSONObject(jsonText);
-
 
         int id= jsonRoot.getInt("id");
         String name = jsonRoot.getString("name");
@@ -36,6 +27,33 @@ public class ReadJSON {
         contact.setEmail(email);
         contact.setCompany(company);
         return contact;
+    }
+
+    public static Company readCompanyJSON(String jsonText) throws IOException, JSONException {
+
+        JSONObject jsonRoot = new JSONObject(jsonText);
+
+        int id= jsonRoot.getInt("id");
+        String name = jsonRoot.getString("name");
+        String city = jsonRoot.getString("city");
+        String email = jsonRoot.getString("email");
+        String street = jsonRoot.getString("street");
+        String street2 = jsonRoot.getString("street2");
+        String country_code = jsonRoot.getString("country_code");
+        String phone = jsonRoot.getString("phone");
+        String mobile = jsonRoot.getString("mobile");
+
+        Company company = new Company();
+        company.setId(id);
+        company.setName(name);
+        company.setEmail(email);
+        company.setCity(city);
+        company.setStreet(street);
+        company.setStreet2(street2);
+        company.setCountry_code(country_code);
+        company.setPhone(phone);
+        company.setMobile(mobile);
+        return company;
     }
 
 //    private static String readText(Context context, int resId) throws IOException {

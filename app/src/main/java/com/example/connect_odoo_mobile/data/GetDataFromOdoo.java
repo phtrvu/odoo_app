@@ -27,8 +27,8 @@ public class GetDataFromOdoo {
     final XmlRpcClientConfigImpl common_config = new XmlRpcClientConfigImpl();
 
     final XmlRpcClient models = new XmlRpcClient();
-
-    public List<Object> getContact() throws XmlRpcException {
+    int uid = 0;
+    public void common() throws XmlRpcException {
         try {
             common_config.setServerURL(new URL(String.format("%s/xmlrpc/2/common", url)));
         } catch (MalformedURLException e) {
@@ -41,7 +41,12 @@ public class GetDataFromOdoo {
                 e.printStackTrace();
             }
         }});
-        int uid = (int) client.execute(common_config, "authenticate", asList(db, username, password, emptyMap()));
+        uid = (int) client.execute(common_config, "authenticate", asList(db, username, password, emptyMap()));
+    }
+
+    public List<Object> getContact() throws XmlRpcException {
+       common();
+
         List<Object> data = asList((Object[]) models.execute("execute_kw", asList(
                         db, uid, password,
                         "res.partner", "search_read",
@@ -50,6 +55,18 @@ public class GetDataFromOdoo {
                             put("fields", asList("name", "email","company_name","id"));
                         }}
                 )));
+        return data;
+    }
+    public List<Object> getCompany() throws XmlRpcException {
+       common();
+        List<Object> data = asList((Object[]) models.execute("execute_kw", asList(
+                db, uid, password,
+                "res.company", "search_read",
+                emptyList(),
+                new HashMap() {{
+                    put("fields", asList("name","phone","mobile","street","street2","email","id","city","country_code"));
+                }}
+        )));
         return data;
     }
 }

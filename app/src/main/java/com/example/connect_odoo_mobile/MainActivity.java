@@ -1,7 +1,5 @@
 package com.example.connect_odoo_mobile;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,14 +9,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.connect_odoo_mobile.fragment.CustomerFragment;
+import com.example.connect_odoo_mobile.fragment.CompanyFragment;
+import com.example.connect_odoo_mobile.fragment.ContactFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
@@ -31,8 +30,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView txtDisplayName,txtEmail;
     private ImageView imgAvatar;
     private int uid;
-    private static final int FRAGMENT_CUSTOMER = 0;
-    private int currentFragment = FRAGMENT_CUSTOMER;
+    private static final int FRAGMENT_CONTACT = 0;
+    private static final int FRAGMENT_COMPANY = 1;
+    private static final int FRAGMENT_INVOICE = 2;
+    private int currentFragment = FRAGMENT_CONTACT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //mapping view
         mapping();
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Customer");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Contact");
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawerLayout, toolbar, R.string.nav_drawer_open,
@@ -52,21 +53,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //bat su kien cho navcigationview
         navigationView.setNavigationItemSelectedListener(this);
         //chay app mo thang home luôn
-        replaceFragment(new CustomerFragment());
+        replaceFragment(new ContactFragment());
         //set chọn cái biểu tượng cảu thàng home
-        navigationView.getMenu().findItem(R.id.nav_customer).setChecked(true);
+        navigationView.getMenu().findItem(R.id.nav_contact).setChecked(true);
         //get uid
         getUid();
     }
+    @SuppressLint("NonConstantResourceId")
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_customer:
-                if (currentFragment != FRAGMENT_CUSTOMER) {
-                    replaceFragment(new CustomerFragment());
-                    currentFragment = FRAGMENT_CUSTOMER;
-                    Objects.requireNonNull(getSupportActionBar()).setTitle("Customer");
+            case R.id.nav_contact:
+                if (currentFragment != FRAGMENT_CONTACT) {
+                    replaceFragment(new ContactFragment());
+                    currentFragment = FRAGMENT_CONTACT;
+                    Objects.requireNonNull(getSupportActionBar()).setTitle("Contact");
                 }
-            case 1:
+            case R.id.nav_company:
+                if (currentFragment != FRAGMENT_COMPANY) {
+                    replaceFragment(new CompanyFragment());
+                    currentFragment = FRAGMENT_COMPANY;
+                    Objects.requireNonNull(getSupportActionBar()).setTitle("Company");
+                }
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
