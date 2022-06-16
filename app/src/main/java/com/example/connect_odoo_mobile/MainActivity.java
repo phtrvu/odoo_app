@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
     }
 
-    private void getUid() {
+    public void getUid() {
         intent = getIntent();
         uid = intent.getIntExtra("uid",-1);
     }

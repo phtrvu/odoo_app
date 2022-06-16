@@ -26,7 +26,7 @@ public class SignInActivity extends AppCompatActivity {
     final XmlRpcClientConfigImpl common_config = new XmlRpcClientConfigImpl();
     private EditText edtUrl, edtUser, edtPassword;
     private Button btnSignIn;
-    public int uid;
+    public static int uid;
     private String https = "https://android.t4erp.cf",
             name = "vunpt@t4tek.co",
             pass = "12062001",
