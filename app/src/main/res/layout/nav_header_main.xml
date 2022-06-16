@@ -25,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
+        android:textSize="20sp"
         android:text="Android"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -32,5 +33,6 @@
         android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
         android:text="android@gmail.com" />
 </LinearLayout>

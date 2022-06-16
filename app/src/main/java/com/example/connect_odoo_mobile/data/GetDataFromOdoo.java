@@ -69,4 +69,17 @@ public class GetDataFromOdoo {
         )));
         return data;
     }
+    public List<Object> getProfile() throws XmlRpcException {
+        common();
+        List<Object> profile = asList((Object[]) models.execute("execute_kw", asList(
+                db, uid, password,
+                "res.users", "search_read",
+                asList(asList(
+                        asList("id", "=", uid))),
+                new HashMap() {{
+                    put("fields", asList("name","email"));
+                }}
+        )));
+        return profile;
+    }
 }

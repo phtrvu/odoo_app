@@ -1,5 +1,7 @@
 package com.example.connect_odoo_mobile;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,14 +14,23 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.connect_odoo_mobile.data.GetDataFromOdoo;
+import com.example.connect_odoo_mobile.data_models.Contact;
 import com.example.connect_odoo_mobile.fragment.CompanyFragment;
 import com.example.connect_odoo_mobile.fragment.ContactFragment;
+import com.example.connect_odoo_mobile.read_json.ReadJSON;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
 
+import org.apache.xmlrpc.XmlRpcException;
+
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,8 +38,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private NavigationView navigationView;
     private Intent intent;
-    private TextView txtDisplayName,txtEmail;
+    private TextView txtDisplayName, txtEmail;
     private ImageView imgAvatar;
+    private GetDataFromOdoo getDataFromOdoo = new GetDataFromOdoo();
+    private Gson gson = new Gson();
     private int uid;
     private static final int FRAGMENT_CONTACT = 0;
     private static final int FRAGMENT_COMPANY = 1;
@@ -54,11 +67,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         //chay app mo thang home luôn
         replaceFragment(new ContactFragment());
-        //set chọn cái biểu tượng cảu thàng home
+        //set chọn cái biểu tượng cua thàng home
         navigationView.getMenu().findItem(R.id.nav_contact).setChecked(true);
         //get uid
         getUid();
+        //get profile
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        try {
+            getProfile();
+        } catch (XmlRpcException e) {
+            e.printStackTrace();
+        }
     }
+
     @SuppressLint("NonConstantResourceId")
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -78,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.layoutFrame, fragment);
@@ -86,18 +109,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void getUid() {
         intent = getIntent();
-        uid = intent.getIntExtra("uid",-1);
+        uid = intent.getIntExtra("uid", -1);
+    }
+
+    private void getProfile() throws XmlRpcException {
+        String json = null;
+
+        try {
+            List<Object> data = getDataFromOdoo.getProfile();
+            Log.d(TAG, "getProfile: " + json);
+            for (Object i: data
+                 ) {
+                json = gson.toJson(i);
+                try {
+                    Contact contact = ReadJSON.readProfileJSON(json);
+                    txtEmail.setText(contact.getEmail());
+                    txtDisplayName.setText(contact.getName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (XmlRpcException e) {
+            e.printStackTrace();
+        }
     }
 
     private void mapping() {
         toolbar = findViewById(R.id.toolBar);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        txtDisplayName=navigationView.getHeaderView(0).findViewById(R.id.txtName);
-        txtEmail=navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
-        imgAvatar=navigationView.getHeaderView(0).findViewById(R.id.imgAvatar);
+        txtDisplayName = navigationView.getHeaderView(0).findViewById(R.id.txtName);
+        txtEmail = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
+        imgAvatar = navigationView.getHeaderView(0).findViewById(R.id.imgAvatar);
 
     }
+
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
