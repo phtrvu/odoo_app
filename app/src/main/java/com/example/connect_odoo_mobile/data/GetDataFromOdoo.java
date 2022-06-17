@@ -1,15 +1,23 @@
 package com.example.connect_odoo_mobile.data;
 
+import static android.content.ContentValues.TAG;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
 
+import android.util.Log;
+
+import com.example.connect_odoo_mobile.adapter.ContactAdapter;
 import com.example.connect_odoo_mobile.data_models.Contact;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
 
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,6 +36,8 @@ public class GetDataFromOdoo {
 
     final XmlRpcClient models = new XmlRpcClient();
     int uid = 0;
+    private JsonAdapter<List<Contact>> jsonAdapter;
+
     public void common() throws XmlRpcException {
         try {
             common_config.setServerURL(new URL(String.format("%s/xmlrpc/2/common", url)));
@@ -42,12 +52,15 @@ public class GetDataFromOdoo {
             }
         }});
         uid = (int) client.execute(common_config, "authenticate", asList(db, username, password, emptyMap()));
+
     }
 
-    public List<Object> getContact() throws XmlRpcException {
+    public List<Contact> getContact() throws XmlRpcException {
        common();
-
-        List<Object> data = asList((Object[]) models.execute("execute_kw", asList(
+        Moshi moshi = new Moshi.Builder().build();
+        Type usersType = Types.newParameterizedType(List.class, Contact.class);
+        jsonAdapter = moshi.adapter(usersType);
+        Object data = asList((Object[]) models.execute("execute_kw", asList(
                         db, uid, password,
                         "res.partner", "search_read",
                         emptyList(),
@@ -55,7 +68,9 @@ public class GetDataFromOdoo {
                             put("fields", asList("name", "email","company_name","id"));
                         }}
                 )));
-        return data;
+        final List<Contact> contacts = jsonAdapter.fromJsonValue(data);
+        Log.d(TAG, "getContact: "+ contacts);
+        return contacts;
     }
     public List<Object> getCompany() throws XmlRpcException {
        common();

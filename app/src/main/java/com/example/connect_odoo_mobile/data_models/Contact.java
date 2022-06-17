@@ -2,14 +2,14 @@ package com.example.connect_odoo_mobile.data_models;
 
 public class Contact {
     private int id;
-    private String name;
-    private String company_name;
-    private String email;
+    private Object name;
+    private Object company_name;
+    private Object email;
 
     public Contact() {
     }
 
-    public Contact(int id, String name, String company_name, String email) {
+    public Contact(int id, Object name, Object company_name, Object email) {
         this.id = id;
         this.name = name;
         this.company_name = company_name;
@@ -24,27 +24,27 @@ public class Contact {
         this.id = id;
     }
 
-    public String getName() {
+    public Object getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(Object name) {
         this.name = name;
     }
 
-    public String getCompany() {
+    public Object getCompany() {
         return company_name;
     }
 
-    public void setCompany(String company_name) {
+    public void setCompany(Object company_name) {
         this.company_name = company_name;
     }
 
-    public String getEmail() {
+    public Object getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(Object email) {
         this.email = email;
     }
 }

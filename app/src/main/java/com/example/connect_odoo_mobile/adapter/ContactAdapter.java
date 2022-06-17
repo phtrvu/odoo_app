@@ -13,12 +13,13 @@ import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.data_models.Contact;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
     private Context context;
-    private ArrayList<Contact> contactArrayList;
+    private List<Contact> contactArrayList;
 
-    public ContactAdapter(Context context, ArrayList<Contact> contactArrayList) {
+    public ContactAdapter(Context context, List<Contact> contactArrayList) {
         this.context = context;
         this.contactArrayList = contactArrayList;
     }
@@ -33,11 +34,15 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         Contact contact = contactArrayList.get(position);
-        holder.txtName.setText(contact.getName());
-        if (!contact.getCompany().equals("false")) {
-            holder.txtCompany.setText(contact.getCompany());
+        if (!contact.getName().equals(false)) {
+            holder.txtName.setText((CharSequence) contact.getName());
         }
-        holder.txtEmail.setText(contact.getEmail());
+        if (!contact.getCompany().equals(false)) {
+            holder.txtCompany.setText((CharSequence) contact.getCompany());
+        }
+        if(!contact.getEmail().equals(false)){
+            holder.txtEmail.setText((CharSequence) contact.getEmail());
+        }
     }
 
     @Override

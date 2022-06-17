@@ -26,7 +26,7 @@ import java.util.List;
 public class ContactFragment extends Fragment {
     private View view;
     private ContactAdapter contactAdapter;
-    private ArrayList<Contact> contactArrayList;
+    private List<Contact> contactList;
     private RecyclerView layoutView;
     private GetDataFromOdoo getDataFromOdoo = new GetDataFromOdoo();
     private Gson gson = new Gson();
@@ -48,37 +48,14 @@ public class ContactFragment extends Fragment {
 
     private void setContactRecyclerView() {
         try {
-            contactArrayList = getContactArrayList();
+            contactList = getDataFromOdoo.getContact();
         } catch (XmlRpcException e) {
             e.printStackTrace();
         }
-        contactAdapter = new ContactAdapter(getContext(), contactArrayList);
+        contactAdapter = new ContactAdapter(getContext(), contactList);
         LinearLayoutManager contactManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         layoutView.setLayoutManager(contactManager);
         layoutView.setAdapter(contactAdapter);
-    }
-
-    public ArrayList<Contact> getContactArrayList() throws XmlRpcException {
-        ArrayList<Contact> contactArrayList = new ArrayList<>();
-        String json = null;
-
-        try {
-            List<Object> data = getDataFromOdoo.getContact();
-            for (Object i:data
-                 ) {
-                json = gson.toJson(i);
-                try {
-                    Contact contact = ReadJSON.readContactJSON(json);
-                    contactArrayList.add(contact);
-                } catch(Exception e)  {
-                    e.printStackTrace();
-                }
-            }
-
-        } catch (XmlRpcException e) {
-            e.printStackTrace();
-        }
-        return contactArrayList;
     }
 
     private void mapping() {

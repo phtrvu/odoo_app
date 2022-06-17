@@ -123,8 +123,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 json = gson.toJson(i);
                 try {
                     Contact contact = ReadJSON.readProfileJSON(json);
-                    txtEmail.setText(contact.getEmail());
-                    txtDisplayName.setText(contact.getName());
+                    txtEmail.setText((CharSequence) contact.getEmail());
+                    txtDisplayName.setText((CharSequence) contact.getName());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
