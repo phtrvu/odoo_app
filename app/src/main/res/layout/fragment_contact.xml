@@ -3,18 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.CompanyFragment">
+    tools:context=".fragment.ContactFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/layoutView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#e5e5e5" />
+        android:background="#e5e5e5"/>
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"/>
-
 </FrameLayout>

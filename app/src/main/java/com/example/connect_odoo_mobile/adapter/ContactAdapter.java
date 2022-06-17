@@ -47,7 +47,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public int getItemCount() {
-        return contactArrayList.size();
+        if(contactArrayList.size() > 0){
+            return contactArrayList.size();
+        }
+        else {
+            return 0;
+        }
     }
 
     public class ContactViewHolder extends RecyclerView.ViewHolder {

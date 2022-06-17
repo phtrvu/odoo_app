@@ -7,6 +7,7 @@ import static java.util.Collections.emptyMap;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -45,6 +46,8 @@ public class GetDataFromOdoo {
     private Moshi moshi;
 
     public void common() throws XmlRpcException {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         try {
             common_config.setServerURL(new URL(String.format("%s/xmlrpc/2/common", url)));
         } catch (MalformedURLException e) {

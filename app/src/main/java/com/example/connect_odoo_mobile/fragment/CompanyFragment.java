@@ -41,12 +41,10 @@ public class CompanyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_company, container, false);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
         //mapping view
         mapping();
         //set contact recycler view
-        setContactRecyclerView();
+       // setContactRecyclerView();
         return view;
     }
 

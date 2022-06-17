@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.connect_odoo_mobile.data.GetDataFromOdoo;
 import com.example.connect_odoo_mobile.data_models.Contact;
+import com.example.connect_odoo_mobile.fragment.BlankFragment;
 import com.example.connect_odoo_mobile.fragment.CompanyFragment;
 import com.example.connect_odoo_mobile.fragment.ContactFragment;
 import com.example.connect_odoo_mobile.read_json.ReadJSON;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String name, email;
     private static final int FRAGMENT_CONTACT = 0;
     private static final int FRAGMENT_COMPANY = 1;
-    private static final int FRAGMENT_INVOICE = 2;
+    private static final int FRAGMENT_TEST = 2;
     private int currentFragment = FRAGMENT_CONTACT;
 
     @Override
@@ -74,8 +75,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getUid();
         //get profile
     }
-
-    @SuppressLint("NonConstantResourceId")
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_contact:
@@ -84,12 +83,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     currentFragment = FRAGMENT_CONTACT;
                     Objects.requireNonNull(getSupportActionBar()).setTitle("Contact");
                 }
+                break;
             case R.id.nav_company:
                 if (currentFragment != FRAGMENT_COMPANY) {
                     replaceFragment(new CompanyFragment());
                     currentFragment = FRAGMENT_COMPANY;
                     Objects.requireNonNull(getSupportActionBar()).setTitle("Company");
                 }
+                break;
+            case R.id.nav_test:
+                if (currentFragment != FRAGMENT_TEST) {
+                    replaceFragment(new BlankFragment());
+                    currentFragment = FRAGMENT_TEST;
+                    Objects.requireNonNull(getSupportActionBar()).setTitle("Test");
+                }
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
