@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private GetDataFromOdoo getDataFromOdoo = new GetDataFromOdoo();
     private Gson gson = new Gson();
     private int uid;
+    private String name, email;
     private static final int FRAGMENT_CONTACT = 0;
     private static final int FRAGMENT_COMPANY = 1;
     private static final int FRAGMENT_INVOICE = 2;
@@ -72,13 +73,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //get uid
         getUid();
         //get profile
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        try {
-            getProfile();
-        } catch (XmlRpcException e) {
-            e.printStackTrace();
-        }
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -110,28 +104,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void getUid() {
         intent = getIntent();
         uid = intent.getIntExtra("uid", -1);
-    }
-
-    private void getProfile() throws XmlRpcException {
-        String json = null;
-
-        try {
-            List<Object> data = getDataFromOdoo.getProfile();
-            Log.d(TAG, "getProfile: " + json);
-            for (Object i: data
-                 ) {
-                json = gson.toJson(i);
-                try {
-                    Contact contact = ReadJSON.readProfileJSON(json);
-                    txtEmail.setText((CharSequence) contact.getEmail());
-                    txtDisplayName.setText((CharSequence) contact.getName());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-        } catch (XmlRpcException e) {
-            e.printStackTrace();
+        name = intent.getStringExtra("name");
+        email = intent.getStringExtra("email");
+        if(name != null && email != null){
+            txtEmail.setText(email);
+            txtDisplayName.setText(name);
         }
     }
 

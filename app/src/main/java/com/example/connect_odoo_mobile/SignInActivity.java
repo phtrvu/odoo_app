@@ -1,5 +1,6 @@
 package com.example.connect_odoo_mobile;
 
+import static android.content.ContentValues.TAG;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
@@ -9,10 +10,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.connect_odoo_mobile.data.GetDataFromOdoo;
+import com.example.connect_odoo_mobile.data_models.Contact;
+import com.example.connect_odoo_mobile.read_json.ReadJSON;
+import com.google.gson.Gson;
 
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
@@ -20,13 +27,16 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 public class SignInActivity extends AppCompatActivity {
     final XmlRpcClient client = new XmlRpcClient();
     final XmlRpcClientConfigImpl common_config = new XmlRpcClientConfigImpl();
+    private GetDataFromOdoo getDataFromOdoo = new GetDataFromOdoo();
     private EditText edtUrl, edtUser, edtPassword;
     private Button btnSignIn;
     public static int uid;
+    private Gson gson = new Gson();
     private String https = "https://android.t4erp.cf",
             name = "vunpt@t4tek.co",
             pass = "12062001",
@@ -40,10 +50,6 @@ public class SignInActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         //view mapping
         mapping();
-        //check auto login
-        if(uid > 0){
-            startActivity(new Intent(SignInActivity.this,MainActivity.class));
-        }
         //set action
         action();
     }
@@ -70,7 +76,14 @@ public class SignInActivity extends AppCompatActivity {
 //                }
                 try {
                     //checkSignIn(url,user,pass);
-                    checkSignIn(https,name,pass);
+                    int uid = getDataFromOdoo.checkSignIn(https,name,pass);
+                    if (uid >0){
+                        Contact contact = getProfile(uid);
+                        Intent intent = new Intent(SignInActivity.this,MainActivity.class);
+                        intent.putExtra("name", (String) contact.getName());
+                        intent.putExtra("email", (String) contact.getEmail());
+                        startActivity(intent);
+                    }
                 } catch (XmlRpcException e) {
                     e.printStackTrace();
                 }
@@ -78,27 +91,26 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    private void checkSignIn(String url,String user, String password) throws XmlRpcException {
-        Object version;
+    private Contact getProfile(int uid) throws XmlRpcException {
+        String json = null;
+        Contact contact = null;
         try {
-            common_config.setServerURL(new URL(String.format("%s/xmlrpc/2/common", url)));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        try {
-            version = client.execute(common_config, "version", emptyList());
+            List<Object> data = getDataFromOdoo.getProfile(uid);
+            Log.d(TAG, "getProfile: " + json);
+            for (Object i: data
+            ) {
+                json = gson.toJson(i);
+                try {
+                    contact = ReadJSON.readProfileJSON(json);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
         } catch (XmlRpcException e) {
             e.printStackTrace();
         }
-        uid = (int) client.execute(common_config, "authenticate", asList(db, user, password, emptyMap()));
-
-        if(uid > 0){
-            Intent intent = new Intent(SignInActivity.this,MainActivity.class);
-            intent.putExtra("uid",uid);
-            startActivity(intent);
-        }else {
-            Toast.makeText(this, "Éo đúng user or pass =))", Toast.LENGTH_SHORT).show();
-        }
+        return contact;
     }
 
     private void mapping() {
