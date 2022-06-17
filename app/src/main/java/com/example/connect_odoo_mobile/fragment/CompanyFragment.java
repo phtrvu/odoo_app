@@ -31,10 +31,9 @@ import java.util.List;
 public class CompanyFragment extends Fragment {
     private View view;
     private CompanyAdapter companyAdapter;
-    private ArrayList<Company> companyArrayList;
+    private List<Company> companyArrayList;
     private RecyclerView layoutView;
     private GetDataFromOdoo getDataFromOdoo = new GetDataFromOdoo();
-    private Gson gson = new Gson();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +43,7 @@ public class CompanyFragment extends Fragment {
         //mapping view
         mapping();
         //set contact recycler view
-       // setContactRecyclerView();
+       setContactRecyclerView();
         return view;
     }
 
@@ -54,7 +53,7 @@ public class CompanyFragment extends Fragment {
 
     private void setContactRecyclerView() {
         try {
-            companyArrayList = getCompanyArrayList();
+            companyArrayList = getDataFromOdoo.getCompany();
         } catch (XmlRpcException e) {
             e.printStackTrace();
         }
@@ -62,29 +61,5 @@ public class CompanyFragment extends Fragment {
         LinearLayoutManager companyManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         layoutView.setLayoutManager(companyManager);
         layoutView.setAdapter(companyAdapter);
-    }
-
-    public ArrayList<Company> getCompanyArrayList() throws XmlRpcException {
-        ArrayList<Company> companyArrayList = new ArrayList<>();
-        String json = null;
-
-        try {
-            List<Object> data = getDataFromOdoo.getCompany();
-            for (Object i : data
-            ) {
-//                Log.d(TAG, "getCompanyArrayList: "+i);
-                json = gson.toJson(i);
-                try {
-                    Company company = ReadJSON.readCompanyJSON(json);
-                    companyArrayList.add(company);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-        } catch (XmlRpcException e) {
-            e.printStackTrace();
-        }
-        return companyArrayList;
     }
 }

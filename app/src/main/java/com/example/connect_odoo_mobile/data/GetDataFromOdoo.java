@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.connect_odoo_mobile.MainActivity;
 import com.example.connect_odoo_mobile.SignInActivity;
 import com.example.connect_odoo_mobile.adapter.ContactAdapter;
+import com.example.connect_odoo_mobile.data_models.Company;
 import com.example.connect_odoo_mobile.data_models.Contact;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -42,7 +43,6 @@ public class GetDataFromOdoo {
 
     final XmlRpcClient models = new XmlRpcClient();
     int uid = 0;
-    private JsonAdapter<List<Contact>> jsonAdapter;
     private Moshi moshi;
 
     public void common() throws XmlRpcException {
@@ -66,6 +66,7 @@ public class GetDataFromOdoo {
 
     public List<Contact> getContact() throws XmlRpcException {
        common();
+        JsonAdapter<List<Contact>> jsonAdapter;
         Type usersType = Types.newParameterizedType(List.class, Contact.class);
         jsonAdapter = moshi.adapter(usersType);
         Object data = asList((Object[]) models.execute("execute_kw", asList(
@@ -79,9 +80,12 @@ public class GetDataFromOdoo {
         final List<Contact> contacts = jsonAdapter.fromJsonValue(data);
         return contacts;
     }
-    public List<Object> getCompany() throws XmlRpcException {
+    public List<Company> getCompany() throws XmlRpcException {
        common();
-        List<Object> data = asList((Object[]) models.execute("execute_kw", asList(
+        JsonAdapter<List<Company>> jsonAdapter;
+        Type usersType = Types.newParameterizedType(List.class, Company.class);
+        jsonAdapter = moshi.adapter(usersType);
+        Object data = asList((Object[]) models.execute("execute_kw", asList(
                 db, uid, password,
                 "res.company", "search_read",
                 emptyList(),
@@ -89,7 +93,8 @@ public class GetDataFromOdoo {
                     put("fields", asList("name","phone","mobile","street","street2","email","id","city","country_code"));
                 }}
         )));
-        return data;
+        final List<Company> companies = jsonAdapter.fromJsonValue(data);
+        return companies;
     }
     public List<Object> getProfile(int uid) throws XmlRpcException {
         common();

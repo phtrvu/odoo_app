@@ -14,12 +14,13 @@ import com.example.connect_odoo_mobile.data_models.Company;
 import com.example.connect_odoo_mobile.data_models.Contact;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder> {
     private Context context;
-    private ArrayList<Company> companyArrayList;
+    private List<Company> companyArrayList;
 
-    public CompanyAdapter(Context context, ArrayList<Company> companyArrayList) {
+    public CompanyAdapter(Context context, List<Company> companyArrayList) {
         this.context = context;
         this.companyArrayList = companyArrayList;
     }
@@ -34,9 +35,15 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
     @Override
     public void onBindViewHolder(@NonNull CompanyViewHolder holder, int position) {
         Company company = companyArrayList.get(position);
-        holder.txtName.setText(company.getName());
-        holder.txtCity.setText(company.getCity());
-        holder.txtEmail.setText(company.getEmail());
+        if (!company.getName().equals(false)) {
+            holder.txtName.setText((CharSequence) company.getName());
+        }
+        if (!company.getCity().equals(false)) {
+            holder.txtCity.setText((CharSequence) company.getCity());
+        }
+        if (!company.getEmail().equals(false)) {
+            holder.txtEmail.setText((CharSequence) company.getEmail());
+        }
     }
 
     @Override
