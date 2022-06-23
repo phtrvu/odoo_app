@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.connect_odoo_mobile.data.ConnectOdoo;
 import com.example.connect_odoo_mobile.data_models.Contact;
@@ -37,7 +38,7 @@ public class SignInActivity extends AppCompatActivity {
     private ImageView imgCheck;
     private List<String> listDB;
     private Button btnSignIn;
-    private Gson gson = new Gson();
+    private Boolean isCheckDB = false;
     public String url = "", user = "", db = "", pass = "";
 
     @Override
@@ -51,8 +52,6 @@ public class SignInActivity extends AppCompatActivity {
         mapping();
         //set action
         action();
-        //
-        //getDataFromOdoo.getDB(url);
     }
 
     private void action() {
@@ -64,19 +63,21 @@ public class SignInActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                db = spinDB.getSelectedItem().toString();
-//                user = edtUser.getText().toString();
-//                pass = edtPassword.getText().toString();
-                db = "bitnami_odoo";
-                user = "vunpt@t4tek.co" ;
-                pass = "12062001";
-                url = "https://android.t4erp.cf";
-                if (url.equals("")) {
-                    edtUrl.setError("NUll");
+                db = spinDB.getSelectedItem().toString();
+                user = edtUser.getText().toString();
+                pass = edtPassword.getText().toString();
+//                db = "bitnami_odoo";
+//                user = "vunpt@t4tek.co" ;
+//                pass = "12062001";
+//                url = "https://android.t4erp.cf";
+                if(!isCheckDB){
+                    Toast.makeText(SignInActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                } else if (url.equals("")) {
+                    edtUrl.setError("Enter self-hosted URL!");
                 } else if (user.equals("")) {
-                    edtUser.setError("NULL");
+                    edtUser.setError("Enter your username or email!");
                 } else if (pass.equals("")) {
-                    edtPassword.setError("NULL");
+                    edtPassword.setError("Enter your password!");
                 } else {
                     try {
                         int uid = connectOdoo.checkSignIn(db, url, user, pass);
@@ -103,43 +104,57 @@ public class SignInActivity extends AppCompatActivity {
 
     private void eventEdittextUrl() {
         listDB = new ArrayList<>();
+        edtUrl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus && listDB != null){
+                    getDatabase();
+                }
+            }
+        });
         edtUrl.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                String server_url = edtUrl.getText().toString();
-                //Check format url
-                StringBuilder serverURL = new StringBuilder();
-                if (!server_url.contains("http://") && !server_url.contains("https://")) {
-                    serverURL.append("https://");
-                }
-                serverURL.append(server_url);
                 //key enter and key next
-                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
-                        || (actionId == EditorInfo.IME_ACTION_NEXT)) {
-                    pbLoading.setVisibility(View.VISIBLE);
-                    listDB = connectOdoo.getDB(serverURL.toString());
-                    if (listDB == null) {
-                        imgCheck.setImageResource(R.drawable.ic_baseline_block_25);
-                    } else if (listDB.size() > 1) {
-                        spinDB.setVisibility(View.VISIBLE);
-                        //dump data spinner
-                        dataSpinner(listDB);
-                        pbLoading.setVisibility(View.INVISIBLE);
-                        imgCheck.setVisibility(View.VISIBLE);
-                        imgCheck.setImageResource(R.drawable.ic_baseline_check_25);
-                    } else if (listDB.size() == 1) {
-                        db = listDB.get(0);
-                        pbLoading.setVisibility(View.INVISIBLE);
-                        imgCheck.setVisibility(View.VISIBLE);
-                        imgCheck.setImageResource(R.drawable.ic_baseline_check_25);
-                    } else {
-                        imgCheck.setImageResource(R.drawable.ic_baseline_block_25);
-                    }
-                    url = serverURL.toString();
+                if (event != null && listDB != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+                        || actionId == EditorInfo.IME_ACTION_NEXT) {
+                    getDatabase();
                 }
+
                 return false;
             }
         });
+    }
+    private void getDatabase(){
+        String server_url = edtUrl.getText().toString();
+        //Check format url
+        StringBuilder serverURL = new StringBuilder();
+        if (!server_url.contains("http://") && !server_url.contains("https://")) {
+            serverURL.append("https://");
+        }
+        serverURL.append(server_url);
+        pbLoading.setVisibility(View.VISIBLE);
+        listDB = connectOdoo.getDB(serverURL.toString());
+        if (listDB == null) {
+            imgCheck.setImageResource(R.drawable.ic_baseline_block_25);
+        } else if (listDB.size() > 1) {
+            spinDB.setVisibility(View.VISIBLE);
+            //dump data spinner
+            dataSpinner(listDB);
+            pbLoading.setVisibility(View.INVISIBLE);
+            imgCheck.setVisibility(View.VISIBLE);
+            imgCheck.setImageResource(R.drawable.ic_baseline_check_25);
+            isCheckDB = true;
+        } else if (listDB.size() == 1) {
+            db = listDB.get(0);
+            pbLoading.setVisibility(View.INVISIBLE);
+            imgCheck.setVisibility(View.VISIBLE);
+            imgCheck.setImageResource(R.drawable.ic_baseline_check_25);
+            isCheckDB = true;
+        } else {
+            imgCheck.setImageResource(R.drawable.ic_baseline_block_25);
+        }
+        url = serverURL.toString();
     }
 
     private void dataSpinner(List<String> listDB) {
