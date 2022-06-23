@@ -1,31 +1,23 @@
 package com.example.connect_odoo_mobile.fragment;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.StrictMode;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.connect_odoo_mobile.MainActivity;
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.adapter.CompanyAdapter;
-import com.example.connect_odoo_mobile.adapter.ContactAdapter;
-import com.example.connect_odoo_mobile.data.GetDataFromOdoo;
+import com.example.connect_odoo_mobile.data.ConnectOdoo;
 import com.example.connect_odoo_mobile.data_models.Company;
-import com.example.connect_odoo_mobile.data_models.Contact;
-import com.example.connect_odoo_mobile.read_json.ReadJSON;
-import com.google.gson.Gson;
 
 import org.apache.xmlrpc.XmlRpcException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyFragment extends Fragment {
@@ -33,7 +25,7 @@ public class CompanyFragment extends Fragment {
     private CompanyAdapter companyAdapter;
     private List<Company> companyArrayList;
     private RecyclerView layoutView;
-    private GetDataFromOdoo getDataFromOdoo = new GetDataFromOdoo();
+    private ConnectOdoo getDataFromOdoo = new ConnectOdoo();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +35,7 @@ public class CompanyFragment extends Fragment {
         //mapping view
         mapping();
         //set contact recycler view
-       setContactRecyclerView();
+        setContactRecyclerView();
         return view;
     }
 
@@ -52,8 +44,13 @@ public class CompanyFragment extends Fragment {
     }
 
     private void setContactRecyclerView() {
+        String db,url,user,pass;
+        url = MainActivity.url;
+        db = MainActivity.db;
+        user = MainActivity.user;
+        pass = MainActivity.pass;
         try {
-            companyArrayList = getDataFromOdoo.getCompany();
+            companyArrayList = getDataFromOdoo.getCompany(db,url,user,pass);
         } catch (XmlRpcException e) {
             e.printStackTrace();
         }

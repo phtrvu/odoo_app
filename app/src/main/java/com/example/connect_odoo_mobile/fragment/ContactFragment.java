@@ -11,9 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.example.connect_odoo_mobile.MainActivity;
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.adapter.ContactAdapter;
-import com.example.connect_odoo_mobile.data.GetDataFromOdoo;
+import com.example.connect_odoo_mobile.data.ConnectOdoo;
 import com.example.connect_odoo_mobile.data_models.Contact;
 import com.google.gson.Gson;
 
@@ -26,7 +27,7 @@ public class ContactFragment extends Fragment {
     private ContactAdapter contactAdapter;
     private List<Contact> contactList;
     private RecyclerView layoutView;
-    private GetDataFromOdoo getDataFromOdoo = new GetDataFromOdoo();
+    private ConnectOdoo getDataFromOdoo = new ConnectOdoo();
     private Gson gson = new Gson();
     private ProgressBar progressBar;
 
@@ -40,13 +41,23 @@ public class ContactFragment extends Fragment {
         mapping();
         //set contact recycler view
         setContactRecyclerView();
+        //
         return view;
     }
 
     private void setContactRecyclerView() {
+        String db,url,user,pass;
+        url = MainActivity.url;
+        db = MainActivity.db;
+        user = MainActivity.user;
+        pass = MainActivity.pass;
+//        db = "bitnami_odoo";
+//        user = "vunpt@t4tek.co" ;
+//        pass = "12062001";
+//        url = "https://android.t4erp.cf";
         try {
             progressBar.setVisibility(View.INVISIBLE);
-            contactList = getDataFromOdoo.getContact();
+            contactList = getDataFromOdoo.getContact(db,url,user,pass);
             progressBar.setVisibility(View.GONE);
         } catch (XmlRpcException e) {
             e.printStackTrace();
