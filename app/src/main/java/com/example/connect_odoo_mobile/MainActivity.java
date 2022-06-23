@@ -19,6 +19,7 @@ import com.example.connect_odoo_mobile.data.ConnectOdoo;
 import com.example.connect_odoo_mobile.fragment.BlankFragment;
 import com.example.connect_odoo_mobile.fragment.CompanyFragment;
 import com.example.connect_odoo_mobile.fragment.ContactFragment;
+import com.example.connect_odoo_mobile.handle.BitmapUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 
@@ -33,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ConnectOdoo connectOdoo = new ConnectOdoo();
     private int uid;
     private Intent intent;
-    public static String name, email, db, url, user, pass;
+    public String name, email, image;
+    public static String db, url, user, pass;
     private static final int FRAGMENT_CONTACT = 0;
     private static final int FRAGMENT_COMPANY = 1;
     private static final int FRAGMENT_TEST = 2;
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getIntentSignIn();
         //get profile
     }
+
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_contact:
@@ -103,13 +106,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         uid = intent.getIntExtra("uid", -1);
         name = intent.getStringExtra("name");
         email = intent.getStringExtra("email");
+        image = intent.getStringExtra("image");
         db = intent.getStringExtra("db");
         url = intent.getStringExtra("url");
         user = intent.getStringExtra("user");
         pass = intent.getStringExtra("pass");
-        if(name != null && email != null){
+        if (name != null && email != null && image != null) {
             txtEmail.setText(email);
             txtDisplayName.setText(name);
+            imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(this,image));
         }
     }
 

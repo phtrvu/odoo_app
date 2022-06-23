@@ -82,11 +82,12 @@ public class SignInActivity extends AppCompatActivity {
                     try {
                         int uid = connectOdoo.checkSignIn(db, url, user, pass);
                         if (uid > 0) {
-                            List<Contact> contact = connectOdoo.getProfile(db, url, user, pass, uid);
+                            List<Contact> contact = connectOdoo.getProfile(db, url, pass, uid);
                             Log.d(TAG, "onClick: " + contact);
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                             intent.putExtra("name", (String) contact.get(0).getName());
                             intent.putExtra("email", (String) contact.get(0).getEmail());
+                            intent.putExtra("image", (String) contact.get(0).getImage_128());
                             intent.putExtra("db",db);
                             intent.putExtra("url",url);
                             intent.putExtra("user",user);
