@@ -63,14 +63,14 @@ public class SignInActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db = spinDB.getSelectedItem().toString();
-                user = edtUser.getText().toString();
-                pass = edtPassword.getText().toString();
-//                db = "bitnami_odoo";
-//                user = "vunpt@t4tek.co" ;
-//                pass = "12062001";
-//                url = "https://android.t4erp.cf";
-                if(!isCheckDB){
+//                db = spinDB.getSelectedItem().toString();
+//                user = edtUser.getText().toString();
+//                pass = edtPassword.getText().toString();
+                db = "bitnami_odoo";
+                user = "vunpt@t4tek.co" ;
+                pass = "12062001";
+                url = "https://android.t4erp.cf";
+                if(isCheckDB){
                     Toast.makeText(SignInActivity.this, "Fail", Toast.LENGTH_SHORT).show();
                 } else if (url.equals("")) {
                     edtUrl.setError("Enter self-hosted URL!");

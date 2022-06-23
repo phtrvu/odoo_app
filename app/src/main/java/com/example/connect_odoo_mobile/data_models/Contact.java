@@ -6,10 +6,20 @@ public class Contact {
     private Object company_name;
     private Object email;
 
+    public Object getImage_128() {
+        return image_128;
+    }
+
+    public void setImage_128(Object image_128) {
+        this.image_128 = image_128;
+    }
+
+    private Object image_128;
+
     public Contact() {
     }
 
-    public Contact(int id, Object name, Object company_name, Object email) {
+    public Contact(int id, Object name, Object company_name, Object email,Object image_128) {
         this.id = id;
         this.name = name;
         this.company_name = company_name;

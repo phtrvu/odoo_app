@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.data_models.Contact;
+import com.example.connect_odoo_mobile.handle.BitmapUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         if(!contact.getEmail().equals(false)){
             holder.txtEmail.setText((CharSequence) contact.getEmail());
         }
+        if(!contact.getImage_128().equals(false)){
+            holder.imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(context, (String) contact.getImage_128()));
+        }
     }
 
     @Override
@@ -52,12 +57,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     public class ContactViewHolder extends RecyclerView.ViewHolder {
         private TextView txtName, txtEmail, txtCompany;
+        private ImageView imgAvatar;
 
         public ContactViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txtName);
             txtCompany = itemView.findViewById(R.id.txtCompany);
             txtEmail = itemView.findViewById(R.id.txtEmail);
+            imgAvatar = itemView.findViewById(R.id.imgAvatar);
         }
     }
 }

@@ -86,7 +86,7 @@ public class ConnectOdoo {
                 "res.partner", "search_read",
                 emptyList(),
                 new HashMap() {{
-                    put("fields", asList("name", "email", "company_name", "id"));
+                    put("fields", asList("name", "email", "company_name", "id","image_128"));
                 }}
         )));
         final List<Contact> contacts = jsonAdapter.fromJsonValue(data);
