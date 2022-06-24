@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.data_models.Company;
 import com.example.connect_odoo_mobile.data_models.Contact;
+import com.example.connect_odoo_mobile.handle.BitmapUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,9 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
         if (!company.getEmail().equals(false)) {
             holder.txtEmail.setText((CharSequence) company.getEmail());
         }
+        if (!company.getLogo().equals(false)) {
+            holder.imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(context, (String) company.getLogo()));
+        }
     }
 
     @Override
@@ -53,12 +58,14 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
 
     public class CompanyViewHolder extends RecyclerView.ViewHolder {
         private TextView txtName, txtEmail, txtCity;
+        private ImageView imgAvatar;
 
         public CompanyViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txtName);
             txtCity = itemView.findViewById(R.id.txtCity);
             txtEmail = itemView.findViewById(R.id.txtEmail);
+            imgAvatar = itemView.findViewById(R.id.imgAvatar);
         }
     }
 }

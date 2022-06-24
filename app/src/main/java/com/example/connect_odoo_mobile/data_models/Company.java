@@ -10,11 +10,12 @@ public class Company {
     private Object street2;
     private Object city;
     private Object country_code;
+    private Object logo;
 
     public Company() {
     }
 
-    public Company(int id, Object name, Object phone, Object email, Object mobile, Object street, Object street2, Object city, Object country_code) {
+    public Company(int id, Object name, Object phone, Object email, Object mobile, Object street, Object street2, Object city, Object country_code, Object logo) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -24,6 +25,7 @@ public class Company {
         this.street2 = street2;
         this.city = city;
         this.country_code = country_code;
+        this.logo = logo;
     }
 
     public int getId() {
@@ -96,5 +98,13 @@ public class Company {
 
     public void setCountry_code(Object country_code) {
         this.country_code = country_code;
+    }
+
+    public Object getLogo() {
+        return logo;
+    }
+
+    public void setLogo(Object logo) {
+        this.logo = logo;
     }
 }

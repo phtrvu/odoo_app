@@ -30,10 +30,11 @@ public class ConnectOdoo {
             db = "bitnami_odoo",
             username = "vunpt@t4tek.co",
             password = "12062001";
-    XmlRpcClientConfigImpl common_config,common_database;
+    XmlRpcClientConfigImpl common_config, common_database;
     XmlRpcClient models;
     int uid;
-    Moshi moshi = new Moshi.Builder().build();;
+    Moshi moshi = new Moshi.Builder().build();
+    ;
 
     public XmlRpcClientConfigImpl common_Config(String url) {
         common_config = new XmlRpcClientConfigImpl();
@@ -42,9 +43,10 @@ public class ConnectOdoo {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-       return common_config;
+        return common_config;
     }
-    public XmlRpcClientConfigImpl common_Database(String url){
+
+    public XmlRpcClientConfigImpl common_Database(String url) {
         common_database = new XmlRpcClientConfigImpl();
         try {
             common_database.setServerURL(new URL(String.format("%s/xmlrpc/2/db", url)));
@@ -53,7 +55,8 @@ public class ConnectOdoo {
         }
         return common_database;
     }
-    public XmlRpcClient models(String url){
+
+    public XmlRpcClient models(String url) {
         models = new XmlRpcClient();
         models.setConfig(new XmlRpcClientConfigImpl() {{
             try {
@@ -64,7 +67,8 @@ public class ConnectOdoo {
         }});
         return models;
     }
-    public int uid(String db,String username,String password,XmlRpcClientConfigImpl common_config){
+
+    public int uid(String db, String username, String password, XmlRpcClientConfigImpl common_config) {
         uid = 0;
         try {
             uid = (int) client.execute(common_config, "authenticate", asList(db, username, password, emptyMap()));
@@ -74,10 +78,9 @@ public class ConnectOdoo {
         return uid;
     }
 
-    public List<Contact> getContact(String db, String url, String user, String password) throws XmlRpcException {
+    public List<Contact> getContact(String db, String url, int id, String password) throws XmlRpcException {
         common_Config(url);
         models(url);
-        int id = uid(db,user,password,common_config);
         JsonAdapter<List<Contact>> jsonAdapter;
         Type usersType = Types.newParameterizedType(List.class, Contact.class);
         jsonAdapter = moshi.adapter(usersType);
@@ -86,17 +89,16 @@ public class ConnectOdoo {
                 "res.partner", "search_read",
                 emptyList(),
                 new HashMap() {{
-                    put("fields", asList("name", "email", "company_name", "id","image_128"));
+                    put("fields", asList("name", "email", "company_name", "id", "image_128"));
                 }}
         )));
         final List<Contact> contacts = jsonAdapter.fromJsonValue(data);
         return contacts;
     }
 
-    public List<Company> getCompany(String db, String url, String user, String password) throws XmlRpcException {
+    public List<Company> getCompany(String db, String url, int id, String password) throws XmlRpcException {
         common_Config(url);
         models(url);
-        int id = uid(db,user,password,common_config);
         JsonAdapter<List<Company>> jsonAdapter;
         Type usersType = Types.newParameterizedType(List.class, Company.class);
         jsonAdapter = moshi.adapter(usersType);
@@ -105,14 +107,14 @@ public class ConnectOdoo {
                 "res.company", "search_read",
                 emptyList(),
                 new HashMap() {{
-                    put("fields", asList("name", "phone", "mobile", "street", "street2", "email", "id", "city", "country_code"));
+                    put("fields", asList("logo","name", "phone", "mobile", "street", "street2", "email", "id", "city", "country_code"));
                 }}
         )));
         final List<Company> companies = jsonAdapter.fromJsonValue(data);
         return companies;
     }
 
-    public List<Contact> getProfile(String db, String url, String password,int id) throws XmlRpcException {
+    public List<Contact> getProfile(String db, String url, String password, int id) throws XmlRpcException {
         common_Config(url);
         models(url);
         JsonAdapter<List<Contact>> jsonAdapter;
@@ -133,7 +135,7 @@ public class ConnectOdoo {
 
     public int checkSignIn(String db, String url, String user, String password) throws XmlRpcException {
         common_Config(url);
-        uid = uid(db,user,password,common_config);
+        uid = uid(db, user, password, common_config);
         return uid;
     }
 
@@ -143,7 +145,7 @@ public class ConnectOdoo {
         Object[] data;
         try {
             data = (Object[]) client.execute(common_database, "list", emptyList());
-            for (Object i: data){
+            for (Object i : data) {
                 database.add(i.toString());
             }
         } catch (XmlRpcException e) {

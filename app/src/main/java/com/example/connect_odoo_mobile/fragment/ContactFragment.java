@@ -46,18 +46,19 @@ public class ContactFragment extends Fragment {
     }
 
     private void setContactRecyclerView() {
-        String db,url,user,pass;
+        String db, url, pass;
+        int id;
         url = MainActivity.url;
         db = MainActivity.db;
-        user = MainActivity.user;
         pass = MainActivity.pass;
+        id = MainActivity.uid;
 //        db = "bitnami_odoo";
 //        user = "vunpt@t4tek.co" ;
 //        pass = "12062001";
 //        url = "https://android.t4erp.cf";
         try {
             progressBar.setVisibility(View.INVISIBLE);
-            contactList = getDataFromOdoo.getContact(db,url,user,pass);
+            contactList = getDataFromOdoo.getContact(db, url, id, pass);
             progressBar.setVisibility(View.GONE);
         } catch (XmlRpcException e) {
             e.printStackTrace();

@@ -44,13 +44,14 @@ public class CompanyFragment extends Fragment {
     }
 
     private void setContactRecyclerView() {
-        String db,url,user,pass;
+        String db, url, pass;
+        int id;
         url = MainActivity.url;
         db = MainActivity.db;
-        user = MainActivity.user;
         pass = MainActivity.pass;
+        id = MainActivity.uid;
         try {
-            companyArrayList = getDataFromOdoo.getCompany(db,url,user,pass);
+            companyArrayList = getDataFromOdoo.getCompany(db, url, id, pass);
         } catch (XmlRpcException e) {
             e.printStackTrace();
         }
