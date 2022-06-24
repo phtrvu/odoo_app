@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile;
+package com.example.connect_odoo_mobile.authenticate;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -15,14 +15,14 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.connect_odoo_mobile.data.ConnectOdoo;
-import com.example.connect_odoo_mobile.fragment.AcountManagerFragment;
-import com.example.connect_odoo_mobile.fragment.BlankFragment;
-import com.example.connect_odoo_mobile.fragment.CompanyFragment;
-import com.example.connect_odoo_mobile.fragment.ContactFragment;
+import com.example.connect_odoo_mobile.R;
+import com.example.connect_odoo_mobile.handle.ConnectOdoo;
+import com.example.connect_odoo_mobile.Account.AcountManagerFragment;
+import com.example.connect_odoo_mobile.authenticate.BlankFragment;
+import com.example.connect_odoo_mobile.Company.CompanyFragment;
+import com.example.connect_odoo_mobile.Contact.ContactFragment;
 import com.example.connect_odoo_mobile.handle.BitmapUtils;
 import com.google.android.material.navigation.NavigationView;
-import com.google.gson.Gson;
 
 import java.util.Objects;
 

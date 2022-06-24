@@ -1,8 +1,7 @@
-package com.example.connect_odoo_mobile.adapter;
+package com.example.connect_odoo_mobile.Account;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.SignInActivity;
-import com.example.connect_odoo_mobile.data_models.Account;
+import com.example.connect_odoo_mobile.authenticate.SignInActivity;
 import com.example.connect_odoo_mobile.handle.BitmapUtils;
 
 import java.util.List;

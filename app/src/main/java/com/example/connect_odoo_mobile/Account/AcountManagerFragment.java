@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.fragment;
+package com.example.connect_odoo_mobile.Account;
 
 import android.os.Bundle;
 
@@ -11,10 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.connect_odoo_mobile.MainActivity;
+import com.example.connect_odoo_mobile.authenticate.MainActivity;
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.adapter.AccountAdapter;
-import com.example.connect_odoo_mobile.data_models.Account;
 
 import java.util.ArrayList;
 import java.util.List;

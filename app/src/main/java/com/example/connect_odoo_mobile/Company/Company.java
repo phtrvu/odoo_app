@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.data_models;
+package com.example.connect_odoo_mobile.Company;
 
 public class Company {
     private int id;

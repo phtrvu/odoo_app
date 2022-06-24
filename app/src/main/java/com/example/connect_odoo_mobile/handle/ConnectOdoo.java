@@ -1,14 +1,11 @@
-package com.example.connect_odoo_mobile.data;
+package com.example.connect_odoo_mobile.handle;
 
-import static android.content.ContentValues.TAG;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
 
-import android.util.Log;
-
-import com.example.connect_odoo_mobile.data_models.Company;
-import com.example.connect_odoo_mobile.data_models.Contact;
+import com.example.connect_odoo_mobile.Company.Company;
+import com.example.connect_odoo_mobile.Contact.Contact;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;

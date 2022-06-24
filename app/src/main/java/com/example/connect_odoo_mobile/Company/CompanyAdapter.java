@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.adapter;
+package com.example.connect_odoo_mobile.Company;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,11 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.data_models.Company;
-import com.example.connect_odoo_mobile.data_models.Contact;
 import com.example.connect_odoo_mobile.handle.BitmapUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder> {

@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.fragment;
+package com.example.connect_odoo_mobile.Company;
 
 import android.os.Bundle;
 
@@ -10,11 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.connect_odoo_mobile.MainActivity;
+import com.example.connect_odoo_mobile.authenticate.MainActivity;
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.adapter.CompanyAdapter;
-import com.example.connect_odoo_mobile.data.ConnectOdoo;
-import com.example.connect_odoo_mobile.data_models.Company;
+import com.example.connect_odoo_mobile.handle.ConnectOdoo;
 
 import org.apache.xmlrpc.XmlRpcException;
 

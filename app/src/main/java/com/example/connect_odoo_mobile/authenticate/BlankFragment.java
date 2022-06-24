@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.fragment;
+package com.example.connect_odoo_mobile.authenticate;
 
 import android.os.Bundle;
 

@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.data_models;
+package com.example.connect_odoo_mobile.Account;
 
 public class Account {
     private String name;

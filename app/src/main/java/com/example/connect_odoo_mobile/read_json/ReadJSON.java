@@ -1,7 +1,7 @@
 package com.example.connect_odoo_mobile.read_json;
 
-import com.example.connect_odoo_mobile.data_models.Company;
-import com.example.connect_odoo_mobile.data_models.Contact;
+import com.example.connect_odoo_mobile.Company.Company;
+import com.example.connect_odoo_mobile.Contact.Contact;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile;
+package com.example.connect_odoo_mobile.authenticate;
 
 import static android.content.ContentValues.TAG;
 
@@ -20,10 +20,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.connect_odoo_mobile.data.ConnectOdoo;
-import com.example.connect_odoo_mobile.data_models.Contact;
-import com.example.connect_odoo_mobile.read_json.ReadJSON;
-import com.google.gson.Gson;
+import com.example.connect_odoo_mobile.R;
+import com.example.connect_odoo_mobile.handle.ConnectOdoo;
+import com.example.connect_odoo_mobile.Contact.Contact;
 
 import org.apache.xmlrpc.XmlRpcException;
 
