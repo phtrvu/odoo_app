@@ -4,8 +4,8 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
 
-import com.example.connect_odoo_mobile.Company.Company;
-import com.example.connect_odoo_mobile.Contact.Contact;
+import com.example.connect_odoo_mobile.company.Company;
+import com.example.connect_odoo_mobile.contact.Contact;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;

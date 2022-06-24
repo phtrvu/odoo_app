@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.Contact;
+package com.example.connect_odoo_mobile.contact;
 
 import androidx.appcompat.app.AppCompatActivity;
 

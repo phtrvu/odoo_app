@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.Account;
+package com.example.connect_odoo_mobile.account;
 
 import android.content.Context;
 import android.content.Intent;

@@ -17,10 +17,9 @@ import android.widget.TextView;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.handle.ConnectOdoo;
-import com.example.connect_odoo_mobile.Account.AcountManagerFragment;
-import com.example.connect_odoo_mobile.authenticate.BlankFragment;
-import com.example.connect_odoo_mobile.Company.CompanyFragment;
-import com.example.connect_odoo_mobile.Contact.ContactFragment;
+import com.example.connect_odoo_mobile.account.AcountManagerFragment;
+import com.example.connect_odoo_mobile.company.CompanyFragment;
+import com.example.connect_odoo_mobile.contact.ContactFragment;
 import com.example.connect_odoo_mobile.handle.BitmapUtils;
 import com.google.android.material.navigation.NavigationView;
 

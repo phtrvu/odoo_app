@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.Company;
+package com.example.connect_odoo_mobile.company;
 
 import android.content.Context;
 import android.view.LayoutInflater;
