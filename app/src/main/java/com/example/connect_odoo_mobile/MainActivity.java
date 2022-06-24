@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.connect_odoo_mobile.data.ConnectOdoo;
+import com.example.connect_odoo_mobile.fragment.AcountManagerFragment;
 import com.example.connect_odoo_mobile.fragment.BlankFragment;
 import com.example.connect_odoo_mobile.fragment.CompanyFragment;
 import com.example.connect_odoo_mobile.fragment.ContactFragment;
@@ -32,13 +33,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView txtDisplayName, txtEmail;
     private ImageView imgAvatar;
     private ConnectOdoo connectOdoo = new ConnectOdoo();
-    private int uid;
+    public static int uid;
     private Intent intent;
-    public String name, email, image;
-    public static String db, url, user, pass;
+    public static String db, url, user, pass, name, email, image;
     private static final int FRAGMENT_CONTACT = 0;
     private static final int FRAGMENT_COMPANY = 1;
     private static final int FRAGMENT_TEST = 2;
+    private static final int FRAGMENT_ACCOUNT = 3;
     private int currentFragment = FRAGMENT_CONTACT;
 
     @Override
@@ -88,6 +89,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     replaceFragment(new BlankFragment());
                     currentFragment = FRAGMENT_TEST;
                     Objects.requireNonNull(getSupportActionBar()).setTitle("Test");
+                }
+                break;
+            case R.id.nav_account:
+                if (currentFragment != FRAGMENT_ACCOUNT) {
+                    replaceFragment(new AcountManagerFragment());
+                    currentFragment = FRAGMENT_ACCOUNT;
+                    Objects.requireNonNull(getSupportActionBar()).setTitle("Account Manager");
                 }
                 break;
         }
