@@ -62,14 +62,14 @@ public class SignInActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                db = spinDB.getSelectedItem().toString();
-//                user = edtUser.getText().toString();
-//                pass = edtPassword.getText().toString();
-                db = "bitnami_odoo";
-                user = "vunpt@t4tek.co" ;
-                pass = "12062001";
-                url = "https://android.t4erp.cf";
-                if(isCheckDB){
+                db = spinDB.getSelectedItem().toString();
+                user = edtUser.getText().toString();
+                pass = edtPassword.getText().toString();
+//                db = "bitnami_odoo";
+//                user = "vunpt@t4tek.co" ;
+//                pass = "12062001";
+//                url = "https://android.t4erp.cf";
+                if(!isCheckDB){
                     Toast.makeText(SignInActivity.this, "Fail", Toast.LENGTH_SHORT).show();
                 } else if (url.equals("")) {
                     edtUrl.setError("Enter self-hosted URL!");
@@ -108,6 +108,8 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus && listDB != null){
+                    pbLoading.setVisibility(View.VISIBLE);
+                    imgCheck.setVisibility(View.INVISIBLE);
                     getDatabase();
                 }
             }
@@ -118,6 +120,8 @@ public class SignInActivity extends AppCompatActivity {
                 //key enter and key next
                 if (event != null && listDB != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
                         || actionId == EditorInfo.IME_ACTION_NEXT) {
+                    pbLoading.setVisibility(View.VISIBLE);
+                    imgCheck.setVisibility(View.INVISIBLE);
                     getDatabase();
                 }
 
@@ -133,26 +137,26 @@ public class SignInActivity extends AppCompatActivity {
             serverURL.append("https://");
         }
         serverURL.append(server_url);
-        pbLoading.setVisibility(View.VISIBLE);
         listDB = connectOdoo.getDB(serverURL.toString());
+        pbLoading.setVisibility(View.INVISIBLE);
         if (listDB == null) {
-            imgCheck.setImageResource(R.drawable.ic_baseline_block_25);
+            imgCheck.setVisibility(View.VISIBLE);
+            imgCheck.setImageResource(R.drawable.ic_baseline_close_24);
         } else if (listDB.size() > 1) {
             spinDB.setVisibility(View.VISIBLE);
             //dump data spinner
             dataSpinner(listDB);
-            pbLoading.setVisibility(View.INVISIBLE);
             imgCheck.setVisibility(View.VISIBLE);
             imgCheck.setImageResource(R.drawable.ic_baseline_check_25);
             isCheckDB = true;
         } else if (listDB.size() == 1) {
             db = listDB.get(0);
-            pbLoading.setVisibility(View.INVISIBLE);
             imgCheck.setVisibility(View.VISIBLE);
             imgCheck.setImageResource(R.drawable.ic_baseline_check_25);
             isCheckDB = true;
         } else {
-            imgCheck.setImageResource(R.drawable.ic_baseline_block_25);
+            imgCheck.setVisibility(View.VISIBLE);
+            imgCheck.setImageResource(R.drawable.ic_baseline_close_24);
         }
         url = serverURL.toString();
     }
