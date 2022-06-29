@@ -36,19 +36,18 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         Contact contact = contactArrayList.get(position);
-        if (!contact.getName().equals(false)) {
-            holder.txtName.setText((CharSequence) contact.getName());
+        if (!contact.getName().equals("")) {
+            holder.txtName.setText(contact.getName());
         }
-        if (!contact.getCompany().equals(false)) {
-            holder.txtCompany.setText((CharSequence) contact.getCompany());
+        if (!contact.getCompany_name().equals("")) {
+            holder.txtCompany.setText(contact.getCompany_name());
         }
-        if(!contact.getEmail().equals(false)){
-            holder.txtEmail.setText((CharSequence) contact.getEmail());
+        if(!contact.getEmail().equals("")){
+            holder.txtEmail.setText(contact.getEmail());
         }
-        if(!contact.getImage_128().equals(false)){
-            holder.imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(context, (String) contact.getImage_128()));
+        if(!contact.getImage_128().equals("")){
+            holder.imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(context,contact.getImage_128()));
         }
-
         holder.layoutContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

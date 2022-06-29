@@ -18,7 +18,9 @@
         tools:targetApi="31">
         <activity
             android:name=".contact.ContactDetailActivity"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".authenticate.SignInActivity"
             android:exported="false" />
@@ -33,7 +35,7 @@
         </activity>
         <activity
             android:name=".authenticate.MainActivity"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 
 </manifest>

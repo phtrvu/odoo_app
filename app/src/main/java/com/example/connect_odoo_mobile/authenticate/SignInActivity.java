@@ -62,16 +62,17 @@ public class SignInActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db = spinDB.getSelectedItem().toString();
-                user = edtUser.getText().toString();
-                pass = edtPassword.getText().toString();
-//                db = "bitnami_odoo";
-//                user = "vunpt@t4tek.co" ;
-//                pass = "12062001";
-//                url = "https://android.t4erp.cf";
-                if(!isCheckDB){
-                    Toast.makeText(SignInActivity.this, "Fail", Toast.LENGTH_SHORT).show();
-                } else if (url.equals("")) {
+//                db = spinDB.getSelectedItem().toString();
+//                user = edtUser.getText().toString();
+//                pass = edtPassword.getText().toString();
+                db = "bitnami_odoo";
+                user = "vunpt@t4tek.co" ;
+                pass = "12062001";
+                url = "https://android.t4erp.cf";
+//                if(!isCheckDB){
+//                    Toast.makeText(SignInActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+//                } else
+                if (url.equals("")) {
                     edtUrl.setError("Enter self-hosted URL!");
                 } else if (user.equals("")) {
                     edtUser.setError("Enter your username or email!");
@@ -81,12 +82,12 @@ public class SignInActivity extends AppCompatActivity {
                     try {
                         int uid = connectOdoo.checkSignIn(db, url, user, pass);
                         if (uid > 0) {
-                            List<Contact> contact = connectOdoo.getProfile(db, url, pass, uid);
-                            Log.d(TAG, "onClick: " + contact);
+//                            List<Contact> contact = connectOdoo.getProfile(db, url, pass, uid);
+//                            Log.d(TAG, "onClick: " + contact);
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                            intent.putExtra("name", (String) contact.get(0).getName());
-                            intent.putExtra("email", (String) contact.get(0).getEmail());
-                            intent.putExtra("image", (String) contact.get(0).getImage_128());
+//                            intent.putExtra("name", (String) contact.get(0).getName());
+//                            intent.putExtra("email", (String) contact.get(0).getEmail());
+//                            intent.putExtra("image", (String) contact.get(0).getImage_128());
                             intent.putExtra("db",db);
                             intent.putExtra("url",url);
                             intent.putExtra("user",user);
@@ -140,8 +141,7 @@ public class SignInActivity extends AppCompatActivity {
         listDB = connectOdoo.getDB(serverURL.toString());
         pbLoading.setVisibility(View.INVISIBLE);
         if (listDB == null) {
-            imgCheck.setVisibility(View.VISIBLE);
-            imgCheck.setImageResource(R.drawable.ic_baseline_close_24);
+            edtUrl.setError("The server could not be found!");
         } else if (listDB.size() > 1) {
             spinDB.setVisibility(View.VISIBLE);
             //dump data spinner
@@ -155,8 +155,7 @@ public class SignInActivity extends AppCompatActivity {
             imgCheck.setImageResource(R.drawable.ic_baseline_check_25);
             isCheckDB = true;
         } else {
-            imgCheck.setVisibility(View.VISIBLE);
-            imgCheck.setImageResource(R.drawable.ic_baseline_close_24);
+            edtUrl.setError("The server could not be found!");
         }
         url = serverURL.toString();
     }
