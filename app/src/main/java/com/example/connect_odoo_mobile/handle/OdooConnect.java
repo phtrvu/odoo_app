@@ -54,7 +54,7 @@ public class OdooConnect {
     }
 
     public Object Login(String db, String username, String password) throws XmlRpcException {
-        Object object;
+        Object object = null;
         object = client.execute("login", asList(db, username, password));
         return object;
     }
@@ -71,7 +71,7 @@ public class OdooConnect {
 
     public Object GetProfile(String db, String password, int id) throws XmlRpcException {
         Object object = null;
-        object = asList((Object[]) client.execute("execute_kw", asList(
+        object = client.execute("execute_kw", asList(
                 db, id, password,
                 "res.users", "search_read",
                 asList(asList(
@@ -79,7 +79,7 @@ public class OdooConnect {
                 new HashMap() {{
                     put("fields", asList("name", "email", "id", "image_128"));
                 }}
-        )));
+        ));
         return object;
     }
 }

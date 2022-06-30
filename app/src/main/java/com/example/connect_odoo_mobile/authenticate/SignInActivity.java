@@ -24,21 +24,23 @@ import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.handle.ConnectOdoo;
 import com.example.connect_odoo_mobile.contact.Contact;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
+import com.example.connect_odoo_mobile.handle.OdooUtils;
 
 import org.apache.xmlrpc.XmlRpcException;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SignInActivity extends AppCompatActivity {
-    private ConnectOdoo connectOdoo = new ConnectOdoo();
     private EditText edtUrl, edtUser, edtPassword;
     private Spinner spinDB;
     private ProgressBar pbLoading;
     private ImageView imgCheck;
     private List<String> listDB;
     private Button btnSignIn;
+    private OdooConnect odooConnect;
     private Boolean isCheckDB = false;
     public String url = "", user = "", db = "", pass = "";
 
@@ -51,16 +53,13 @@ public class SignInActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         //view mapping
         mapping();
-        //set action
-        action();
-    }
-
-    private void action() {
-        eventButtuonSignIn();
+        //check server
         eventEdittextUrl();
+        //check login
+        eventButtonSignIn();
     }
 
-    private void eventButtuonSignIn() {
+    private void eventButtonSignIn() {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,12 +67,15 @@ public class SignInActivity extends AppCompatActivity {
 //                user = edtUser.getText().toString();
 //                pass = edtPassword.getText().toString();
                 db = "bitnami_odoo";
-                user = "vunpt@t4tek.co" ;
+                user = "vunpt@t4tek.co";
                 pass = "12062001";
                 url = "https://android.t4erp.cf";
-//                if(!isCheckDB){
-//                    Toast.makeText(SignInActivity.this, "Fail", Toast.LENGTH_SHORT).show();
-//                } else
+                String path = "common";
+                try {
+                    odooConnect = new OdooConnect(url, path);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
                 if (url.equals("")) {
                     edtUrl.setError("Enter self-hosted URL!");
                 } else if (user.equals("")) {
@@ -82,20 +84,11 @@ public class SignInActivity extends AppCompatActivity {
                     edtPassword.setError("Enter your password!");
                 } else {
                     try {
-                        int uid = connectOdoo.checkSignIn(db, url, user, pass);
+                        int uid = (int) odooConnect.Login(db, user, pass);
                         if (uid > 0) {
-//                            List<Contact> contact = connectOdoo.getProfile(db, url, pass, uid);
-//                            Log.d(TAG, "onClick: " + contact);
-                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-//                            intent.putExtra("name", (String) contact.get(0).getName());
-//                            intent.putExtra("email", (String) contact.get(0).getEmail());
-//                            intent.putExtra("image", (String) contact.get(0).getImage_128());
-                            intent.putExtra("db",db);
-                            intent.putExtra("url",url);
-                            intent.putExtra("user",user);
-                            intent.putExtra("pass",pass);
-                            intent.putExtra("uid",uid);
-                            startActivity(intent);
+                            GetInformationAccount(url, db, pass, uid, user);
+                        } else {
+                            edtUrl.setError("The username could not be found!");
                         }
                     } catch (XmlRpcException e) {
                         e.printStackTrace();
@@ -105,12 +98,39 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
+    private void GetInformationAccount(String url, String db, String password, int id, String user) {
+        String path = "object";
+        String name = "", email = "", image = "";
+        try {
+            odooConnect = new OdooConnect(url, path);
+            Object[] object = (Object[]) odooConnect.GetProfile(db, password, id);
+            for (Object i : object
+            ) {
+                name = OdooUtils.getString((Map<String, Object>) i, "name");
+                email = OdooUtils.getString((Map<String, Object>) i, "email");
+                image = OdooUtils.getString((Map<String, Object>) i, "image_128");
+            }
+            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+            intent.putExtra("name", name);
+            intent.putExtra("email", email);
+            intent.putExtra("image", image);
+            intent.putExtra("db", db);
+            intent.putExtra("url", url);
+            intent.putExtra("user", user);
+            intent.putExtra("pass", password);
+            intent.putExtra("uid", id);
+            startActivity(intent);
+        } catch (MalformedURLException | XmlRpcException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void eventEdittextUrl() {
         listDB = new ArrayList<>();
         edtUrl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus && listDB != null){
+                if (!hasFocus && listDB != null) {
                     pbLoading.setVisibility(View.VISIBLE);
                     imgCheck.setVisibility(View.INVISIBLE);
                     CheckServer();
@@ -132,7 +152,8 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
     }
-    private void CheckServer(){
+
+    private void CheckServer() {
         String path = "db";
         String server_url = edtUrl.getText().toString();
         //Check format url
@@ -143,10 +164,10 @@ public class SignInActivity extends AppCompatActivity {
         serverURL.append(server_url);
         //Check server
         try {
-            OdooConnect odooConnect = new OdooConnect(serverURL.toString(),path);
-            Object[] objects =  (Object[]) odooConnect.CheckServer();
-            if (objects.length>0){
-                for (Object i: objects){
+            odooConnect = new OdooConnect(serverURL.toString(), path);
+            Object[] objects = (Object[]) odooConnect.CheckServer();
+            if (objects.length > 0) {
+                for (Object i : objects) {
                     listDB.add(i.toString());
                 }
             }
