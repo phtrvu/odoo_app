@@ -23,9 +23,11 @@ import android.widget.Toast;
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.handle.ConnectOdoo;
 import com.example.connect_odoo_mobile.contact.Contact;
+import com.example.connect_odoo_mobile.handle.OdooConnect;
 
 import org.apache.xmlrpc.XmlRpcException;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +113,7 @@ public class SignInActivity extends AppCompatActivity {
                 if (!hasFocus && listDB != null){
                     pbLoading.setVisibility(View.VISIBLE);
                     imgCheck.setVisibility(View.INVISIBLE);
-                    getDatabase();
+                    CheckServer();
                 }
             }
         });
@@ -123,14 +125,15 @@ public class SignInActivity extends AppCompatActivity {
                         || actionId == EditorInfo.IME_ACTION_NEXT) {
                     pbLoading.setVisibility(View.VISIBLE);
                     imgCheck.setVisibility(View.INVISIBLE);
-                    getDatabase();
+                    CheckServer();
                 }
 
                 return false;
             }
         });
     }
-    private void getDatabase(){
+    private void CheckServer(){
+        String path = "db";
         String server_url = edtUrl.getText().toString();
         //Check format url
         StringBuilder serverURL = new StringBuilder();
@@ -138,26 +141,37 @@ public class SignInActivity extends AppCompatActivity {
             serverURL.append("https://");
         }
         serverURL.append(server_url);
-        listDB = connectOdoo.getDB(serverURL.toString());
-        pbLoading.setVisibility(View.INVISIBLE);
-        if (listDB == null) {
-            edtUrl.setError("The server could not be found!");
-        } else if (listDB.size() > 1) {
-            spinDB.setVisibility(View.VISIBLE);
-            //dump data spinner
-            dataSpinner(listDB);
-            imgCheck.setVisibility(View.VISIBLE);
-            imgCheck.setImageResource(R.drawable.ic_baseline_check_25);
-            isCheckDB = true;
-        } else if (listDB.size() == 1) {
-            db = listDB.get(0);
-            imgCheck.setVisibility(View.VISIBLE);
-            imgCheck.setImageResource(R.drawable.ic_baseline_check_25);
-            isCheckDB = true;
-        } else {
-            edtUrl.setError("The server could not be found!");
+        //Check server
+        try {
+            OdooConnect odooConnect = new OdooConnect(serverURL.toString(),path);
+            Object[] objects =  (Object[]) odooConnect.CheckServer();
+            if (objects.length>0){
+                for (Object i: objects){
+                    listDB.add(i.toString());
+                }
+            }
+            pbLoading.setVisibility(View.INVISIBLE);
+            if (listDB == null) {
+                edtUrl.setError("The server could not be found!");
+            } else if (listDB.size() > 1) {
+                spinDB.setVisibility(View.VISIBLE);
+                //dump data spinner
+                dataSpinner(listDB);
+                imgCheck.setVisibility(View.VISIBLE);
+                imgCheck.setImageResource(R.drawable.ic_baseline_check_25);
+                isCheckDB = true;
+            } else if (listDB.size() == 1) {
+                db = listDB.get(0);
+                imgCheck.setVisibility(View.VISIBLE);
+                imgCheck.setImageResource(R.drawable.ic_baseline_check_25);
+                isCheckDB = true;
+            } else {
+                edtUrl.setError("The server could not be found!");
+            }
+            url = serverURL.toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
-        url = serverURL.toString();
     }
 
     private void dataSpinner(List<String> listDB) {
