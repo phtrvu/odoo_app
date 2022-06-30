@@ -8,17 +8,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.connect_odoo_mobile.R;
+import com.example.connect_odoo_mobile.handle.BitmapUtils;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
 import com.example.connect_odoo_mobile.handle.OdooUtils;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
@@ -44,6 +49,58 @@ public class ContactDetailActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         //set support action bar
         setToolBarForActionBar();
+        //get data intent contact activity
+        getDataIntent();
+    }
+    @SuppressLint("WrongViewCast")
+    private void getDataIntent(){
+        ImageView imgAvatar = findViewById(R.id.imgAvatar);
+        TextInputEditText edtEmail,edtWebsite,edtPhone,edtMobile,edtNote,edtCountry;
+        TextView txtName;
+        txtName = findViewById(R.id.txtName);
+        edtEmail = findViewById(R.id.edtEmail);
+        edtWebsite = findViewById(R.id.edtWebsite);
+        edtPhone = findViewById(R.id.edtPhone);
+        edtMobile = findViewById(R.id.edtMobile);
+        edtNote = findViewById(R.id.edtNote);
+        edtCountry = findViewById(R.id.edtCountry);
+        //
+        Intent intent = getIntent();
+        int id = intent.getIntExtra("id",-1);
+        String name = intent.getStringExtra("name");
+        String email = intent.getStringExtra("email");
+        String website = intent.getStringExtra("website");
+        String phone = intent.getStringExtra("phone");
+        String mobile = intent.getStringExtra("mobile");
+        String note = intent.getStringExtra("note");
+        String image = intent.getStringExtra("image");
+        String country = intent.getStringExtra("country");
+        if(name != null){
+            txtName.setText(name);
+        }
+        if(email != null){
+            edtEmail.setText(email);
+        }
+        if(website != null){
+            edtWebsite.setText(website);
+        }
+        if(phone != null){
+            edtPhone.setText(phone);
+        }
+        if(mobile != null){
+            edtMobile.setText(mobile);
+        }
+        if(note != null){
+            edtNote.setText(note);
+        }else {
+            edtNote.setText("");
+        }
+        if(country != null){
+            edtCountry.setText(country);
+        }
+        if(image != null){
+            imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(this,image));
+        }
     }
 
     private void setToolBarForActionBar() {

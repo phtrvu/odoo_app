@@ -53,6 +53,15 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             public void onClick(View v) {
                 Intent intent= new Intent(context,ContactDetailActivity.class);
                 //data transfer to screen contact detail
+                intent.putExtra("id", contact.getId());
+                intent.putExtra("image", contact.getImage_128());
+                intent.putExtra("name", contact.getName());
+                intent.putExtra("email", contact.getEmail());
+                intent.putExtra("website", contact.getWebsite());
+                intent.putExtra("phone", contact.getPhone());
+                intent.putExtra("mobile", contact.getMobile());
+                intent.putExtra("comment", contact.getComment());
+                intent.putExtra("country",contact.getCountry());
                 context.startActivity(intent);
             }
         });

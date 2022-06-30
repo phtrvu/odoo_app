@@ -81,7 +81,7 @@ public class ContactFragment extends Fragment {
                     String country= Many2One.getMany2One((Map<String, Object>) i, "country_id").getName();
                     String website= OdooUtils.getString((Map<String, Object>) i, "website");
                     String comment= OdooUtils.getString((Map<String, Object>) i, "comment");
-                    String image= OdooUtils.getString((Map<String, Object>) i, "image_128");
+                    String image= OdooUtils.getString((Map<String, Object>) i, "image_1024");
                     contact = new Contact(id,name,company,mail,image,phone,mobile,country,comment,website);
                     contactList.add(contact);
                 }

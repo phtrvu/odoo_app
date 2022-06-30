@@ -44,7 +44,7 @@ public class OdooConnect {
                         put("fields",
                                 asList("name", "email", "phone", "mobile",
                                         "country_id", "website", "comment",
-                                        "company_name", "id", "image_128"));
+                                        "company_name", "id", "image_1024"));
                     }}
             ));
         } catch (XmlRpcException e) {
