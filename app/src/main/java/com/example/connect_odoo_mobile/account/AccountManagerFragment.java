@@ -17,7 +17,7 @@ import com.example.connect_odoo_mobile.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AcountManagerFragment extends Fragment {
+public class AccountManagerFragment extends Fragment {
     private View view;
     private RecyclerView layoutAccount;
     private ConstraintLayout layoutAddAccount;
@@ -35,8 +35,9 @@ public class AcountManagerFragment extends Fragment {
         addAccount();
         return view;
     }
-    private void addAccount(){
-        layoutAddAccount=view.findViewById(R.id.layoutAddAccount);
+
+    private void addAccount() {
+        layoutAddAccount = view.findViewById(R.id.layoutAddAccount);
         layoutAddAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +56,7 @@ public class AcountManagerFragment extends Fragment {
     }
 
     private List<Account> getListAccount() {
-        String image, name, url,db,pass;
+        String image, name, url, db, pass;
         int uid;
         image = MainActivity.image;
         name = MainActivity.name;
@@ -64,7 +65,7 @@ public class AcountManagerFragment extends Fragment {
         pass = MainActivity.pass;
         uid = MainActivity.uid;
         List<Account> accounts = new ArrayList<>();
-        accounts.add(new Account(name,url,image,db,pass,uid));
+        accounts.add(new Account(name, url, image, db, pass, uid));
         return accounts;
     }
 }

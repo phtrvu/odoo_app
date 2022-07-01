@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +13,9 @@ import android.widget.ProgressBar;
 
 import com.example.connect_odoo_mobile.authenticate.MainActivity;
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.handle.ConnectOdoo;
 import com.example.connect_odoo_mobile.handle.Many2One;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
 import com.example.connect_odoo_mobile.handle.OdooUtils;
-import com.google.gson.Gson;
-
-import org.apache.xmlrpc.XmlRpcException;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -72,17 +67,17 @@ public class ContactFragment extends Fragment {
             Object[] objects = (Object[]) object;
             if (objects.length > 0) {
                 for (Object i : objects) {
-                    int id = OdooUtils.getInteger((Map<String,Object>) i,"id");
-                    String name= OdooUtils.getString((Map<String, Object>) i, "name");
-                    String mail= OdooUtils.getString((Map<String, Object>) i, "email");
-                    String company= OdooUtils.getString((Map<String, Object>) i, "company_name");
-                    String phone= OdooUtils.getString((Map<String, Object>) i, "phone");
-                    String mobile= OdooUtils.getString((Map<String, Object>) i, "mobile");
-                    String country= Many2One.getMany2One((Map<String, Object>) i, "country_id").getName();
-                    String website= OdooUtils.getString((Map<String, Object>) i, "website");
-                    String comment= OdooUtils.getString((Map<String, Object>) i, "comment");
-                    String image= OdooUtils.getString((Map<String, Object>) i, "image_1024");
-                    contact = new Contact(id,name,company,mail,image,phone,mobile,country,comment,website);
+                    int id = OdooUtils.getInteger((Map<String, Object>) i, "id");
+                    String name = OdooUtils.getString((Map<String, Object>) i, "name");
+                    String mail = OdooUtils.getString((Map<String, Object>) i, "email");
+                    String company = OdooUtils.getString((Map<String, Object>) i, "company_name");
+                    String phone = OdooUtils.getString((Map<String, Object>) i, "phone");
+                    String mobile = OdooUtils.getString((Map<String, Object>) i, "mobile");
+                    String country = Many2One.getMany2One((Map<String, Object>) i, "country_id").getName();
+                    String website = OdooUtils.getString((Map<String, Object>) i, "website");
+                    String comment = OdooUtils.getString((Map<String, Object>) i, "comment");
+                    String image = OdooUtils.getString((Map<String, Object>) i, "image_1024");
+                    contact = new Contact(id, name, company, mail, image, phone, mobile, country, comment, website);
                     contactList.add(contact);
                 }
             }

@@ -12,12 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:minHeight="48dp"
-        android:inputType="textUri"
-        android:imeOptions="actionNext"
-        android:hint="Đường dẫn .."
         android:layout_marginTop="200dp"
+        android:layout_marginEnd="20dp"
+        android:hint="@string/txt_sign_in_url"
+        android:imeOptions="actionNext"
+        android:importantForAutofill="no"
+        android:inputType="textUri"
+        android:minHeight="48dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textColorHint="#78909C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +45,8 @@
         android:src="@drawable/ic_baseline_check_25"
         app:layout_constraintBottom_toBottomOf="@+id/edtHttps"
         app:layout_constraintEnd_toEndOf="@+id/edtHttps"
-        app:layout_constraintTop_toTopOf="@+id/edtHttps" />
+        app:layout_constraintTop_toTopOf="@+id/edtHttps"
+        android:contentDescription="@string/img_description" />
 
     <EditText
         android:id="@+id/edtUser"
@@ -51,13 +56,15 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
         android:minHeight="48dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:imeOptions="actionNext"
         android:inputType="text"
-        android:hint="Tài khoản .."
-        app:layout_constraintVertical_bias="0.5"
+        android:hint="@string/txt_sign_in_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtHttps" />
+        app:layout_constraintTop_toBottomOf="@+id/edtHttps"
+        android:importantForAutofill="no" />
     <EditText
         android:id="@+id/edtPassword"
         android:layout_width="match_parent"
@@ -66,13 +73,15 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
         android:minHeight="48dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:imeOptions="actionNext"
         android:inputType="textPassword"
-        android:hint="Mật khẩu .."
-        app:layout_constraintVertical_bias="0.5"
+        android:hint="@string/txt_sign_in_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtUser" />
+        app:layout_constraintTop_toBottomOf="@+id/edtUser"
+        android:importantForAutofill="no" />
 
     <Spinner
         android:id="@+id/spinDB"
@@ -82,7 +91,7 @@
         android:visibility="gone"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
@@ -94,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:minHeight="48dp"
-        android:text="Đăng Nhập"
+        android:text="@string/txt_sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

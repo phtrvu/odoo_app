@@ -20,10 +20,11 @@
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1445" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_menu_camera.xml" value="0.1445" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/side_nav_bar.xml" value="0.1445" />
-        <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_contact_detail.xml" value="0.15" />
+        <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_contact_detail.xml" value="0.16" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_main.xml" value="0.1859375" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_sign_in.xml" value="0.14" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_splash.xml" value="0.2" />
+        <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/fragment_account_manager.xml" value="0.12631578947368421" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/fragment_acount_manager.xml" value="0.2" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/fragment_blank.xml" value="0.12" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/fragment_company.xml" value="0.2" />

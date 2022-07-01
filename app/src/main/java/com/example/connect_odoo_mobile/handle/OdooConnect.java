@@ -21,8 +21,8 @@ import java.util.List;
 
 public class OdooConnect {
     private static final String TAG = "RUN";
-    private String url;
-    private XmlRpcClient client;
+    private final String url;
+    private final XmlRpcClient client;
 
     public OdooConnect(String serverAddress, String path) throws MalformedURLException {
         url = serverAddress + "/xmlrpc/2/" + path;

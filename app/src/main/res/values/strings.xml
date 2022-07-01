@@ -4,4 +4,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nav_drawer_open">Open navigation drawer</string>
     <string name="nav_drawer_close">Close navigation drawer</string>
+
+    <string name="txt_name">android</string>
+    <string name="txt_email">android@gmail.com</string>
+    <string name="img_description">Avatar</string>
+    <string name="txt_url">https://android.t4erp.cf</string>
+    <string name="txt_add_account">Add account</string>
+    <string name="txt_sign_in">Sign in</string>
+    <string name="txt_sign_in_url">Your self-hosted URL</string>
+    <string name="txt_sign_in_username">Username or email</string>
+    <string name="txt_sign_in_password">Password</string>
 </resources>

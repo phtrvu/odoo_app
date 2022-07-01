@@ -17,54 +17,46 @@ import com.example.connect_odoo_mobile.handle.BitmapUtils;
 
 import java.util.List;
 
-public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AcountViewHolder> {
-    private Context context;
-    private List<Account> acountList;
+public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountViewHolder> {
+    private final Context context;
+    private final List<Account> accountList;
 
-    public AccountAdapter(Context context, List<Account> acountList) {
+    public AccountAdapter(Context context, List<Account> accountList) {
         this.context = context;
-        this.acountList = acountList;
+        this.accountList = accountList;
     }
 
     @NonNull
     @Override
-    public AcountViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_account,parent,false);
-        return new AcountViewHolder(view);
+    public AccountViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_account, parent, false);
+        return new AccountViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AcountViewHolder holder, int position) {
-        Account acount = acountList.get(position);
-        holder.txtName.setText(acount.getName());
-        holder.txtUrl.setText(acount.getUrl());
-        holder.imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(context,acount.getImage()));
+    public void onBindViewHolder(@NonNull AccountViewHolder holder, int position) {
+        Account account = accountList.get(position);
+        holder.txtName.setText(account.getName());
+        holder.txtUrl.setText(account.getUrl());
+        holder.imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(context, account.getImage()));
 
-        holder.imgSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(context, SignInActivity.class));
-            }
-        });
+        holder.imgSignOut.setOnClickListener(v -> context.startActivity(new Intent(context, SignInActivity.class)));
 
-        holder.imgDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.imgDelete.setOnClickListener(v -> {
 
-            }
         });
     }
 
     @Override
     public int getItemCount() {
-        return acountList.size();
+        return accountList.size();
     }
 
-    public class AcountViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtName, txtUrl;
-        private ImageView imgAvatar, imgDelete, imgSignOut;
+    public static class AccountViewHolder extends RecyclerView.ViewHolder {
+        private final TextView txtName, txtUrl;
+        private final ImageView imgAvatar, imgDelete, imgSignOut;
 
-        public AcountViewHolder(@NonNull View itemView) {
+        public AccountViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txtName);
             txtUrl = itemView.findViewById(R.id.txtUrl);

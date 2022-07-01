@@ -1,8 +1,5 @@
 package com.example.connect_odoo_mobile.contact;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,8 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -21,19 +16,8 @@ import android.widget.Toast;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.handle.BitmapUtils;
-import com.example.connect_odoo_mobile.handle.OdooConnect;
-import com.example.connect_odoo_mobile.handle.OdooUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.apache.xmlrpc.XmlRpcException;
-import org.apache.xmlrpc.client.XmlRpcClient;
-import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class ContactDetailActivity extends AppCompatActivity {
@@ -52,10 +36,11 @@ public class ContactDetailActivity extends AppCompatActivity {
         //get data intent contact activity
         getDataIntent();
     }
+
     @SuppressLint("WrongViewCast")
-    private void getDataIntent(){
+    private void getDataIntent() {
         ImageView imgAvatar = findViewById(R.id.imgAvatar);
-        TextInputEditText edtEmail,edtWebsite,edtPhone,edtMobile,edtNote,edtCountry;
+        TextInputEditText edtEmail, edtWebsite, edtPhone, edtMobile, edtNote, edtCountry;
         TextView txtName;
         txtName = findViewById(R.id.txtName);
         edtEmail = findViewById(R.id.edtEmail);
@@ -66,7 +51,7 @@ public class ContactDetailActivity extends AppCompatActivity {
         edtCountry = findViewById(R.id.edtCountry);
         //
         Intent intent = getIntent();
-        int id = intent.getIntExtra("id",-1);
+        int id = intent.getIntExtra("id", -1);
         String name = intent.getStringExtra("name");
         String email = intent.getStringExtra("email");
         String website = intent.getStringExtra("website");
@@ -75,31 +60,31 @@ public class ContactDetailActivity extends AppCompatActivity {
         String note = intent.getStringExtra("note");
         String image = intent.getStringExtra("image");
         String country = intent.getStringExtra("country");
-        if(name != null){
+        if (name != null) {
             txtName.setText(name);
         }
-        if(email != null){
+        if (email != null) {
             edtEmail.setText(email);
         }
-        if(website != null){
+        if (website != null) {
             edtWebsite.setText(website);
         }
-        if(phone != null){
+        if (phone != null) {
             edtPhone.setText(phone);
         }
-        if(mobile != null){
+        if (mobile != null) {
             edtMobile.setText(mobile);
         }
-        if(note != null){
+        if (note != null) {
             edtNote.setText(note);
-        }else {
+        } else {
             edtNote.setText("");
         }
-        if(country != null){
+        if (country != null) {
             edtCountry.setText(country);
         }
-        if(image != null){
-            imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(this,image));
+        if (image != null) {
+            imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(this, image));
         }
     }
 
@@ -112,14 +97,14 @@ public class ContactDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_contact_detail,menu);
+        getMenuInflater().inflate(R.menu.menu_contact_detail, menu);
         return true;
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_edit:
                 Toast.makeText(this, "toast", Toast.LENGTH_SHORT).show();
                 break;
@@ -128,4 +113,5 @@ public class ContactDetailActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }

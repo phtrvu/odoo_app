@@ -1,13 +1,10 @@
 package com.example.connect_odoo_mobile.authenticate;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -18,11 +15,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.handle.ConnectOdoo;
-import com.example.connect_odoo_mobile.contact.Contact;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
 import com.example.connect_odoo_mobile.handle.OdooUtils;
 
@@ -48,7 +42,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        //handle threah
+        //handle thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         //view mapping
@@ -127,29 +121,23 @@ public class SignInActivity extends AppCompatActivity {
 
     private void eventEdittextUrl() {
         listDB = new ArrayList<>();
-        edtUrl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus && listDB != null) {
-                    pbLoading.setVisibility(View.VISIBLE);
-                    imgCheck.setVisibility(View.INVISIBLE);
-                    CheckServer();
-                }
+        edtUrl.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus && listDB != null) {
+                pbLoading.setVisibility(View.VISIBLE);
+                imgCheck.setVisibility(View.INVISIBLE);
+                CheckServer();
             }
         });
-        edtUrl.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                //key enter and key next
-                if (event != null && listDB != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
-                        || actionId == EditorInfo.IME_ACTION_NEXT) {
-                    pbLoading.setVisibility(View.VISIBLE);
-                    imgCheck.setVisibility(View.INVISIBLE);
-                    CheckServer();
-                }
-
-                return false;
+        edtUrl.setOnEditorActionListener((v, actionId, event) -> {
+            //key enter and key next
+            if (event != null && listDB != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+                    || actionId == EditorInfo.IME_ACTION_NEXT) {
+                pbLoading.setVisibility(View.VISIBLE);
+                imgCheck.setVisibility(View.INVISIBLE);
+                CheckServer();
             }
+
+            return false;
         });
     }
 

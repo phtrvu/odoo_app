@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,8 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.handle.ConnectOdoo;
-import com.example.connect_odoo_mobile.account.AcountManagerFragment;
+import com.example.connect_odoo_mobile.account.AccountManagerFragment;
 import com.example.connect_odoo_mobile.company.CompanyFragment;
 import com.example.connect_odoo_mobile.contact.ContactFragment;
 import com.example.connect_odoo_mobile.handle.BitmapUtils;
@@ -31,9 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private TextView txtDisplayName, txtEmail;
     private ImageView imgAvatar;
-    private ConnectOdoo connectOdoo = new ConnectOdoo();
     public static int uid;
-    private Intent intent;
     public static String db, url, user, pass, name, email, image;
     private static final int FRAGMENT_CONTACT = 0;
     private static final int FRAGMENT_COMPANY = 1;
@@ -55,18 +53,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.nav_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
-        //bat su kien cho navcigationview
+        //bat su kien cho navigation view
         navigationView.setNavigationItemSelectedListener(this);
         //chay app mo thang home luôn
         replaceFragment(new ContactFragment());
-        //set chọn cái biểu tượng cua thàng home
+        //set chọn cái biểu tượng cua thang home
         navigationView.getMenu().findItem(R.id.nav_contact).setChecked(true);
         //get intent
         getIntentSignIn();
-        //get profile
     }
 
+    @SuppressLint("NonConstantResourceId")
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_contact:
@@ -92,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_account:
                 if (currentFragment != FRAGMENT_ACCOUNT) {
-                    replaceFragment(new AcountManagerFragment());
+                    replaceFragment(new AccountManagerFragment());
                     currentFragment = FRAGMENT_ACCOUNT;
                     Objects.requireNonNull(getSupportActionBar()).setTitle("Account Manager");
                 }
@@ -109,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public final void getIntentSignIn() {
-        intent = getIntent();
+        Intent intent = getIntent();
         uid = intent.getIntExtra("uid", -1);
         name = intent.getStringExtra("name");
         email = intent.getStringExtra("email");
@@ -121,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (name != null && email != null && image != null) {
             txtEmail.setText(email);
             txtDisplayName.setText(name);
-            imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(this,image));
+            imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(this, image));
         }
     }
 

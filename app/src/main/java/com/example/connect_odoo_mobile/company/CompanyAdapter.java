@@ -16,8 +16,8 @@ import com.example.connect_odoo_mobile.handle.BitmapUtils;
 import java.util.List;
 
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder> {
-    private Context context;
-    private List<Company> companyArrayList;
+    private final Context context;
+    private final List<Company> companyArrayList;
 
     public CompanyAdapter(Context context, List<Company> companyArrayList) {
         this.context = context;
@@ -53,9 +53,9 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
         return companyArrayList.size();
     }
 
-    public class CompanyViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtName, txtEmail, txtCity;
-        private ImageView imgAvatar;
+    public static class CompanyViewHolder extends RecyclerView.ViewHolder {
+        private final TextView txtName, txtEmail, txtCity;
+        private final ImageView imgAvatar;
 
         public CompanyViewHolder(@NonNull View itemView) {
             super(itemView);

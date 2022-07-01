@@ -21,14 +21,15 @@
             app:layout_constraintWidth_percent="0.2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/img_description" />
 
         <TextView
             android:id="@+id/txtName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="Tien can"
+            android:text="@string/txt_name"
             android:textSize="20sp"
             android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="tien@gmail.com"
+            android:text="@string/txt_email"
             android:textSize="17sp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"

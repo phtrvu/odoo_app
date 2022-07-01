@@ -10,17 +10,17 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/menu_contact_detail"
             app:theme="@style/ToolbarTheme"
-            app:titleTextColor="@color/white"
-            app:menu="@menu/menu_contact_detail"/>
+            app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <ImageView
@@ -42,8 +42,8 @@
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Truong Vux"
-        android:textSize="22dp"
+        android:text="@string/txt_name"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgAvatar"
@@ -80,8 +80,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_email_24"
             android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_baseline_email_24"
             app:layout_constraintBottom_toBottomOf="@+id/layoutEmail"
             app:layout_constraintEnd_toEndOf="@+id/layoutEmail"
             app:layout_constraintTop_toTopOf="@+id/layoutEmail" />
@@ -118,8 +118,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_language_24"
             android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_baseline_language_24"
             app:layout_constraintBottom_toBottomOf="@+id/layoutWebsite"
             app:layout_constraintEnd_toEndOf="@+id/layoutWebsite"
             app:layout_constraintTop_toTopOf="@+id/layoutWebsite" />
@@ -156,8 +156,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_phone_24"
             android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_baseline_phone_24"
             app:layout_constraintBottom_toBottomOf="@+id/layoutPhone"
             app:layout_constraintEnd_toEndOf="@+id/layoutPhone"
             app:layout_constraintTop_toTopOf="@+id/layoutPhone" />
@@ -194,8 +194,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_phone_android_24"
             android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_baseline_phone_android_24"
             app:layout_constraintBottom_toBottomOf="@+id/layoutMobile"
             app:layout_constraintEnd_toEndOf="@+id/layoutMobile"
             app:layout_constraintTop_toTopOf="@+id/layoutMobile" />
@@ -232,8 +232,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_location_on_24"
             android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_baseline_location_on_24"
             app:layout_constraintBottom_toBottomOf="@+id/layoutCountry"
             app:layout_constraintEnd_toEndOf="@+id/layoutCountry"
             app:layout_constraintTop_toTopOf="@+id/layoutCountry" />
@@ -264,14 +264,14 @@
                 android:layout_height="wrap_content"
                 android:focusable="false"
                 android:inputType="text"
-                android:text="..."/>
+                android:text="..." />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_notes_24"
             android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_baseline_notes_24"
             app:layout_constraintBottom_toBottomOf="@+id/layoutNote"
             app:layout_constraintEnd_toEndOf="@+id/layoutNote"
             app:layout_constraintTop_toTopOf="@+id/layoutNote" />
