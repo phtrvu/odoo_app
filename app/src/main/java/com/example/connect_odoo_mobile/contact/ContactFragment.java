@@ -31,19 +31,19 @@ public class ContactFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_contact, container, false);
         //set contact recycler view
-        SetContactRecyclerView();
+        setContactRecyclerView();
         //
         return view;
     }
 
-    private void SetContactRecyclerView() {
+    private void setContactRecyclerView() {
         RecyclerView layoutView = view.findViewById(R.id.layoutView);
         ProgressBar progressBar = view.findViewById(R.id.progress_bar);
         ContactAdapter contactAdapter;
         List<Contact> contactList;
 
         progressBar.setVisibility(View.INVISIBLE);
-        contactList = GetContact();
+        contactList = getContact();
         progressBar.setVisibility(View.GONE);
 
         contactAdapter = new ContactAdapter(getContext(), contactList);
@@ -52,7 +52,7 @@ public class ContactFragment extends Fragment {
         layoutView.setAdapter(contactAdapter);
     }
 
-    private List<Contact> GetContact() {
+    private List<Contact> getContact() {
         String db, url, pass, path = "object";
         int uid;
         url = MainActivity.url;
@@ -63,7 +63,7 @@ public class ContactFragment extends Fragment {
         Contact contact;
         try {
             OdooConnect odooConnect = new OdooConnect(url, path);
-            Object object = odooConnect.GetContact(db, uid, pass);
+            Object object = odooConnect.getContact(db, uid, pass);
             Object[] objects = (Object[]) object;
             if (objects.length > 0) {
                 for (Object i : objects) {

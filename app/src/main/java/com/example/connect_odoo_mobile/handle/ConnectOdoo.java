@@ -33,7 +33,7 @@ public class ConnectOdoo {
     Moshi moshi = new Moshi.Builder().build();
     ;
 
-    public XmlRpcClientConfigImpl common_Config(String url) {
+    public XmlRpcClientConfigImpl commonConfig(String url) {
         common_config = new XmlRpcClientConfigImpl();
         try {
             common_config.setServerURL(new URL(String.format("%s/xmlrpc/2/common", url)));
@@ -43,7 +43,7 @@ public class ConnectOdoo {
         return common_config;
     }
 
-    public XmlRpcClientConfigImpl common_Database(String url) {
+    public XmlRpcClientConfigImpl commonDatabase(String url) {
         common_database = new XmlRpcClientConfigImpl();
         try {
             common_database.setServerURL(new URL(String.format("%s/xmlrpc/2/db", url)));
@@ -76,7 +76,7 @@ public class ConnectOdoo {
     }
 
     public List<Contact> getContact(String db, String url, int id, String password) throws XmlRpcException {
-        common_Config(url);
+        commonConfig(url);
         models(url);
         JsonAdapter<List<Contact>> jsonAdapter;
         Type usersType = Types.newParameterizedType(List.class, Contact.class);
@@ -94,7 +94,7 @@ public class ConnectOdoo {
     }
 
     public List<Company> getCompany(String db, String url, int id, String password) throws XmlRpcException {
-        common_Config(url);
+        commonConfig(url);
         models(url);
         JsonAdapter<List<Company>> jsonAdapter;
         Type usersType = Types.newParameterizedType(List.class, Company.class);
@@ -112,7 +112,7 @@ public class ConnectOdoo {
     }
 
     public List<Contact> getProfile(String db, String url, String password, int id) throws XmlRpcException {
-        common_Config(url);
+        commonConfig(url);
         models(url);
         JsonAdapter<List<Contact>> jsonAdapter;
         Type usersType = Types.newParameterizedType(List.class, Contact.class);
@@ -131,14 +131,14 @@ public class ConnectOdoo {
     }
 
     public int checkSignIn(String db, String url, String user, String password) throws XmlRpcException {
-        common_Config(url);
+        commonConfig(url);
         uid = uid(db, user, password, common_config);
         return uid;
     }
 
     public List<String> getDB(String url) {
         List<String> database = new ArrayList<>();
-        common_Database(url);
+        commonDatabase(url);
         Object[] data;
         try {
             data = (Object[]) client.execute(common_database, "list", emptyList());

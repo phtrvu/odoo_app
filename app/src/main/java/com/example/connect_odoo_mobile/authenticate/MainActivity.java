@@ -53,11 +53,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.string.nav_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        //bat su kien cho navigation view
+        //set event navigation
         navigationView.setNavigationItemSelectedListener(this);
-        //chay app mo thang home luôn
+        //set home fragment when start activity
         replaceFragment(new ContactFragment());
-        //set chọn cái biểu tượng cua thang home
+        //set icon home when start activity
         navigationView.getMenu().findItem(R.id.nav_contact).setChecked(true);
         //get intent
         getIntentSignIn();

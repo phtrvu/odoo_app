@@ -78,9 +78,9 @@ public class SignInActivity extends AppCompatActivity {
                     edtPassword.setError("Enter your password!");
                 } else {
                     try {
-                        int uid = (int) odooConnect.Login(db, user, pass);
+                        int uid = (int) odooConnect.signIn(db, user, pass);
                         if (uid > 0) {
-                            GetInformationAccount(url, db, pass, uid, user);
+                            getInformationAccount(url, db, pass, uid, user);
                         } else {
                             edtUrl.setError("The username could not be found!");
                         }
@@ -92,12 +92,12 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    private void GetInformationAccount(String url, String db, String password, int id, String user) {
+    private void getInformationAccount(String url, String db, String password, int id, String user) {
         String path = "object";
         String name = "", email = "", image = "";
         try {
             odooConnect = new OdooConnect(url, path);
-            Object[] object = (Object[]) odooConnect.GetProfile(db, password, id);
+            Object[] object = (Object[]) odooConnect.getProfile(db, password, id);
             for (Object i : object
             ) {
                 name = OdooUtils.getString((Map<String, Object>) i, "name");
@@ -125,7 +125,7 @@ public class SignInActivity extends AppCompatActivity {
             if (!hasFocus && listDB != null) {
                 pbLoading.setVisibility(View.VISIBLE);
                 imgCheck.setVisibility(View.INVISIBLE);
-                CheckServer();
+                checkServer();
             }
         });
         edtUrl.setOnEditorActionListener((v, actionId, event) -> {
@@ -134,14 +134,14 @@ public class SignInActivity extends AppCompatActivity {
                     || actionId == EditorInfo.IME_ACTION_NEXT) {
                 pbLoading.setVisibility(View.VISIBLE);
                 imgCheck.setVisibility(View.INVISIBLE);
-                CheckServer();
+                checkServer();
             }
 
             return false;
         });
     }
 
-    private void CheckServer() {
+    private void checkServer() {
         String path = "db";
         String server_url = edtUrl.getText().toString();
         //Check format url
@@ -153,7 +153,7 @@ public class SignInActivity extends AppCompatActivity {
         //Check server
         try {
             odooConnect = new OdooConnect(serverURL.toString(), path);
-            Object[] objects = (Object[]) odooConnect.CheckServer();
+            Object[] objects = (Object[]) odooConnect.checkServer();
             if (objects.length > 0) {
                 for (Object i : objects) {
                     listDB.add(i.toString());

@@ -33,7 +33,7 @@ public class OdooConnect {
         }});
     }
 
-    public Object GetContact(String db, int id, String password) {
+    public Object getContact(String db, int id, String password) {
         Object object = null;
         try {
             object = client.execute("execute_kw", asList(
@@ -53,13 +53,13 @@ public class OdooConnect {
         return object;
     }
 
-    public Object Login(String db, String username, String password) throws XmlRpcException {
+    public Object signIn(String db, String username, String password) throws XmlRpcException {
         Object object = null;
         object = client.execute("login", asList(db, username, password));
         return object;
     }
 
-    public Object CheckServer() {
+    public Object checkServer() {
         Object object = null;
         try {
             object = client.execute("list", emptyList());
@@ -69,7 +69,7 @@ public class OdooConnect {
         return object;
     }
 
-    public Object GetProfile(String db, String password, int id) throws XmlRpcException {
+    public Object getProfile(String db, String password, int id) throws XmlRpcException {
         Object object = null;
         object = client.execute("execute_kw", asList(
                 db, id, password,
