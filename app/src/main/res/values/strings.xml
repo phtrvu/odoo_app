@@ -32,5 +32,10 @@
     <string name="edt_note">Note</string>
     <string name="chk_is_company">Is Company</string>
     <string name="edt_name">Your Name</string>
+    <string name="dialog_choose_picture">Your Choice:</string>
+    <string name="dialog_view_picture">View Picture</string>
+    <string name="dialog_choose_library">Choose from library</string>
+    <string name="dialog_choose_camera">Choose from camera</string>
+    <string name="dialog_cancel">Cancel</string>
 
 </resources>

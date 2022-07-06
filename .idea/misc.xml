@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/drawable/bg_choose_picture_dialog.xml" value="0.112" />
+        <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/drawable/bg_corner_dialog_bottom_left_right.xml" value="0.112" />
         <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_add_contact.xml" value="0.12631578947368421" />
+        <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/layout/dialog_choose_picture.xml" value="0.12631578947368421" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable-v24/side_nav_bar.xml" value="0.1445" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.1445" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1445" />
