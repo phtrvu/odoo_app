@@ -27,6 +27,7 @@
         android:id="@+id/imgAvatar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:contentDescription="@string/img_description"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="EMAIL"
+            android:hint="@string/edt_email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -73,14 +74,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:inputType="textEmailAddress"
-                android:text="..." />
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:contentDescription="@string/img_description"
             android:src="@drawable/ic_baseline_email_24"
             app:layout_constraintBottom_toBottomOf="@+id/layoutEmail"
             app:layout_constraintEnd_toEndOf="@+id/layoutEmail"
@@ -101,7 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="WEBSITE"
+            android:hint="@string/edt_website"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -111,14 +112,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:inputType="textWebEditText"
-                android:text="..." />
+                android:inputType="textWebEditText" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:contentDescription="@string/img_description"
             android:src="@drawable/ic_baseline_language_24"
             app:layout_constraintBottom_toBottomOf="@+id/layoutWebsite"
             app:layout_constraintEnd_toEndOf="@+id/layoutWebsite"
@@ -139,7 +140,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="PHONE"
+            android:hint="@string/edt_phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -149,14 +150,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:inputType="phone"
-                android:text="..." />
+                android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:contentDescription="@string/img_description"
             android:src="@drawable/ic_baseline_phone_24"
             app:layout_constraintBottom_toBottomOf="@+id/layoutPhone"
             app:layout_constraintEnd_toEndOf="@+id/layoutPhone"
@@ -177,7 +178,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="MOBILE"
+            android:hint="@string/edt_mobile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -187,14 +188,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:inputType="phone"
-                android:text="..." />
+                android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:contentDescription="@string/img_description"
             android:src="@drawable/ic_baseline_phone_android_24"
             app:layout_constraintBottom_toBottomOf="@+id/layoutMobile"
             app:layout_constraintEnd_toEndOf="@+id/layoutMobile"
@@ -215,7 +216,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="COUNTRY"
+            android:hint="@string/edt_country"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -225,14 +226,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:inputType="text"
-                android:text="..." />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:contentDescription="@string/img_description"
             android:src="@drawable/ic_baseline_location_on_24"
             app:layout_constraintBottom_toBottomOf="@+id/layoutCountry"
             app:layout_constraintEnd_toEndOf="@+id/layoutCountry"
@@ -253,7 +254,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="NOTE"
+            android:hint="@string/edt_note"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -263,14 +264,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:inputType="text"
-                android:text="..." />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:contentDescription="@string/img_description"
             android:src="@drawable/ic_baseline_notes_24"
             app:layout_constraintBottom_toBottomOf="@+id/layoutNote"
             app:layout_constraintEnd_toEndOf="@+id/layoutNote"

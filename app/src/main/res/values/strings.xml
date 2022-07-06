@@ -14,4 +14,23 @@
     <string name="txt_sign_in_url">Your self-hosted URL</string>
     <string name="txt_sign_in_username">Username or email</string>
     <string name="txt_sign_in_password">Password</string>
+    <string name="fab_description">FAB</string>
+    <string name="txt_no_country_selected">No country selected</string>
+    <string name="txt_no_company">No Related Company selected</string>
+    <string name="txt_save">Save</string>
+    <string name="txt_cancel">Cancel</string>
+
+    <string name="edt_company">Company</string>
+    <string name="edt_street">Street</string>
+    <string name="edt_street2">Street2</string>
+    <string name="edt_zip">Zip</string>
+    <string name="edt_country">Country</string>
+    <string name="edt_email">Email</string>
+    <string name="edt_website">Website</string>
+    <string name="edt_phone">Phone</string>
+    <string name="edt_mobile">Mobile</string>
+    <string name="edt_note">Note</string>
+    <string name="chk_is_company">Is Company</string>
+    <string name="edt_name">Your Name</string>
+
 </resources>

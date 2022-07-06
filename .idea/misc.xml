@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_add_contact.xml" value="0.12631578947368421" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable-v24/side_nav_bar.xml" value="0.1445" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.1445" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1445" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_baseline_block_24.xml" value="0.1445" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_baseline_block_25.xml" value="0.2075" />
+        <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_baseline_business_24.xml" value="0.112" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_baseline_check_25.xml" value="0.1445" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.1625" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1625" />
@@ -20,15 +22,16 @@
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1445" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/ic_menu_camera.xml" value="0.1445" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/drawable/side_nav_bar.xml" value="0.1445" />
+        <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_add_contact.xml" value="0.14" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_contact_detail.xml" value="0.16" />
-        <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_main.xml" value="0.1859375" />
+        <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_main.xml" value="0.14" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_sign_in.xml" value="0.14" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_splash.xml" value="0.2" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/fragment_account_manager.xml" value="0.12631578947368421" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/fragment_acount_manager.xml" value="0.2" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/fragment_blank.xml" value="0.12" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/fragment_company.xml" value="0.2" />
-        <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/fragment_contact.xml" value="0.2" />
+        <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/fragment_contact.xml" value="0.16" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/fragment_customer.xml" value="0.2" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/fragment_home_page.xml" value="0.2" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/item_account.xml" value="0.15" />
@@ -36,6 +39,7 @@
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/item_contact.xml" value="0.17" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/layout/nav_header_main.xml" value="0.12" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/menu/activity_main_drawer.xml" value="0.2" />
+        <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/menu/menu_add_contact.xml" value="0.12631578947368421" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/menu/menu_contact_detail.xml" value="0.16417272338606242" />
         <entry key="..\:/Odoo/connect_odoo_mobile/app/src/main/res/menu/menu_drawer.xml" value="0.16417272338606242" />
       </map>

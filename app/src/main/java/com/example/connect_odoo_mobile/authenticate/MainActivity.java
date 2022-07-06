@@ -11,16 +11,24 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.ActionProvider;
+import android.view.ContextMenu;
 import android.view.MenuItem;
+import android.view.SubMenu;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.account.AccountManagerFragment;
 import com.example.connect_odoo_mobile.company.CompanyFragment;
+import com.example.connect_odoo_mobile.contact.AddContactActivity;
 import com.example.connect_odoo_mobile.contact.ContactFragment;
 import com.example.connect_odoo_mobile.handle.BitmapUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
@@ -31,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private TextView txtDisplayName, txtEmail;
     private ImageView imgAvatar;
+    private FloatingActionButton fabAdd;
     public static int uid;
     public static String db, url, user, pass, name, email, image;
     private static final int FRAGMENT_CONTACT = 0;
@@ -61,6 +70,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.getMenu().findItem(R.id.nav_contact).setChecked(true);
         //get intent
         getIntentSignIn();
+        //set floating action button
+        setFabAdd();
+    }
+
+    public void setFabAdd() {
+
+        fabAdd.setOnClickListener(view -> {
+            if (currentFragment == FRAGMENT_CONTACT) {
+                startActivity(new Intent(MainActivity.this, AddContactActivity.class));
+            }
+        });
+
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -129,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         txtDisplayName = navigationView.getHeaderView(0).findViewById(R.id.txtName);
         txtEmail = navigationView.getHeaderView(0).findViewById(R.id.txtEmail);
         imgAvatar = navigationView.getHeaderView(0).findViewById(R.id.imgAvatar);
-
+        fabAdd = findViewById(R.id.fab_add);
     }
 
     public void onBackPressed() {
