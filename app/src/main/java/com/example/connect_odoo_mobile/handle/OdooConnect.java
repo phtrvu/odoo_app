@@ -3,21 +3,13 @@ package com.example.connect_odoo_mobile.handle;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
-import android.util.Log;
-
-import com.example.connect_odoo_mobile.contact.Contact;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Types;
-
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
-import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 
 public class OdooConnect {
     private static final String TAG = "RUN";
@@ -42,9 +34,27 @@ public class OdooConnect {
                     emptyList(),
                     new HashMap() {{
                         put("fields",
+                                asList("name","email","company_name", "image_128"));
+                    }}
+            ));
+        } catch (XmlRpcException e) {
+            e.printStackTrace();
+        }
+        return object;
+    }
+
+    public Object getDetailContact(String db, int id, String password) {
+        Object object = null;
+        try {
+            object = client.execute("execute_kw", asList(
+                    db, id, password,
+                    "res.partner", "search_read",
+                    emptyList(),
+                    new HashMap() {{
+                        put("fields",
                                 asList("name", "email", "phone", "mobile",
                                         "country_id", "website", "comment",
-                                        "company_name", "id", "image_1024"));
+                                        "company_name", "id", "image_128"));
                     }}
             ));
         } catch (XmlRpcException e) {

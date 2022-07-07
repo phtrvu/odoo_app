@@ -11,7 +11,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -24,12 +23,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.dialog.ChoosePictureDialog;
+import com.example.connect_odoo_mobile.handle.ImageUtils;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.IOException;
@@ -147,11 +146,8 @@ public class AddContactActivity extends AppCompatActivity {
                                     return;
                                 }
                                 Uri uri = intent.getData();
-                                //Log.d("Run", "Uri: " + uri);
-                                //profileFragment.setUri(uri);
                                 try {
                                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                                    //Log.d("Run", "bitmap: " + bitmap);
                                     imgAvatar.setImageBitmap(bitmap);
                                 } catch (IOException e) {
                                     e.printStackTrace();

@@ -11,23 +11,17 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.ActionProvider;
-import android.view.ContextMenu;
 import android.view.MenuItem;
-import android.view.SubMenu;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.account.AccountManagerFragment;
 import com.example.connect_odoo_mobile.company.CompanyFragment;
 import com.example.connect_odoo_mobile.contact.AddContactActivity;
-import com.example.connect_odoo_mobile.contact.ContactFragment;
-import com.example.connect_odoo_mobile.handle.BitmapUtils;
+import com.example.connect_odoo_mobile.contact.get_contact.ContactFragment;
+import com.example.connect_odoo_mobile.handle.ImageUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -139,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (name != null && email != null && image != null) {
             txtEmail.setText(email);
             txtDisplayName.setText(name);
-            imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(this, image));
+            imgAvatar.setImageBitmap(ImageUtils.getBitmapImage(image));
         }
     }
 

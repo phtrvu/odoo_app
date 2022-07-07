@@ -5,7 +5,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
 
 import com.example.connect_odoo_mobile.company.Company;
-import com.example.connect_odoo_mobile.contact.Contact;
+import com.example.connect_odoo_mobile.contact.get_contact.Contact;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;

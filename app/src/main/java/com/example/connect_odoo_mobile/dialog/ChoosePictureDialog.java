@@ -49,7 +49,6 @@ public class ChoosePictureDialog {
         dialog.setCancelable(true);
         //mapping
         TextView txtCancel = dialog.findViewById(R.id.txtCancel);
-        TextView txtViewPicture = dialog.findViewById(R.id.txtViewPicture);
         TextView txtLibrary = dialog.findViewById(R.id.txtLibrary);
         TextView txtCamera = dialog.findViewById(R.id.txtCamera);
         //event close dialog when tap cancel

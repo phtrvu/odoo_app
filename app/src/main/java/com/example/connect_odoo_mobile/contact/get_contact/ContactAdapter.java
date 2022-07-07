@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.contact;
+package com.example.connect_odoo_mobile.contact.get_contact;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.handle.BitmapUtils;
+import com.example.connect_odoo_mobile.contact.contact_detail.ContactDetailActivity;
+import com.example.connect_odoo_mobile.handle.ImageUtils;
 
 import java.util.List;
 
@@ -45,21 +46,16 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         if (!contact.getEmail().equals("")) {
             holder.txtEmail.setText(contact.getEmail());
         }
-        if (!contact.getImage_128().equals("")) {
-            holder.imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(context, contact.getImage_128()));
+        if (!contact.getImage().equals("")) {
+            holder.imgAvatar.setImageBitmap(ImageUtils.getBitmapImage(contact.getImage()));
         }
         holder.layoutContact.setOnClickListener(view -> {
             Intent intent = new Intent(context, ContactDetailActivity.class);
             //data transfer to screen contact detail
             intent.putExtra("id", contact.getId());
-            intent.putExtra("image", contact.getImage_128());
+            intent.putExtra("image", contact.getImage());
             intent.putExtra("name", contact.getName());
             intent.putExtra("email", contact.getEmail());
-            intent.putExtra("website", contact.getWebsite());
-            intent.putExtra("phone", contact.getPhone());
-            intent.putExtra("mobile", contact.getMobile());
-            intent.putExtra("comment", contact.getComment());
-            intent.putExtra("country", contact.getCountry());
             context.startActivity(intent);
         });
     }

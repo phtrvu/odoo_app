@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.handle.BitmapUtils;
+import com.example.connect_odoo_mobile.handle.ImageUtils;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
             holder.txtEmail.setText((CharSequence) company.getEmail());
         }
         if (!company.getLogo().equals(false)) {
-            holder.imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(context, (String) company.getLogo()));
+            holder.imgAvatar.setImageBitmap(ImageUtils.getBitmapImage((String) company.getLogo()));
         }
     }
 

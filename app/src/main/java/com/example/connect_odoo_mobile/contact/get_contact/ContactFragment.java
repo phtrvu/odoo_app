@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.contact;
+package com.example.connect_odoo_mobile.contact.get_contact;
 
 import android.os.Bundle;
 
@@ -13,7 +13,8 @@ import android.widget.ProgressBar;
 
 import com.example.connect_odoo_mobile.authenticate.MainActivity;
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.handle.Many2One;
+import com.example.connect_odoo_mobile.contact.get_contact.Contact;
+import com.example.connect_odoo_mobile.contact.get_contact.ContactAdapter;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
 import com.example.connect_odoo_mobile.handle.OdooUtils;
 
@@ -71,13 +72,8 @@ public class ContactFragment extends Fragment {
                     String name = OdooUtils.getString((Map<String, Object>) i, "name");
                     String mail = OdooUtils.getString((Map<String, Object>) i, "email");
                     String company = OdooUtils.getString((Map<String, Object>) i, "company_name");
-                    String phone = OdooUtils.getString((Map<String, Object>) i, "phone");
-                    String mobile = OdooUtils.getString((Map<String, Object>) i, "mobile");
-                    String country = Many2One.getMany2One((Map<String, Object>) i, "country_id").getName();
-                    String website = OdooUtils.getString((Map<String, Object>) i, "website");
-                    String comment = OdooUtils.getString((Map<String, Object>) i, "comment");
-                    String image = OdooUtils.getString((Map<String, Object>) i, "image_1024");
-                    contact = new Contact(id, name, company, mail, image, phone, mobile, country, comment, website);
+                    String image = OdooUtils.getString((Map<String, Object>) i, "image_128");
+                    contact = new Contact(id, name, company, mail, image);
                     contactList.add(contact);
                 }
             }

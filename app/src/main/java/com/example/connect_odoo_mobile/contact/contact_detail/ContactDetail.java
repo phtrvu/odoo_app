@@ -1,27 +1,27 @@
-package com.example.connect_odoo_mobile.contact;
+package com.example.connect_odoo_mobile.contact.contact_detail;
 
-public class Contact {
+public class ContactDetail {
     private int id;
     private String name;
     private String company_name;
     private String email;
-    private String image_128;
+    private String image;
     private String phone;
     private String mobile;
     private String country;
     private String comment;
     private String website;
 
-    public Contact() {
+    public ContactDetail() {
     }
 
-    public Contact(int id, String name, String company_name, String email,
-                   String image_128, String phone, String mobile, String country, String comment, String website) {
+    public ContactDetail(int id, String name, String company_name, String email,
+                         String image, String phone, String mobile, String country, String comment, String website) {
         this.id = id;
         this.name = name;
         this.company_name = company_name;
         this.email = email;
-        this.image_128 = image_128;
+        this.image = image;
         this.phone = phone;
         this.mobile = mobile;
         this.country = country;
@@ -61,12 +61,12 @@ public class Contact {
         this.email = email;
     }
 
-    public String getImage_128() {
-        return image_128;
+    public String getImage() {
+        return image;
     }
 
-    public void setImage_128(String image_128) {
-        this.image_128 = image_128;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getPhone() {

@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.contact;
+package com.example.connect_odoo_mobile.contact.contact_detail;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,14 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.handle.BitmapUtils;
+import com.example.connect_odoo_mobile.handle.ImageUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
 public class ContactDetailActivity extends AppCompatActivity {
-
-    private static final String TAG = "RUN";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,37 +52,15 @@ public class ContactDetailActivity extends AppCompatActivity {
         int id = intent.getIntExtra("id", -1);
         String name = intent.getStringExtra("name");
         String email = intent.getStringExtra("email");
-        String website = intent.getStringExtra("website");
-        String phone = intent.getStringExtra("phone");
-        String mobile = intent.getStringExtra("mobile");
-        String note = intent.getStringExtra("note");
         String image = intent.getStringExtra("image");
-        String country = intent.getStringExtra("country");
         if (name != null) {
             txtName.setText(name);
         }
         if (email != null) {
             edtEmail.setText(email);
         }
-        if (website != null) {
-            edtWebsite.setText(website);
-        }
-        if (phone != null) {
-            edtPhone.setText(phone);
-        }
-        if (mobile != null) {
-            edtMobile.setText(mobile);
-        }
-        if (note != null) {
-            edtNote.setText(note);
-        } else {
-            edtNote.setText("");
-        }
-        if (country != null) {
-            edtCountry.setText(country);
-        }
         if (image != null) {
-            imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(this, image));
+            imgAvatar.setImageBitmap(ImageUtils.getBitmapImage(image));
         }
     }
 

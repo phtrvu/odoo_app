@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.authenticate.SignInActivity;
-import com.example.connect_odoo_mobile.handle.BitmapUtils;
+import com.example.connect_odoo_mobile.handle.ImageUtils;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
         Account account = accountList.get(position);
         holder.txtName.setText(account.getName());
         holder.txtUrl.setText(account.getUrl());
-        holder.imgAvatar.setImageBitmap(BitmapUtils.getBitmapImage(context, account.getImage()));
+        holder.imgAvatar.setImageBitmap(ImageUtils.getBitmapImage(account.getImage()));
 
         holder.imgSignOut.setOnClickListener(v -> context.startActivity(new Intent(context, SignInActivity.class)));
 
