@@ -26,7 +26,7 @@
 
         </activity>
         <activity
-            android:name=".contact.contact_detail.ContactDetailActivity"
+            android:name=".contact.ContactDetailActivity"
             android:exported="false"/>
         <activity
             android:name=".authenticate.MainActivity"

@@ -13,7 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.contact.contact_detail.ContactDetailActivity;
+import com.example.connect_odoo_mobile.contact.ContactDetailActivity;
 import com.example.connect_odoo_mobile.handle.ImageUtils;
 
 import java.util.List;
@@ -53,7 +53,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             Intent intent = new Intent(context, ContactDetailActivity.class);
             //data transfer to screen contact detail
             intent.putExtra("id", contact.getId());
-            intent.putExtra("image", contact.getImage());
             intent.putExtra("name", contact.getName());
             intent.putExtra("email", contact.getEmail());
             context.startActivity(intent);

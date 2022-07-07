@@ -34,7 +34,7 @@ public class OdooConnect {
                     emptyList(),
                     new HashMap() {{
                         put("fields",
-                                asList("name","email","company_name", "image_128"));
+                                asList("name", "email", "company_name", "image_128"));
                     }}
             ));
         } catch (XmlRpcException e) {
@@ -43,18 +43,18 @@ public class OdooConnect {
         return object;
     }
 
-    public Object getDetailContact(String db, int id, String password) {
+    public Object getDetailContact(String db, int uid, int id, String password) {
         Object object = null;
         try {
             object = client.execute("execute_kw", asList(
-                    db, id, password,
+                    db, uid, password,
                     "res.partner", "search_read",
-                    emptyList(),
+                    asList(asList(
+                            asList("id", "=", id))),
                     new HashMap() {{
                         put("fields",
-                                asList("name", "email", "phone", "mobile",
-                                        "country_id", "website", "comment",
-                                        "company_name", "id", "image_128"));
+                                asList("phone", "mobile", "image_1024",
+                                        "country_id", "website", "comment"));
                     }}
             ));
         } catch (XmlRpcException e) {
