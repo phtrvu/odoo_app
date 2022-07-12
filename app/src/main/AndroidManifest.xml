@@ -5,9 +5,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
     <application
@@ -21,13 +22,14 @@
         android:theme="@style/Theme.Connect_odoo_mobile"
         tools:targetApi="31">
         <activity
+            android:name=".company.CompanyActivity"
+            android:exported="false" />
+        <activity
             android:name=".contact.AddContactActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".contact.ContactDetailActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".authenticate.MainActivity"
             android:exported="false" />

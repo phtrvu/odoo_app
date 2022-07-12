@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.account.AccountManagerFragment;
-import com.example.connect_odoo_mobile.company.CompanyFragment;
 import com.example.connect_odoo_mobile.contact.AddContactActivity;
 import com.example.connect_odoo_mobile.contact.ContactFragment;
 import com.example.connect_odoo_mobile.handle.ImageUtils;
@@ -37,9 +36,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int uid;
     public static String db, url, user, pass, name, email, image;
     private static final int FRAGMENT_CONTACT = 0;
-    private static final int FRAGMENT_COMPANY = 1;
-    private static final int FRAGMENT_TEST = 2;
-    private static final int FRAGMENT_ACCOUNT = 3;
+    private static final int FRAGMENT_TEST = 1;
+    private static final int FRAGMENT_ACCOUNT = 2;
     private int currentFragment = FRAGMENT_CONTACT;
 
     @Override
@@ -86,13 +84,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     replaceFragment(new ContactFragment());
                     currentFragment = FRAGMENT_CONTACT;
                     Objects.requireNonNull(getSupportActionBar()).setTitle("Contact");
-                }
-                break;
-            case R.id.nav_company:
-                if (currentFragment != FRAGMENT_COMPANY) {
-                    replaceFragment(new CompanyFragment());
-                    currentFragment = FRAGMENT_COMPANY;
-                    Objects.requireNonNull(getSupportActionBar()).setTitle("Company");
                 }
                 break;
             case R.id.nav_test:

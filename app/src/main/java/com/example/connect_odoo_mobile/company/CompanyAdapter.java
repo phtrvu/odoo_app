@@ -1,6 +1,8 @@
 package com.example.connect_odoo_mobile.company;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connect_odoo_mobile.R;
+import com.example.connect_odoo_mobile.contact.AddContactActivity;
 import com.example.connect_odoo_mobile.handle.ImageUtils;
 
 import java.util.List;
@@ -31,21 +35,21 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
         return new CompanyViewHolder(view);
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onBindViewHolder(@NonNull CompanyViewHolder holder, int position) {
         Company company = companyArrayList.get(position);
         if (!company.getName().equals(false)) {
-            holder.txtName.setText((CharSequence) company.getName());
+            holder.txtName.setText((String) company.getName());
         }
-        if (!company.getCity().equals(false)) {
-            holder.txtCity.setText((CharSequence) company.getCity());
-        }
-        if (!company.getEmail().equals(false)) {
-            holder.txtEmail.setText((CharSequence) company.getEmail());
-        }
-        if (!company.getLogo().equals(false)) {
-            holder.imgAvatar.setImageBitmap(ImageUtils.getBitmapImage((String) company.getLogo()));
-        }
+        holder.layoutCompany.setOnClickListener(view -> {
+            Intent intent = new Intent(context, AddContactActivity.class);
+            intent.putExtra("id",company.getId());
+            intent.putExtra("company_name", String.valueOf(company.getName()));
+            intent.setFlags(1);
+            context.startActivity(intent);
+
+        });
     }
 
     @Override
@@ -54,15 +58,13 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
     }
 
     public static class CompanyViewHolder extends RecyclerView.ViewHolder {
-        private final TextView txtName, txtEmail, txtCity;
-        private final ImageView imgAvatar;
+        private final TextView txtName;
+        private final ConstraintLayout layoutCompany;
 
         public CompanyViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtName = itemView.findViewById(R.id.txtName);
-            txtCity = itemView.findViewById(R.id.txtCity);
-            txtEmail = itemView.findViewById(R.id.txtEmail);
-            imgAvatar = itemView.findViewById(R.id.imgAvatar);
+            txtName = itemView.findViewById(R.id.txtCompany);
+            layoutCompany = itemView.findViewById(R.id.layoutCompany);
         }
     }
 }

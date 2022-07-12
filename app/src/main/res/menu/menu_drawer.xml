@@ -9,10 +9,6 @@
             android:icon="@drawable/ic_baseline_contacts_24"
             android:title="Contact" />
         <item
-            android:id="@+id/nav_company"
-            android:icon="@drawable/ic_baseline_work_24"
-            android:title="Company" />
-        <item
             android:id="@+id/nav_test"
             android:icon="@drawable/ic_baseline_contacts_24"
             android:title="Test" />

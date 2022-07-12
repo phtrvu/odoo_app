@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.authenticate.MainActivity;
+import com.example.connect_odoo_mobile.company.CompanyActivity;
 import com.example.connect_odoo_mobile.dialog.ChoosePictureDialog;
 import com.example.connect_odoo_mobile.handle.ImageUtils;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
@@ -50,7 +52,7 @@ public class AddContactActivity extends AppCompatActivity {
     private Bitmap bitmap;
     private EditText edtName;
     private CheckBox chkIsCompany;
-    private TextInputEditText edtStreet, edtStreet2, edtZip, edtCountry, edtEmail, edtPhone, edtMobile, edtWebsite, edtComment;
+    private TextInputEditText edtCompany, edtStreet, edtStreet2, edtZip, edtCountry, edtEmail, edtPhone, edtMobile, edtWebsite, edtComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +63,29 @@ public class AddContactActivity extends AppCompatActivity {
         //handle thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        //
+        mappingView();
         //checkIsCompany
         checkIsCompany();
         //tap Image view
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             tapImageView();
         }
+        //action
+        setAction();
+    }
+
+    @SuppressLint("WrongConstant")
+    private void setAction() {
+        Intent intent = getIntent();
+        if(intent.getFlags() == 1){
+            edtCompany.setText(intent.getStringExtra("company_name"));
+        }
+        edtCompany.setOnClickListener(view -> {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+            startActivity(new Intent(this, CompanyActivity.class));
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -89,9 +108,8 @@ public class AddContactActivity extends AppCompatActivity {
 
     //check company checkbox
     private void checkIsCompany() {
-        CheckBox chkCompany = findViewById(R.id.chkCompany);
         TextInputLayout layoutCompany = findViewById(R.id.layoutCompany);
-        chkCompany.setOnCheckedChangeListener((compoundButton, b) -> {
+        chkIsCompany.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b) {
                 layoutCompany.setVisibility(View.GONE);
             } else {
@@ -127,7 +145,7 @@ public class AddContactActivity extends AppCompatActivity {
     }
 
     private void addContact() throws MalformedURLException {
-        mappingView();
+
         String image = "";
         if (bitmap != null) {
             image = ImageUtils.convertBase64(bitmap);
@@ -137,7 +155,6 @@ public class AddContactActivity extends AppCompatActivity {
             company_type = "company";
         } else {
             company_type = "person";
-            company_name = "T4tek";
         }
         String name = edtName.getText().toString();
         String email = edtEmail.getText().toString();
@@ -149,22 +166,29 @@ public class AddContactActivity extends AppCompatActivity {
         String phone = edtPhone.getText().toString();
         String mobile = edtMobile.getText().toString();
         String comment = edtComment.getText().toString();
+        //get selected company
+        Intent intent = getIntent();
+        if(intent != null){
+            company_name = intent.getStringExtra("company_name");
+        }
+        //init Contact
         Contact contact = new Contact(name, email, image, company_name, street,
                 street2, zip, country, website, phone, mobile, comment, company_type);
+        //add in database
         if (name == null) {
             edtName.setError("Required");
         } else {
             OdooConnect odooConnect = new OdooConnect(url, path);
             int id = odooConnect.addContact(db, uid, pass, contact);
-            if(id > 0){
+            if (id > 0) {
                 Toast.makeText(this, "Add successful!", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 Toast.makeText(this, "Add failed!", Toast.LENGTH_SHORT).show();
             }
         }
 
     }
+
 
     private void mappingView() {
         edtName = findViewById(R.id.edtName);
@@ -178,6 +202,7 @@ public class AddContactActivity extends AppCompatActivity {
         edtPhone = findViewById(R.id.edtPhone);
         edtMobile = findViewById(R.id.edtMobile);
         edtComment = findViewById(R.id.edtNote);
+        edtCompany = findViewById(R.id.edtCompany);
         url = MainActivity.url;
         db = MainActivity.db;
         pass = MainActivity.pass;

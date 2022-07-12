@@ -96,6 +96,8 @@ public class ContactDetailActivity extends AppCompatActivity {
         }
         if (image != null) {
             imgAvatar.setImageBitmap(ImageUtils.getBitmapImage(image));
+        }else {
+            imgAvatar.setImageResource(R.drawable.ic_launcher_background);
         }
         if (phone != null) {
             edtPhone.setText(phone);

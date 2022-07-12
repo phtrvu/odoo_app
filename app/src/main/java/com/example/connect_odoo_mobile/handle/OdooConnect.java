@@ -124,4 +124,22 @@ public class OdooConnect {
         ));
         return object;
     }
+
+    public Object getCompany(String db, int id, String password) {
+        Object object = null;
+        try {
+            object = client.execute("execute_kw", asList(
+                    db, id, password,
+                    "res.company", "search_read",
+                    emptyList(),
+                    new HashMap() {{
+                        put("fields",
+                                asList("id", "name"));
+                    }}
+            ));
+        } catch (XmlRpcException e) {
+            e.printStackTrace();
+        }
+        return object;
+    }
 }

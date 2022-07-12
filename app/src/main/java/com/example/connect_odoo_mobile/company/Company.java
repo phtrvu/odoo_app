@@ -2,20 +2,26 @@ package com.example.connect_odoo_mobile.company;
 
 public class Company {
     private int id;
-    private Object name;
-    private Object phone;
-    private Object email;
-    private Object mobile;
-    private Object street;
-    private Object street2;
-    private Object city;
-    private Object country_code;
-    private Object logo;
+    private String name;
+    private String phone;
+    private String email;
+    private String mobile;
+    private String street;
+    private String street2;
+    private String city;
+    private String country_code;
+    private String logo;
 
     public Company() {
     }
 
-    public Company(int id, Object name, Object phone, Object email, Object mobile, Object street, Object street2, Object city, Object country_code, Object logo) {
+    public Company(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Company(int id, String name, String phone, String email, String mobile,
+                   String street, String street2, String city, String country_code, String logo) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -36,75 +42,75 @@ public class Company {
         this.id = id;
     }
 
-    public Object getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Object name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public Object getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Object phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public Object getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Object email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public Object getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(Object mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
-    public Object getStreet() {
+    public String getStreet() {
         return street;
     }
 
-    public void setStreet(Object street) {
+    public void setStreet(String street) {
         this.street = street;
     }
 
-    public Object getStreet2() {
+    public String getStreet2() {
         return street2;
     }
 
-    public void setStreet2(Object street2) {
+    public void setStreet2(String street2) {
         this.street2 = street2;
     }
 
-    public Object getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(Object city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public Object getCountry_code() {
+    public String getCountry_code() {
         return country_code;
     }
 
-    public void setCountry_code(Object country_code) {
+    public void setCountry_code(String country_code) {
         this.country_code = country_code;
     }
 
-    public Object getLogo() {
+    public String getLogo() {
         return logo;
     }
 
-    public void setLogo(Object logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
     }
 }
