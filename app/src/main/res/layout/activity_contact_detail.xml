@@ -64,13 +64,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/imgAvatar"
                 tools:ignore="SpeakableTextPresentCheck" />
 
+            <CheckBox
+                android:id="@+id/chkCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/chk_is_company"
+                android:visibility="gone"
+                android:layout_margin="10dp"
+                android:checked="true"
+                android:clickable="false"
+                android:focusable="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtName"
+                />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutGroupEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtName">
+                app:layout_constraintTop_toBottomOf="@+id/chkCompany">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutEmail"
@@ -88,6 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
+                        android:textSize="18sp"
                         android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
 

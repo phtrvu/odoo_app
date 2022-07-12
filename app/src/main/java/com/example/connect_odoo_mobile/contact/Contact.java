@@ -55,8 +55,12 @@ public class Contact {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Object getName() {
+        if (!name.equals("")) {
+            return name;
+        } else {
+            return false;
+        }
     }
 
     public void setName(String name) {

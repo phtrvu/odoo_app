@@ -36,23 +36,23 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
         Contact contact = contactArrayList.get(position);
-        if (!contact.getName().equals("")) {
-            holder.txtName.setText(contact.getName());
+        if (!contact.getName().equals(false)) {
+            holder.txtName.setText((String) contact.getName());
         }
-        if (!contact.getCompany_name().equals("")) {
-            holder.txtCompany.setText((CharSequence) contact.getCompany_name());
+        if (!contact.getCompany_name().equals(false)) {
+            holder.txtCompany.setText((String) contact.getCompany_name());
         }
-        if (!contact.getEmail().equals("")) {
-            holder.txtEmail.setText((CharSequence) contact.getEmail());
+        if (!contact.getEmail().equals(false)) {
+            holder.txtEmail.setText((String) contact.getEmail());
         }
-        if (!contact.getImage().equals("")) {
+        if (!contact.getImage().equals(false)) {
             holder.imgAvatar.setImageBitmap(ImageUtils.getBitmapImage((String) contact.getImage()));
         }
         holder.layoutContact.setOnClickListener(view -> {
             Intent intent = new Intent(context, ContactDetailActivity.class);
             //data transfer to screen contact detail
             intent.putExtra("id", contact.getId());
-            intent.putExtra("name", contact.getName());
+            intent.putExtra("name", String.valueOf(contact.getName()));
             intent.putExtra("email", String.valueOf(contact.getEmail()));
             context.startActivity(intent);
         });

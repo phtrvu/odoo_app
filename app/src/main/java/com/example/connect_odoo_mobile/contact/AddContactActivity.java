@@ -154,8 +154,8 @@ public class AddContactActivity extends AppCompatActivity {
         if (name == null) {
             edtName.setError("Required");
         } else {
-            OdooConnect odooConnect = new OdooConnect("https://android.t4erp.cf", path);
-            int id = odooConnect.addContact("bitnami_odoo", 7, "12062001", contact);
+            OdooConnect odooConnect = new OdooConnect(url, path);
+            int id = odooConnect.addContact(db, uid, pass, contact);
             if(id > 0){
                 Toast.makeText(this, "Add successful!", Toast.LENGTH_SHORT).show();
             }

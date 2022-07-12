@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +55,8 @@ public class ContactDetailActivity extends AppCompatActivity {
         ImageView imgAvatar = findViewById(R.id.imgAvatar);
         TextInputEditText edtEmail, edtWebsite, edtPhone, edtMobile, edtNote, edtCountry;
         TextView txtName;
+        CheckBox chkCompany;
+        chkCompany = findViewById(R.id.chkCompany);
         txtName = findViewById(R.id.txtName);
         edtEmail = findViewById(R.id.edtEmail);
         edtWebsite = findViewById(R.id.edtWebsite);
@@ -66,7 +70,7 @@ public class ContactDetailActivity extends AppCompatActivity {
         String name = intent.getStringExtra("name");
         String email = intent.getStringExtra("email");
         String image = null;
-        String phone = null, mobile = null, country = null, website = null, comment = null;
+        String phone = null, mobile = null, country = null, website = null, comment = null, company_type = null;
         try {
             OdooConnect odooConnect = new OdooConnect(url, path);
             Object[] object = (Object[]) odooConnect.getContactDetail(db, uid, id, pass);
@@ -78,6 +82,7 @@ public class ContactDetailActivity extends AppCompatActivity {
                     website = OdooUtils.getString((Map<String, Object>) i, "website");
                     comment = OdooUtils.getString((Map<String, Object>) i, "comment");
                     image = OdooUtils.getString((Map<String, Object>) i, "image_1024");
+                    company_type = OdooUtils.getString((Map<String, Object>) i, "company_type");
                 }
             }
         } catch (MalformedURLException e) {
@@ -108,6 +113,11 @@ public class ContactDetailActivity extends AppCompatActivity {
         }
         if (comment != null) {
             edtNote.setText(comment);
+        }
+        if(company_type.equals("person")){
+            chkCompany.setVisibility(View.GONE);
+        }else {
+            chkCompany.setVisibility(View.VISIBLE);
         }
     }
 
