@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.authenticate.MainActivity;
-import com.example.connect_odoo_mobile.contact.get_contact.Contact;
 import com.example.connect_odoo_mobile.handle.ImageUtils;
 import com.example.connect_odoo_mobile.handle.Many2One;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
@@ -71,7 +69,7 @@ public class ContactDetailActivity extends AppCompatActivity {
         String phone = null, mobile = null, country = null, website = null, comment = null;
         try {
             OdooConnect odooConnect = new OdooConnect(url, path);
-            Object[] object = (Object[]) odooConnect.getDetailContact(db, uid, id, pass);
+            Object[] object = (Object[]) odooConnect.getContactDetail(db, uid, id, pass);
             if (object.length > 0) {
                 for (Object i : object) {
                     phone = OdooUtils.getString((Map<String, Object>) i, "phone");

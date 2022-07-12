@@ -20,7 +20,7 @@ import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.account.AccountManagerFragment;
 import com.example.connect_odoo_mobile.company.CompanyFragment;
 import com.example.connect_odoo_mobile.contact.AddContactActivity;
-import com.example.connect_odoo_mobile.contact.get_contact.ContactFragment;
+import com.example.connect_odoo_mobile.contact.ContactFragment;
 import com.example.connect_odoo_mobile.handle.ImageUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;

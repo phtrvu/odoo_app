@@ -17,27 +17,40 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.connect_odoo_mobile.R;
+import com.example.connect_odoo_mobile.authenticate.MainActivity;
 import com.example.connect_odoo_mobile.dialog.ChoosePictureDialog;
 import com.example.connect_odoo_mobile.handle.ImageUtils;
+import com.example.connect_odoo_mobile.handle.OdooConnect;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Objects;
 
 public class AddContactActivity extends AppCompatActivity {
 
+    private String db, url, pass, path = "object";
+    private int uid;
+
     private static final int REQUEST_CODE = 1;
     private ImageView imgAvatar;
+    private Bitmap bitmap;
+    private EditText edtName;
+    private CheckBox chkIsCompany;
+    private TextInputEditText edtStreet, edtStreet2, edtZip, edtCountry, edtEmail, edtPhone, edtMobile, edtWebsite, edtComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +58,9 @@ public class AddContactActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_contact);
         //set toolbar
         setToolbar();
+        //handle thread
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         //checkIsCompany
         checkIsCompany();
         //tap Image view
@@ -95,7 +111,11 @@ public class AddContactActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_save:
-                Toast.makeText(this, "save", Toast.LENGTH_SHORT).show();
+                try {
+                    addContact();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.nav_cancel:
                 Toast.makeText(this, "cancel", Toast.LENGTH_SHORT).show();
@@ -104,6 +124,64 @@ public class AddContactActivity extends AppCompatActivity {
                 onBackPressed();
         }
         return true;
+    }
+
+    private void addContact() throws MalformedURLException {
+        mappingView();
+        String image = "";
+        if (bitmap != null) {
+            image = ImageUtils.convertBase64(bitmap);
+        }
+        String company_type, company_name = "";
+        if (chkIsCompany.isChecked()) {
+            company_type = "company";
+        } else {
+            company_type = "person";
+            company_name = "T4tek";
+        }
+        String name = edtName.getText().toString();
+        String email = edtEmail.getText().toString();
+        String street = edtStreet.getText().toString();
+        String street2 = edtStreet2.getText().toString();
+        String zip = edtZip.getText().toString();
+        String country = "";
+        String website = edtWebsite.getText().toString();
+        String phone = edtPhone.getText().toString();
+        String mobile = edtMobile.getText().toString();
+        String comment = edtComment.getText().toString();
+        Contact contact = new Contact(name, email, image, company_name, street,
+                street2, zip, country, website, phone, mobile, comment, company_type);
+        if (name == null) {
+            edtName.setError("Required");
+        } else {
+            OdooConnect odooConnect = new OdooConnect("https://android.t4erp.cf", path);
+            int id = odooConnect.addContact("bitnami_odoo", 7, "12062001", contact);
+            if(id > 0){
+                Toast.makeText(this, "Add successful!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, "Add failed!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    private void mappingView() {
+        edtName = findViewById(R.id.edtName);
+        chkIsCompany = findViewById(R.id.chkCompany);
+        edtEmail = findViewById(R.id.edtEmail);
+        edtStreet = findViewById(R.id.edtStreet);
+        edtStreet2 = findViewById(R.id.edtStreet2);
+        edtZip = findViewById(R.id.edtZip);
+        edtCountry = findViewById(R.id.edtCountry);
+        edtWebsite = findViewById(R.id.edtWebsite);
+        edtPhone = findViewById(R.id.edtPhone);
+        edtMobile = findViewById(R.id.edtMobile);
+        edtComment = findViewById(R.id.edtNote);
+        url = MainActivity.url;
+        db = MainActivity.db;
+        pass = MainActivity.pass;
+        uid = MainActivity.uid;
     }
 
     @Override
@@ -147,7 +225,7 @@ public class AddContactActivity extends AppCompatActivity {
                                 }
                                 Uri uri = intent.getData();
                                 try {
-                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                                     imgAvatar.setImageBitmap(bitmap);
                                 } catch (IOException e) {
                                     e.printStackTrace();

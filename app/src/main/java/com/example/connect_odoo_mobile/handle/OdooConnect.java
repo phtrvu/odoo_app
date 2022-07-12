@@ -3,6 +3,10 @@ package com.example.connect_odoo_mobile.handle;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
+import android.util.Log;
+
+import com.example.connect_odoo_mobile.contact.Contact;
+
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
@@ -43,7 +47,7 @@ public class OdooConnect {
         return object;
     }
 
-    public Object getDetailContact(String db, int uid, int id, String password) {
+    public Object getContactDetail(String db, int uid, int id, String password) {
         Object object = null;
         try {
             object = client.execute("execute_kw", asList(
@@ -61,6 +65,34 @@ public class OdooConnect {
             e.printStackTrace();
         }
         return object;
+    }
+
+    public int addContact(String db, int uid, String password, Contact contact) {
+        int id = -1;
+        try {
+            id = (int) client.execute("execute_kw", asList(
+                    db, uid, password,
+                    "res.partner", "create",
+                    asList(new HashMap() {{
+                        put("name", contact.getName());
+                        put("image_1920", contact.getImage());
+                        put("email", contact.getEmail());
+                        put("company_name", contact.getCompany_name());
+                        put("street", contact.getStreet());
+                        put("street2", contact.getStreet2());
+                        put("zip", contact.getZip());
+                        put("country_id", contact.getCountry());
+                        put("website", contact.getWebsite());
+                        put("phone", contact.getPhone());
+                        put("mobile", contact.getMobile());
+                        put("comment", contact.getComment());
+                        put("company_type", contact.getCompany_type());
+                    }})
+            ));
+        } catch (XmlRpcException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 
     public Object signIn(String db, String username, String password) throws XmlRpcException {

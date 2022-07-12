@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.contact.get_contact;
+package com.example.connect_odoo_mobile.contact;
 
 import android.os.Bundle;
 
@@ -13,8 +13,8 @@ import android.widget.ProgressBar;
 
 import com.example.connect_odoo_mobile.authenticate.MainActivity;
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.contact.get_contact.Contact;
-import com.example.connect_odoo_mobile.contact.get_contact.ContactAdapter;
+import com.example.connect_odoo_mobile.contact.Contact;
+import com.example.connect_odoo_mobile.contact.ContactAdapter;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
 import com.example.connect_odoo_mobile.handle.OdooUtils;
 
