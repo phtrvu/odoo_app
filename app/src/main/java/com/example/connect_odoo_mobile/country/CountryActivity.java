@@ -1,4 +1,4 @@
-package com.example.connect_odoo_mobile.company;
+package com.example.connect_odoo_mobile.country;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,17 +6,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.authenticate.MainActivity;
-import com.example.connect_odoo_mobile.contact.AddContactActivity;
-import com.example.connect_odoo_mobile.contact.Contact;
-import com.example.connect_odoo_mobile.handle.IntentInterface;
+import com.example.connect_odoo_mobile.company.Company;
+import com.example.connect_odoo_mobile.company.CompanyAdapter;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
 import com.example.connect_odoo_mobile.handle.OdooUtils;
 
@@ -26,63 +23,46 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class CompanyActivity extends AppCompatActivity {
-    private CompanyAdapter companyAdapter;
-    private Contact contact;
+public class CountryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_company);
+        setContentView(R.layout.activity_country);
         setToolbar();
         //handle thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        getDataIntent();
         try {
-            getCompany();
+            getCountry();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
-    private void getDataIntent(){
-        Bundle bundle = getIntent().getExtras();
-        contact = (Contact) bundle.getSerializable("contact_temp");
-    }
-
-    private void getCompany() throws MalformedURLException {
+    private void getCountry() throws MalformedURLException {
         String db, url, pass,path = "object";
         int uid;
         url = MainActivity.url;
         db = MainActivity.db;
         pass = MainActivity.pass;
         uid = MainActivity.uid;
-        RecyclerView rvCompany = findViewById(R.id.rvCompany);
-        Company company;
-        List<Company> companyList = new ArrayList<>();
+        RecyclerView rvCountry = findViewById(R.id.rvCountry);
+        Country country;
+        List<Country> countryList = new ArrayList<>();
         OdooConnect odooConnect = new OdooConnect(url,path);
-        Object[] objects = (Object[]) odooConnect.getCompany(db,uid,pass);
+        Object[] objects = (Object[]) odooConnect.getCountry(db,uid,pass);
         for(Object i: objects){
             int id = OdooUtils.getInteger((Map<String, Object>) i, "id");
             String name = OdooUtils.getString((Map<String, Object>) i, "name");
-            company = new Company(id,name);
-            companyList.add(company);
+            country = new Country(id,name);
+            countryList.add(country);
         }
-        companyAdapter = new CompanyAdapter(this, companyList, new IntentInterface() {
-            @Override
-            public void onClickCompanyItemRecyclerView(Company company) {
-                Intent intent = new Intent(CompanyActivity.this,AddContactActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("contact_temp",contact);
-                bundle.putString("company_name", String.valueOf(company.getName()));
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-        LinearLayoutManager companyManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        rvCompany.setLayoutManager(companyManager);
-        rvCompany.setAdapter(companyAdapter);
+        CountryAdapter countryAdapter = new CountryAdapter(this, countryList);
+        LinearLayoutManager CountryManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        rvCountry.setLayoutManager(CountryManager);
+        rvCountry.setAdapter(countryAdapter);
     }
+
     private void setToolbar() {
         Toolbar toolbar = findViewById(R.id.toolBar);
         this.setSupportActionBar(toolbar);

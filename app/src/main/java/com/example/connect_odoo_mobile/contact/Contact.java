@@ -1,6 +1,8 @@
 package com.example.connect_odoo_mobile.contact;
 
-public class Contact {
+import java.io.Serializable;
+
+public class Contact implements Serializable {
     private int id;
     private String name;
     private String email;
@@ -56,7 +58,7 @@ public class Contact {
     }
 
     public Object getName() {
-        if (!name.equals("")) {
+        if (!name.equals("") || !name.equals(null)) {
             return name;
         } else {
             return false;
@@ -68,7 +70,7 @@ public class Contact {
     }
 
     public Object getCompany_name() {
-        if (!company_name.equals("")) {
+        if (!company_name.equals("") || !company_name.equals(null)) {
             return company_name;
         } else {
             return false;
@@ -80,7 +82,7 @@ public class Contact {
     }
 
     public Object getEmail() {
-        if (!email.equals("")) {
+        if (!email.equals("")|| !email.equals(null)) {
             return email;
         } else {
             return false;
@@ -92,7 +94,7 @@ public class Contact {
     }
 
     public Object getImage() {
-        if (!image.equals("")) {
+        if (!image.equals("")|| !image.equals(null)) {
             return image;
         } else {
             return false;
@@ -104,7 +106,7 @@ public class Contact {
     }
 
     public Object getStreet() {
-        if(!street.equals("")){
+        if(!street.equals("")|| !street.equals(null)){
             return street;
         }
         else {
@@ -117,7 +119,7 @@ public class Contact {
     }
 
     public Object getStreet2() {
-        if(!street2.equals("")){
+        if(!street2.equals("")|| !street2.equals(null)){
             return street2;
         }
         else {
@@ -130,7 +132,7 @@ public class Contact {
     }
 
     public Object getZip() {
-        if(!zip.equals("")){
+        if(!zip.equals("")|| !zip.equals(null)){
             return zip;
         }
         else {
@@ -143,7 +145,7 @@ public class Contact {
     }
 
     public Object getCountry() {
-        if(!country.equals("")){
+        if(!country.equals("")|| !country.equals(null)){
             return country;
         }
         else {
@@ -156,7 +158,7 @@ public class Contact {
     }
 
     public Object getWebsite() {
-        if(!website.equals("")){
+        if(!website.equals("")|| !website.equals(null)){
             return website;
         }
         else {
@@ -169,7 +171,7 @@ public class Contact {
     }
 
     public Object getPhone() {
-        if(!phone.equals("")){
+        if(!phone.equals("")|| !phone.equals(null)){
             return phone;
         }
         else {
@@ -182,7 +184,7 @@ public class Contact {
     }
 
     public Object getMobile() {
-        if(!mobile.equals("")){
+        if(!mobile.equals("")|| !mobile.equals(null)){
             return mobile;
         }
         else {
@@ -195,7 +197,7 @@ public class Contact {
     }
 
     public Object getComment() {
-        if(!comment.equals("")){
+        if(!comment.equals("")|| !comment.equals(null)){
             return comment;
         }
         else {

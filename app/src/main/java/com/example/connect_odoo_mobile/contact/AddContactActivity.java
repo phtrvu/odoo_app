@@ -23,7 +23,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,6 +31,7 @@ import android.widget.Toast;
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.authenticate.MainActivity;
 import com.example.connect_odoo_mobile.company.CompanyActivity;
+import com.example.connect_odoo_mobile.country.CountryActivity;
 import com.example.connect_odoo_mobile.dialog.ChoosePictureDialog;
 import com.example.connect_odoo_mobile.handle.ImageUtils;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
@@ -45,13 +45,15 @@ import java.util.Objects;
 public class AddContactActivity extends AppCompatActivity {
 
     private String db, url, pass, path = "object";
-    private int uid;
-
+    private int uid, country_id;
+    String name, email, image, company_name, street,
+            street2, zip, country, website, phone, mobile, comment, company_type;
     private static final int REQUEST_CODE = 1;
     private ImageView imgAvatar;
     private Bitmap bitmap;
     private EditText edtName;
     private CheckBox chkIsCompany;
+    private Contact contact;
     private TextInputEditText edtCompany, edtStreet, edtStreet2, edtZip, edtCountry, edtEmail, edtPhone, edtMobile, edtWebsite, edtComment;
 
     @Override
@@ -71,20 +73,29 @@ public class AddContactActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             tapImageView();
         }
+        //get data intent
+        getDataIntent();
         //action
         setAction();
     }
 
     @SuppressLint("WrongConstant")
     private void setAction() {
-        Intent intent = getIntent();
-        if(intent.getFlags() == 1){
-            edtCompany.setText(intent.getStringExtra("company_name"));
-        }
         edtCompany.setOnClickListener(view -> {
-            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
-            startActivity(new Intent(this, CompanyActivity.class));
+            Intent intent = new Intent(this, CompanyActivity.class);
+            Bundle bundle = new Bundle();
+            getDataEditText();
+            bundle.putSerializable("contact_temp", contact);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        });
+        edtCountry.setOnClickListener(view -> {
+            Intent intent = new Intent(this, CountryActivity.class);
+            Bundle bundle = new Bundle();
+            getDataEditText();
+            bundle.putSerializable("contact_temp", contact);
+            intent.putExtras(bundle);
+            startActivity(intent);
         });
     }
 
@@ -145,35 +156,8 @@ public class AddContactActivity extends AppCompatActivity {
     }
 
     private void addContact() throws MalformedURLException {
-
-        String image = "";
-        if (bitmap != null) {
-            image = ImageUtils.convertBase64(bitmap);
-        }
-        String company_type, company_name = "";
-        if (chkIsCompany.isChecked()) {
-            company_type = "company";
-        } else {
-            company_type = "person";
-        }
-        String name = edtName.getText().toString();
-        String email = edtEmail.getText().toString();
-        String street = edtStreet.getText().toString();
-        String street2 = edtStreet2.getText().toString();
-        String zip = edtZip.getText().toString();
-        String country = "";
-        String website = edtWebsite.getText().toString();
-        String phone = edtPhone.getText().toString();
-        String mobile = edtMobile.getText().toString();
-        String comment = edtComment.getText().toString();
-        //get selected company
-        Intent intent = getIntent();
-        if(intent != null){
-            company_name = intent.getStringExtra("company_name");
-        }
-        //init Contact
-        Contact contact = new Contact(name, email, image, company_name, street,
-                street2, zip, country, website, phone, mobile, comment, company_type);
+        //get data edittext
+        getDataEditText();
         //add in database
         if (name == null) {
             edtName.setError("Required");
@@ -187,6 +171,59 @@ public class AddContactActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void getDataEditText() {
+        if (bitmap != null) {
+            image = ImageUtils.convertBase64(bitmap);
+        }
+        if (chkIsCompany.isChecked()) {
+            company_type = "company";
+        } else {
+            company_type = "person";
+        }
+        name = edtName.getText().toString().trim();
+        email = edtEmail.getText().toString().trim();
+        street = edtStreet.getText().toString().trim();
+        street2 = edtStreet2.getText().toString().trim();
+        zip = edtZip.getText().toString().trim();
+        country = edtCountry.getText().toString().trim();
+        website = edtWebsite.getText().toString().trim();
+        phone = edtPhone.getText().toString().trim();
+        mobile = edtMobile.getText().toString().trim();
+        comment = edtComment.getText().toString().trim();
+        company_name = edtCompany.getText().toString().trim();
+        //init Contact
+        contact = new Contact(name, email, image, company_name, street,
+                street2, zip, country, website, phone, mobile, comment, company_type);
+    }
+
+    private void getDataIntent() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            Contact contact = (Contact) bundle.getSerializable("contact_temp");
+            edtName.setText((String) contact.getName());
+
+            edtEmail.setText((String) contact.getEmail());
+            edtStreet.setText((String) contact.getStreet());
+            edtStreet2.setText((String) contact.getStreet2());
+            edtZip.setText((String) contact.getZip());
+            edtWebsite.setText((String) contact.getWebsite());
+            edtPhone.setText((String) contact.getPhone());
+            edtMobile.setText((String) contact.getMobile());
+            edtComment.setText((String) contact.getComment());
+            edtCompany.setText((String) contact.getCompany_name());
+            edtCountry.setText((String) contact.getCountry());
+
+            company_name = bundle.getString("company_name", null);
+            if (company_name != null) {
+                edtCompany.setText(company_name);
+            }
+            country = bundle.getString("country", null);
+            if (country != null) {
+                edtCountry.setText(country);
+            }
+        }
     }
 
 

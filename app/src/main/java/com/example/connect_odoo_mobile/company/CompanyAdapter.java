@@ -15,17 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.contact.AddContactActivity;
+import com.example.connect_odoo_mobile.contact.Contact;
 import com.example.connect_odoo_mobile.handle.ImageUtils;
+import com.example.connect_odoo_mobile.handle.IntentInterface;
 
 import java.util.List;
 
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder> {
     private final Context context;
     private final List<Company> companyArrayList;
+    private IntentInterface intentInterface;
 
-    public CompanyAdapter(Context context, List<Company> companyArrayList) {
+    public CompanyAdapter(Context context, List<Company> companyArrayList,IntentInterface intentInterface) {
         this.context = context;
         this.companyArrayList = companyArrayList;
+        this.intentInterface = intentInterface;
     }
 
     @NonNull
@@ -43,12 +47,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyV
             holder.txtName.setText((String) company.getName());
         }
         holder.layoutCompany.setOnClickListener(view -> {
-            Intent intent = new Intent(context, AddContactActivity.class);
-            intent.putExtra("id",company.getId());
-            intent.putExtra("company_name", String.valueOf(company.getName()));
-            intent.setFlags(1);
-            context.startActivity(intent);
-
+            intentInterface.onClickCompanyItemRecyclerView(company);
         });
     }
 
