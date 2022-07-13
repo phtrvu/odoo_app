@@ -81,7 +81,7 @@ public class OdooConnect {
                         put("street", contact.getStreet());
                         put("street2", contact.getStreet2());
                         put("zip", contact.getZip());
-                        put("country_id", contact.getCountry());
+                        //put("country_id", asList(contact.getCountry_id(),contact.getCountry()) );
                         put("website", contact.getWebsite());
                         put("phone", contact.getPhone());
                         put("mobile", contact.getMobile());

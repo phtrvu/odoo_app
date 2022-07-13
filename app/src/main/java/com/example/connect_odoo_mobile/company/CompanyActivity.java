@@ -16,7 +16,7 @@ import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.authenticate.MainActivity;
 import com.example.connect_odoo_mobile.contact.AddContactActivity;
 import com.example.connect_odoo_mobile.contact.Contact;
-import com.example.connect_odoo_mobile.handle.IntentInterface;
+import com.example.connect_odoo_mobile.handle.CompanyInterface;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
 import com.example.connect_odoo_mobile.handle.OdooUtils;
 
@@ -68,7 +68,7 @@ public class CompanyActivity extends AppCompatActivity {
             company = new Company(id,name);
             companyList.add(company);
         }
-        companyAdapter = new CompanyAdapter(this, companyList, new IntentInterface() {
+        companyAdapter = new CompanyAdapter(companyList, new CompanyInterface() {
             @Override
             public void onClickCompanyItemRecyclerView(Company company) {
                 Intent intent = new Intent(CompanyActivity.this,AddContactActivity.class);
@@ -77,6 +77,7 @@ public class CompanyActivity extends AppCompatActivity {
                 bundle.putString("company_name", String.valueOf(company.getName()));
                 intent.putExtras(bundle);
                 startActivity(intent);
+                finish();
             }
         });
         LinearLayoutManager companyManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

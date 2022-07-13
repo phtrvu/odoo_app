@@ -19,6 +19,7 @@ public class Contact implements Serializable {
     private String phone;
     private String mobile;
     private String comment;
+    private int country_id;
 
     public Contact() {
     }
@@ -32,7 +33,7 @@ public class Contact implements Serializable {
     }
 
     public Contact(String name, String email, String image, String company_name,
-                   String street, String street2, String zip, String country,
+                   String street, String street2, String zip, String country, int country_id,
                    String website, String phone, String mobile, String comment, String company_type) {
         this.name = name;
         this.email = email;
@@ -47,6 +48,7 @@ public class Contact implements Serializable {
         this.mobile = mobile;
         this.comment = comment;
         this.company_type = company_type;
+        this.country_id = country_id;
     }
 
     public int getId() {
@@ -94,7 +96,7 @@ public class Contact implements Serializable {
     }
 
     public Object getImage() {
-        if (!image.equals("")|| !image.equals(null)) {
+        if (!image.equals("")) {
             return image;
         } else {
             return false;
@@ -215,5 +217,13 @@ public class Contact implements Serializable {
 
     public void setCompany_type(String company_type) {
         this.company_type = company_type;
+    }
+
+    public int getCountry_id() {
+        return country_id;
+    }
+
+    public void setCountry_id(int country_id) {
+        this.country_id = country_id;
     }
 }

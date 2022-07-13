@@ -46,7 +46,7 @@ public class AddContactActivity extends AppCompatActivity {
 
     private String db, url, pass, path = "object";
     private int uid, country_id;
-    String name, email, image, company_name, street,
+    String name, email, image = "", company_name, street,
             street2, zip, country, website, phone, mobile, comment, company_type;
     private static final int REQUEST_CODE = 1;
     private ImageView imgAvatar;
@@ -195,7 +195,7 @@ public class AddContactActivity extends AppCompatActivity {
         company_name = edtCompany.getText().toString().trim();
         //init Contact
         contact = new Contact(name, email, image, company_name, street,
-                street2, zip, country, website, phone, mobile, comment, company_type);
+                street2, zip, country, country_id, website, phone, mobile, comment, company_type);
     }
 
     private void getDataIntent() {
@@ -222,6 +222,7 @@ public class AddContactActivity extends AppCompatActivity {
             country = bundle.getString("country", null);
             if (country != null) {
                 edtCountry.setText(country);
+                country_id = bundle.getInt("id", -1);
             }
         }
     }

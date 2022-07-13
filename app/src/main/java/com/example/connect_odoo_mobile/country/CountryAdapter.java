@@ -14,16 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.contact.AddContactActivity;
+import com.example.connect_odoo_mobile.handle.CountryInterface;
 
 import java.util.List;
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryViewHolder> {
-    private final Context context;
     private final List<Country> countryList;
+    private CountryInterface countryInterface;
 
-    public CountryAdapter(Context context, List<Country> countryList) {
-        this.context = context;
+    public CountryAdapter(List<Country> countryList, CountryInterface countryInterface) {
         this.countryList = countryList;
+        this.countryInterface = countryInterface;
     }
 
     @NonNull
@@ -41,11 +42,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
             holder.txtName.setText((String) country.getName());
         }
         holder.layoutCountry.setOnClickListener(view -> {
-            Intent intent = new Intent(context, AddContactActivity.class);
-            intent.putExtra("id", country.getId());
-            intent.putExtra("country_name", String.valueOf(country.getName()));
-            intent.setFlags(2);
-            context.startActivity(intent);
+            countryInterface.onClickCountryItemRecyclerView(country);
         });
     }
 

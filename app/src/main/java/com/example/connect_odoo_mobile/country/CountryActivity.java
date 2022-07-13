@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.MenuItem;
@@ -14,6 +15,9 @@ import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.authenticate.MainActivity;
 import com.example.connect_odoo_mobile.company.Company;
 import com.example.connect_odoo_mobile.company.CompanyAdapter;
+import com.example.connect_odoo_mobile.contact.AddContactActivity;
+import com.example.connect_odoo_mobile.contact.Contact;
+import com.example.connect_odoo_mobile.handle.CountryInterface;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
 import com.example.connect_odoo_mobile.handle.OdooUtils;
 
@@ -24,6 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class CountryActivity extends AppCompatActivity {
+    private Contact contact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +38,16 @@ public class CountryActivity extends AppCompatActivity {
         //handle thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        getDataIntent();
         try {
             getCountry();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+    }
+    private void getDataIntent(){
+        Bundle bundle = getIntent().getExtras();
+        contact = (Contact) bundle.getSerializable("contact_temp");
     }
     private void getCountry() throws MalformedURLException {
         String db, url, pass,path = "object";
@@ -57,7 +67,19 @@ public class CountryActivity extends AppCompatActivity {
             country = new Country(id,name);
             countryList.add(country);
         }
-        CountryAdapter countryAdapter = new CountryAdapter(this, countryList);
+        CountryAdapter countryAdapter = new CountryAdapter(countryList, new CountryInterface() {
+            @Override
+            public void onClickCountryItemRecyclerView(Country country) {
+                Intent intent = new Intent(CountryActivity.this, AddContactActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("contact_temp",contact);
+                bundle.putString("country", String.valueOf(country.getName()));
+                bundle.putInt("id", country.getId());
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+            }
+        });
         LinearLayoutManager CountryManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvCountry.setLayoutManager(CountryManager);
         rvCountry.setAdapter(countryAdapter);

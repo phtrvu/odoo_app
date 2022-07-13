@@ -14,20 +14,15 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.contact.AddContactActivity;
-import com.example.connect_odoo_mobile.contact.Contact;
-import com.example.connect_odoo_mobile.handle.ImageUtils;
-import com.example.connect_odoo_mobile.handle.IntentInterface;
+import com.example.connect_odoo_mobile.handle.CompanyInterface;
 
 import java.util.List;
 
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder> {
-    private final Context context;
     private final List<Company> companyArrayList;
-    private IntentInterface intentInterface;
+    private CompanyInterface intentInterface;
 
-    public CompanyAdapter(Context context, List<Company> companyArrayList,IntentInterface intentInterface) {
-        this.context = context;
+    public CompanyAdapter(List<Company> companyArrayList, CompanyInterface intentInterface) {
         this.companyArrayList = companyArrayList;
         this.intentInterface = intentInterface;
     }
