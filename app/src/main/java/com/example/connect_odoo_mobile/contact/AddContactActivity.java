@@ -219,6 +219,7 @@ public class AddContactActivity extends AppCompatActivity {
             edtComment.setText((String) contact.getComment());
             edtCompany.setText((String) contact.getCompany_name());
             edtCountry.setText((String) contact.getCountry());
+            edtComment.setText((String) contact.getComment());
 
             company_name = bundle.getString("company_name", null);
             if (company_name != null) {

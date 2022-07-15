@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ContactDetailActivity extends AppCompatActivity {
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class ContactDetailActivity extends AppCompatActivity {
         edtCountry = findViewById(R.id.edtCountry);
         //get intent
         Intent intent = getIntent();
-        int id = intent.getIntExtra("id", -1);
+        id = intent.getIntExtra("id", -1);
         String name = intent.getStringExtra("name");
         String email = intent.getStringExtra("email");
         String image = null;
@@ -116,10 +117,10 @@ public class ContactDetailActivity extends AppCompatActivity {
         if (comment != null) {
             edtNote.setText(comment);
         }
-        if(company_type.equals("person")){
-            chkCompany.setVisibility(View.GONE);
-        }else {
+        if(company_type.equals("company")){
             chkCompany.setVisibility(View.VISIBLE);
+        }else {
+            chkCompany.setVisibility(View.GONE);
         }
     }
 
@@ -141,10 +142,13 @@ public class ContactDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_edit:
-                Toast.makeText(this, "toast", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ContactDetailActivity.this,EditContactActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
                 break;
             default:
                 onBackPressed();
+                finish();
         }
         return true;
     }

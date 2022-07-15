@@ -67,6 +67,26 @@ public class OdooConnect {
         }
         return object;
     }
+    public Object getContactEdit(String db, int uid, int id, String password) {
+        Object object = null;
+        try {
+            object = client.execute("execute_kw", asList(
+                    db, uid, password,
+                    "res.partner", "search_read",
+                    asList(asList(
+                            asList("id", "=", id))),
+                    new HashMap() {{
+                        put("fields",
+                                asList("street","street2","company_name","email","zip",
+                                        "name","phone", "mobile", "image_1920", "company_type",
+                                        "country_id", "website", "comment"));
+                    }}
+            ));
+        } catch (XmlRpcException e) {
+            e.printStackTrace();
+        }
+        return object;
+    }
 
     public int addContact(String db, int uid, String password, Contact contact) {
         int id = -1;
