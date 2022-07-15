@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -52,6 +53,7 @@ public class EditContactActivity extends AppCompatActivity {
     private Contact contact;
     private TextInputLayout layoutCompany;
     private TextInputEditText edtCompany, edtStreet, edtStreet2, edtZip, edtCountry, edtEmail, edtPhone, edtMobile, edtWebsite, edtComment;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,60 +63,42 @@ public class EditContactActivity extends AppCompatActivity {
         //handle thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        try {
-            getDataIntent();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        //get data intent
+        getDataIntent();
     }
-    private void getDataIntent() throws MalformedURLException {
-        Intent intent = getIntent();
-        int id = intent.getIntExtra("id",0);
-        if(id != 0){
-            OdooConnect odooConnect = new OdooConnect(url,path);
-            Object[] objects = (Object[]) odooConnect.getContactEdit(db,uid,id,pass);
-            for (Object i:objects){
-                name = OdooUtils.getString((Map<String,Object>) i,"name");
-                email = OdooUtils.getString((Map<String,Object>) i,"email");
-                image = OdooUtils.getString((Map<String,Object>) i,"image_1920");
-                company_name = OdooUtils.getString((Map<String,Object>) i,"company_name");
-                street = OdooUtils.getString((Map<String,Object>) i,"street");
-                street2 = OdooUtils.getString((Map<String,Object>) i,"street2");
-                zip = OdooUtils.getString((Map<String,Object>) i,"zip");
-                country = Many2One.getMany2One((Map<String, Object>) i, "country_id").getName();
-                website = OdooUtils.getString((Map<String,Object>) i,"website");
-                phone = OdooUtils.getString((Map<String,Object>) i,"phone");
-                mobile = OdooUtils.getString((Map<String,Object>) i,"mobile");
-                comment = OdooUtils.getString((Map<String,Object>) i,"comment");
-                company_type = OdooUtils.getString((Map<String,Object>) i,"company_type");
+
+    private void getDataIntent() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            contact = (Contact) bundle.getSerializable("contact_detail");
+            edtName.setText((String) contact.getName());
+            edtEmail.setText((String) contact.getEmail());
+            edtStreet.setText((String) contact.getStreet());
+            edtStreet2.setText((String) contact.getStreet2());
+            edtZip.setText((String) contact.getZip());
+            edtWebsite.setText((String) contact.getWebsite());
+            edtPhone.setText((String) contact.getPhone());
+            edtMobile.setText((String) contact.getMobile());
+            edtComment.setText((String) contact.getComment());
+            if (!contact.getCountry().equals("")) {
+                edtCountry.setText((String) contact.getCountry());
             }
-        }
-        edtName.setText(name);
-        edtEmail.setText(email);
-        edtStreet.setText(street);
-        edtStreet2.setText(street2);
-        edtZip.setText(zip);
-        edtWebsite.setText(website);
-        edtPhone.setText(phone);
-        edtMobile.setText(mobile);
-        edtComment.setText(comment);
-        if (!country.equals("")){
-            edtCountry.setText(country);
-        }
-        if(!company_name.equals("")){
-            edtCompany.setText(company_name);
-        }
-        if(!image.equals("")){
-            imgAvatar.setImageBitmap(ImageUtils.getBitmapImage(image));
-        }
-        edtComment.setText(comment);
-        if(company_type.equals("company")){
-            chkIsCompany.setChecked(true);
-            layoutCompany.setVisibility(View.GONE);
-        }
-        else {
-            chkIsCompany.setChecked(false);
-            layoutCompany.setVisibility(View.VISIBLE);
+
+            if (!contact.getCompany_name().equals("")) {
+                edtCompany.setText((String) contact.getCompany_name());
+            }
+
+            if (!contact.getImage().equals("") || contact.getImage() != null) {
+                imgAvatar.setImageBitmap(ImageUtils.getBitmapImage((String) contact.getImage()));
+            }
+
+            if (contact.getCompany_type().equals("company")) {
+                chkIsCompany.setChecked(true);
+                layoutCompany.setVisibility(View.GONE);
+            } else {
+                chkIsCompany.setChecked(false);
+                layoutCompany.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -145,11 +129,19 @@ public class EditContactActivity extends AppCompatActivity {
         setTitle("");
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_add_contact, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        onBackPressed();
+        return true;
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CODE) {

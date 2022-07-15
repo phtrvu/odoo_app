@@ -58,7 +58,8 @@ public class OdooConnect {
                             asList("id", "=", id))),
                     new HashMap() {{
                         put("fields",
-                                asList("phone", "mobile", "image_1024", "company_type",
+                                asList("street","street2","company_name","email","zip",
+                                        "name","phone", "mobile", "image_1920", "company_type",
                                         "country_id", "website", "comment"));
                     }}
             ));

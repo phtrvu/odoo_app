@@ -29,7 +29,15 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ContactDetailActivity extends AppCompatActivity {
-    private int id;
+    private ImageView imgAvatar;
+    private TextInputEditText edtEmail, edtWebsite, edtPhone, edtMobile, edtNote, edtCountry;
+    private TextView txtName;
+    private CheckBox chkCompany;
+    private int id, uid, country_id;
+    private Contact contact;
+    private String db, url, pass, path = "object";
+    private String image = null, name = null, email = null, company_name = null, street = null, street2 = null, zip = null,
+            phone = null, mobile = null, country = null, website = null, comment = null, company_type = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,51 +48,40 @@ public class ContactDetailActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         //set support action bar
         setToolBarForActionBar();
+        //mapping view
+        mappingView();
         //get data intent contact activity
         getDataIntent();
     }
 
     @SuppressLint("WrongViewCast")
     private void getDataIntent() {
-        String db, url, pass, path = "object";
-        int uid;
-        url = MainActivity.url;
-        db = MainActivity.db;
-        pass = MainActivity.pass;
-        uid = MainActivity.uid;
-        //mapping view
-        ImageView imgAvatar = findViewById(R.id.imgAvatar);
-        TextInputEditText edtEmail, edtWebsite, edtPhone, edtMobile, edtNote, edtCountry;
-        TextView txtName;
-        CheckBox chkCompany;
-        chkCompany = findViewById(R.id.chkCompany);
-        txtName = findViewById(R.id.txtName);
-        edtEmail = findViewById(R.id.edtEmail);
-        edtWebsite = findViewById(R.id.edtWebsite);
-        edtPhone = findViewById(R.id.edtPhone);
-        edtMobile = findViewById(R.id.edtMobile);
-        edtNote = findViewById(R.id.edtNote);
-        edtCountry = findViewById(R.id.edtCountry);
         //get intent
         Intent intent = getIntent();
         id = intent.getIntExtra("id", -1);
-        String name = intent.getStringExtra("name");
-        String email = intent.getStringExtra("email");
-        String image = null;
-        String phone = null, mobile = null, country = null, website = null, comment = null, company_type = null;
         try {
             OdooConnect odooConnect = new OdooConnect(url, path);
             Object[] object = (Object[]) odooConnect.getContactDetail(db, uid, id, pass);
             if (object.length > 0) {
                 for (Object i : object) {
+                    name = OdooUtils.getString((Map<String, Object>) i, "name");
+                    email = OdooUtils.getString((Map<String, Object>) i, "email");
+                    image = OdooUtils.getString((Map<String, Object>) i, "image_1920");
+                    company_name = OdooUtils.getString((Map<String, Object>) i, "company_name");
+                    street = OdooUtils.getString((Map<String, Object>) i, "street");
+                    street2 = OdooUtils.getString((Map<String, Object>) i, "street2");
+                    zip = OdooUtils.getString((Map<String, Object>) i, "zip");
+                    country = Many2One.getMany2One((Map<String, Object>) i, "country_id").getName();
+                    country_id = Many2One.getMany2One((Map<String, Object>) i, "country_id").getId();
+                    website = OdooUtils.getString((Map<String, Object>) i, "website");
                     phone = OdooUtils.getString((Map<String, Object>) i, "phone");
                     mobile = OdooUtils.getString((Map<String, Object>) i, "mobile");
-                    country = Many2One.getMany2One((Map<String, Object>) i, "country_id").getName();
-                    website = OdooUtils.getString((Map<String, Object>) i, "website");
                     comment = OdooUtils.getString((Map<String, Object>) i, "comment");
-                    image = OdooUtils.getString((Map<String, Object>) i, "image_1024");
                     company_type = OdooUtils.getString((Map<String, Object>) i, "company_type");
                 }
+                contact = new Contact(id, name, email, image, company_name,
+                        company_type, street, street2, zip, country,
+                        website, phone, mobile, comment, country_id);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -97,7 +94,7 @@ public class ContactDetailActivity extends AppCompatActivity {
         }
         if (image != null) {
             imgAvatar.setImageBitmap(ImageUtils.getBitmapImage(image));
-        }else {
+        } else {
             imgAvatar.setImageResource(R.drawable.ic_launcher_background);
         }
         if (phone != null) {
@@ -117,11 +114,28 @@ public class ContactDetailActivity extends AppCompatActivity {
         if (comment != null) {
             edtNote.setText(comment);
         }
-        if(company_type.equals("company")){
+        if (company_type.equals("company")) {
             chkCompany.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             chkCompany.setVisibility(View.GONE);
         }
+    }
+
+    private void mappingView() {
+        url = MainActivity.url;
+        db = MainActivity.db;
+        pass = MainActivity.pass;
+        uid = MainActivity.uid;
+        //mapping view
+        imgAvatar = findViewById(R.id.imgAvatar);
+        chkCompany = findViewById(R.id.chkCompany);
+        txtName = findViewById(R.id.txtName);
+        edtEmail = findViewById(R.id.edtEmail);
+        edtWebsite = findViewById(R.id.edtWebsite);
+        edtPhone = findViewById(R.id.edtPhone);
+        edtMobile = findViewById(R.id.edtMobile);
+        edtNote = findViewById(R.id.edtNote);
+        edtCountry = findViewById(R.id.edtCountry);
     }
 
     private void setToolBarForActionBar() {
@@ -142,8 +156,10 @@ public class ContactDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_edit:
-                Intent intent = new Intent(ContactDetailActivity.this,EditContactActivity.class);
-                intent.putExtra("id",id);
+                Intent intent = new Intent(ContactDetailActivity.this, EditContactActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("contact_detail", contact);
+                intent.putExtras(bundle);
                 startActivity(intent);
                 break;
             default:

@@ -5,9 +5,9 @@
       <map>
         <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/drawable/bg_choose_picture_dialog.xml" value="0.112" />
         <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/drawable/bg_corner_dialog_bottom_left_right.xml" value="0.112" />
-        <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_add_contact.xml" value="0.16" />
+        <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_add_contact.xml" value="0.15" />
         <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_company.xml" value="0.12631578947368421" />
-        <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_contact_detail.xml" value="0.12" />
+        <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_contact_detail.xml" value="0.15" />
         <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_country.xml" value="0.12631578947368421" />
         <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_edit_contact.xml" value="0.12631578947368421" />
         <entry key="..\:/Code/Odoo/connect_odoo_mobile/app/src/main/res/layout/activity_main.xml" value="0.12631578947368421" />

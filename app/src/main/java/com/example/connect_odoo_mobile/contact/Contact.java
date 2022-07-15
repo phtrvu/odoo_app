@@ -53,6 +53,27 @@ public class Contact implements Serializable {
         this.country_id = country_id;
     }
 
+    public Contact(int id, String name, String email, String image,
+                   String company_name, String company_type, String street,
+                   String street2, String zip, String country, String website,
+                   String phone, String mobile, String comment, int country_id) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.image = image;
+        this.company_name = company_name;
+        this.company_type = company_type;
+        this.street = street;
+        this.street2 = street2;
+        this.zip = zip;
+        this.country = country;
+        this.website = website;
+        this.phone = phone;
+        this.mobile = mobile;
+        this.comment = comment;
+        this.country_id = country_id;
+    }
+
     public int getId() {
         return id;
     }
@@ -86,7 +107,7 @@ public class Contact implements Serializable {
     }
 
     public Object getEmail() {
-        if (!email.equals("")|| !email.equals(null)) {
+        if (!email.equals("") || !email.equals(null)) {
             return email;
         } else {
             return false;
@@ -110,10 +131,9 @@ public class Contact implements Serializable {
     }
 
     public Object getStreet() {
-        if(!street.equals("")|| !street.equals(null)){
+        if (!street.equals("") || !street.equals(null)) {
             return street;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -123,10 +143,9 @@ public class Contact implements Serializable {
     }
 
     public Object getStreet2() {
-        if(!street2.equals("")|| !street2.equals(null)){
+        if (!street2.equals("") || !street2.equals(null)) {
             return street2;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -136,10 +155,9 @@ public class Contact implements Serializable {
     }
 
     public Object getZip() {
-        if(!zip.equals("")|| !zip.equals(null)){
+        if (!zip.equals("") || !zip.equals(null)) {
             return zip;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -149,10 +167,9 @@ public class Contact implements Serializable {
     }
 
     public Object getCountry() {
-        if(!country.equals("")|| !country.equals(null)){
+        if (!country.equals("") || !country.equals(null)) {
             return country;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -162,10 +179,9 @@ public class Contact implements Serializable {
     }
 
     public Object getWebsite() {
-        if(!website.equals("")|| !website.equals(null)){
+        if (!website.equals("") || !website.equals(null)) {
             return website;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -175,10 +191,9 @@ public class Contact implements Serializable {
     }
 
     public Object getPhone() {
-        if(!phone.equals("")|| !phone.equals(null)){
+        if (!phone.equals("") || !phone.equals(null)) {
             return phone;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -188,10 +203,9 @@ public class Contact implements Serializable {
     }
 
     public Object getMobile() {
-        if(!mobile.equals("")|| !mobile.equals(null)){
+        if (!mobile.equals("") || !mobile.equals(null)) {
             return mobile;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -201,10 +215,9 @@ public class Contact implements Serializable {
     }
 
     public Object getComment() {
-        if(!comment.equals("")|| !comment.equals(null)){
+        if (!comment.equals("") || !comment.equals(null)) {
             return comment;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -222,10 +235,9 @@ public class Contact implements Serializable {
     }
 
     public Object getCountry_id() {
-        if(country_id > 0){
+        if (country_id > 0) {
             return country_id;
-        }
-        else {
+        } else {
             return false;
         }
     }
