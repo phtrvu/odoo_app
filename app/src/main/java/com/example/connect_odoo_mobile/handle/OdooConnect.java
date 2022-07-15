@@ -14,6 +14,7 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class OdooConnect {
     private static final String TAG = "RUN";
@@ -81,7 +82,7 @@ public class OdooConnect {
                         put("street", contact.getStreet());
                         put("street2", contact.getStreet2());
                         put("zip", contact.getZip());
-                        //put("country_id", asList(contact.getCountry_id(),contact.getCountry()) );
+                        put("country_id", contact.getCountry_id());
                         put("website", contact.getWebsite());
                         put("phone", contact.getPhone());
                         put("mobile", contact.getMobile());
@@ -142,6 +143,7 @@ public class OdooConnect {
         }
         return object;
     }
+
     public Object getCountry(String db, int id, String password) {
         Object object = null;
         try {

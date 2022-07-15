@@ -1,5 +1,7 @@
 package com.example.connect_odoo_mobile.contact;
 
+import com.example.connect_odoo_mobile.R;
+
 import java.io.Serializable;
 
 public class Contact implements Serializable {
@@ -219,8 +221,13 @@ public class Contact implements Serializable {
         this.company_type = company_type;
     }
 
-    public int getCountry_id() {
-        return country_id;
+    public Object getCountry_id() {
+        if(country_id > 0){
+            return country_id;
+        }
+        else {
+            return false;
+        }
     }
 
     public void setCountry_id(int country_id) {

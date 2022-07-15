@@ -45,7 +45,7 @@ import java.util.Objects;
 public class AddContactActivity extends AppCompatActivity {
 
     private String db, url, pass, path = "object";
-    private int uid, country_id;
+    private int uid, country_id = 0;
     String name, email, image = "", company_name, street,
             street2, zip, country, website, phone, mobile, comment, company_type;
     private static final int REQUEST_CODE = 1;
@@ -151,6 +151,7 @@ public class AddContactActivity extends AppCompatActivity {
                 break;
             default:
                 onBackPressed();
+                finishAffinity();
         }
         return true;
     }
@@ -159,13 +160,14 @@ public class AddContactActivity extends AppCompatActivity {
         //get data edittext
         getDataEditText();
         //add in database
-        if (name == null) {
+        if (name == null || name.equals("")) {
             edtName.setError("Required");
         } else {
             OdooConnect odooConnect = new OdooConnect(url, path);
             int id = odooConnect.addContact(db, uid, pass, contact);
             if (id > 0) {
                 Toast.makeText(this, "Add successful!", Toast.LENGTH_SHORT).show();
+                country_id = 0;
             } else {
                 Toast.makeText(this, "Add failed!", Toast.LENGTH_SHORT).show();
             }
@@ -193,6 +195,9 @@ public class AddContactActivity extends AppCompatActivity {
         mobile = edtMobile.getText().toString().trim();
         comment = edtComment.getText().toString().trim();
         company_name = edtCompany.getText().toString().trim();
+        if (company_name.equals("No Related Company selected")){
+            company_name = "";
+        }
         //init Contact
         contact = new Contact(name, email, image, company_name, street,
                 street2, zip, country, country_id, website, phone, mobile, comment, company_type);
