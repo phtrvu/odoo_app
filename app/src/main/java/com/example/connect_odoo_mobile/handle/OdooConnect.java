@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class OdooConnect {
-    private static final String TAG = "RUN";
     private final String url;
     private final XmlRpcClient client;
 
@@ -109,6 +108,30 @@ public class OdooConnect {
                         put("mobile", contact.getMobile());
                         put("comment", contact.getComment());
                         put("company_type", contact.getCompany_type());
+                    }})
+            ));
+        } catch (XmlRpcException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+    public int addCompany(String db, int uid, String password, Contact contact) {
+        int id = -1;
+        try {
+            id = (int) client.execute("execute_kw", asList(
+                    db, uid, password,
+                    "res.company", "create",
+                    asList(new HashMap() {{
+                        put("name", contact.getName());
+                        put("logo", contact.getImage());
+                        put("email", contact.getEmail());
+                        put("street", contact.getStreet());
+                        put("street2", contact.getStreet2());
+                        put("zip", contact.getZip());
+                        put("country_id", contact.getCountry_id());
+                        put("website", contact.getWebsite());
+                        put("phone", contact.getPhone());
+                        put("mobile", contact.getMobile());
                     }})
             ));
         } catch (XmlRpcException e) {

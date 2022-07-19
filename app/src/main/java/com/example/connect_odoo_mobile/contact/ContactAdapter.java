@@ -48,6 +48,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         if (!contact.getImage().equals(false)) {
             holder.imgAvatar.setImageBitmap(ImageUtils.getBitmapImage((String) contact.getImage()));
         }
+        else {
+            holder.imgAvatar.setImageResource(R.drawable.ic_launcher_background);
+        }
         holder.layoutContact.setOnClickListener(view -> {
             Intent intent = new Intent(context, ContactDetailActivity.class);
             //data transfer to screen contact detail

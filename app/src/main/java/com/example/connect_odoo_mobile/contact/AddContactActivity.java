@@ -151,19 +151,27 @@ public class AddContactActivity extends AppCompatActivity {
                 break;
             default:
                 onBackPressed();
-                finishAffinity();
+                finish();
         }
         return true;
     }
 
     private void addContact() throws MalformedURLException {
+        OdooConnect odooConnect = new OdooConnect(url, path);
         //get data edittext
         getDataEditText();
         //add in database
         if (name == null || name.equals("")) {
             edtName.setError("Required");
+        } else if (chkIsCompany.isChecked()) {
+            int id = odooConnect.addCompany(db, uid, pass, contact);
+            if (id > 0) {
+                Toast.makeText(this, "Add successful!", Toast.LENGTH_SHORT).show();
+                country_id = 0;
+            } else {
+                Toast.makeText(this, "Add failed!", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            OdooConnect odooConnect = new OdooConnect(url, path);
             int id = odooConnect.addContact(db, uid, pass, contact);
             if (id > 0) {
                 Toast.makeText(this, "Add successful!", Toast.LENGTH_SHORT).show();
@@ -195,7 +203,7 @@ public class AddContactActivity extends AppCompatActivity {
         mobile = edtMobile.getText().toString().trim();
         comment = edtComment.getText().toString().trim();
         company_name = edtCompany.getText().toString().trim();
-        if (company_name.equals("No Related Company selected")){
+        if (company_name.equals("No Related Company selected")) {
             company_name = "";
         }
         //init Contact

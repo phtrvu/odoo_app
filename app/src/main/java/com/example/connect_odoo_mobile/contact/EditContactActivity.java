@@ -139,6 +139,7 @@ public class EditContactActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         onBackPressed();
+        finish();
         return true;
     }
 

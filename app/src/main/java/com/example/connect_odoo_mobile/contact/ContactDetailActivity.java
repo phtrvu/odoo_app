@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,7 +67,6 @@ public class ContactDetailActivity extends AppCompatActivity {
                 for (Object i : object) {
                     name = OdooUtils.getString((Map<String, Object>) i, "name");
                     email = OdooUtils.getString((Map<String, Object>) i, "email");
-                    image = OdooUtils.getString((Map<String, Object>) i, "image_1920");
                     company_name = OdooUtils.getString((Map<String, Object>) i, "company_name");
                     street = OdooUtils.getString((Map<String, Object>) i, "street");
                     street2 = OdooUtils.getString((Map<String, Object>) i, "street2");
@@ -78,6 +78,8 @@ public class ContactDetailActivity extends AppCompatActivity {
                     mobile = OdooUtils.getString((Map<String, Object>) i, "mobile");
                     comment = OdooUtils.getString((Map<String, Object>) i, "comment");
                     company_type = OdooUtils.getString((Map<String, Object>) i, "company_type");
+                    image = OdooUtils.getString((Map<String, Object>) i, "image_1920");
+                    Log.d("TAG", "getDataIntent: "+image);
                 }
                 contact = new Contact(id, name, email, image, company_name,
                         company_type, street, street2, zip, country,
@@ -92,7 +94,7 @@ public class ContactDetailActivity extends AppCompatActivity {
         if (email != null) {
             edtEmail.setText(email);
         }
-        if (image != null) {
+        if (!image.equals("")) {
             imgAvatar.setImageBitmap(ImageUtils.getBitmapImage(image));
         } else {
             imgAvatar.setImageResource(R.drawable.ic_launcher_background);

@@ -114,7 +114,7 @@ public class SignInActivity extends AppCompatActivity {
             intent.putExtra("pass", password);
             intent.putExtra("uid", id);
             startActivity(intent);
-            finishAffinity();
+            finish();
         } catch (MalformedURLException | XmlRpcException e) {
             e.printStackTrace();
         }
