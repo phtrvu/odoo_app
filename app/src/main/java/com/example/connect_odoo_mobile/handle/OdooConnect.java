@@ -3,8 +3,6 @@ package com.example.connect_odoo_mobile.handle;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
-import android.util.Log;
-
 import com.example.connect_odoo_mobile.contact.Contact;
 
 import org.apache.xmlrpc.XmlRpcException;
@@ -14,7 +12,6 @@ import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class OdooConnect {
     private final String url;
@@ -57,8 +54,8 @@ public class OdooConnect {
                             asList("id", "=", id))),
                     new HashMap() {{
                         put("fields",
-                                asList("street","street2","company_name","email","zip",
-                                        "name","phone", "mobile", "image_1920", "company_type",
+                                asList("street", "street2", "company_name", "email", "zip",
+                                        "name", "phone", "mobile", "image_1920", "company_type",
                                         "country_id", "website", "comment"));
                     }}
             ));
@@ -67,25 +64,61 @@ public class OdooConnect {
         }
         return object;
     }
-    public Object getContactEdit(String db, int uid, int id, String password) {
-        Object object = null;
+
+    public Boolean editContact(String db, int uid, String password, Contact contact) {
+        Boolean check = false;
         try {
-            object = client.execute("execute_kw", asList(
+            check = (Boolean) client.execute("execute_kw", asList(
                     db, uid, password,
-                    "res.partner", "search_read",
-                    asList(asList(
-                            asList("id", "=", id))),
+                    "res.partner", "write",
+                    asList(
+                            asList(contact.getId())),
                     new HashMap() {{
-                        put("fields",
-                                asList("street","street2","company_name","email","zip",
-                                        "name","phone", "mobile", "image_1920", "company_type",
-                                        "country_id", "website", "comment"));
-                    }}
-            ));
+                        put("name", contact.getName());
+                        put("image_1920", contact.getImage());
+                        put("email", contact.getEmail());
+                        put("company_name", contact.getCompany_name());
+                        put("street", contact.getStreet());
+                        put("street2", contact.getStreet2());
+                        put("zip", contact.getZip());
+                        put("country_id", contact.getCountry_id());
+                        put("website", contact.getWebsite());
+                        put("phone", contact.getPhone());
+                        put("mobile", contact.getMobile());
+                        put("comment", contact.getComment());
+                    }})
+            );
         } catch (XmlRpcException e) {
             e.printStackTrace();
         }
-        return object;
+        return check;
+    }
+
+    public Boolean editCompany(String db, int uid, String password, Contact contact) {
+        Boolean check = false;
+        try {
+            check = (Boolean) client.execute("execute_kw", asList(
+                    db, uid, password,
+                    "res.company", "write",
+                    asList(
+                            asList(contact.getId())),
+                    new HashMap() {{
+                        put("name", contact.getName());
+                        put("logo", contact.getImage());
+                        put("email", contact.getEmail());
+                        put("street", contact.getStreet());
+                        put("street2", contact.getStreet2());
+                        put("zip", contact.getZip());
+                        put("country_id", contact.getCountry_id());
+                        put("website", contact.getWebsite());
+                        put("phone", contact.getPhone());
+                        put("mobile", contact.getMobile());
+                    }})
+            );
+        } catch (XmlRpcException e) {
+            e.printStackTrace();
+        }
+        return check;
     }
 
     public int addContact(String db, int uid, String password, Contact contact) {
@@ -115,6 +148,7 @@ public class OdooConnect {
         }
         return id;
     }
+
     public int addCompany(String db, int uid, String password, Contact contact) {
         int id = -1;
         try {

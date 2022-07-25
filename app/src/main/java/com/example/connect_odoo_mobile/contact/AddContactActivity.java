@@ -19,7 +19,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +32,7 @@ import com.example.connect_odoo_mobile.authenticate.MainActivity;
 import com.example.connect_odoo_mobile.company.CompanyActivity;
 import com.example.connect_odoo_mobile.country.CountryActivity;
 import com.example.connect_odoo_mobile.dialog.ChoosePictureDialog;
+import com.example.connect_odoo_mobile.handle.CheckPermission;
 import com.example.connect_odoo_mobile.handle.ImageUtils;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
 import com.google.android.material.textfield.TextInputEditText;
@@ -44,9 +44,11 @@ import java.util.Objects;
 
 public class AddContactActivity extends AppCompatActivity {
 
-    private String db, url, pass, path = "object";
+    private String db;
+    private String url;
+    private String pass;
     private int uid, country_id = 0;
-    String name, email, image = "", company_name, street,
+    private String name, email, image = "", company_name, street,
             street2, zip, country, website, phone, mobile, comment, company_type;
     private static final int REQUEST_CODE = 1;
     private ImageView imgAvatar;
@@ -73,8 +75,6 @@ public class AddContactActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             tapImageView();
         }
-        //get data intent
-        getDataIntent();
         //action
         setAction();
     }
@@ -83,19 +83,11 @@ public class AddContactActivity extends AppCompatActivity {
     private void setAction() {
         edtCompany.setOnClickListener(view -> {
             Intent intent = new Intent(this, CompanyActivity.class);
-            Bundle bundle = new Bundle();
-            getDataEditText();
-            bundle.putSerializable("contact_temp", contact);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            activityResultLauncher.launch(intent);
         });
         edtCountry.setOnClickListener(view -> {
             Intent intent = new Intent(this, CountryActivity.class);
-            Bundle bundle = new Bundle();
-            getDataEditText();
-            bundle.putSerializable("contact_temp", contact);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            activityResultLauncher.launch(intent);
         });
     }
 
@@ -103,7 +95,13 @@ public class AddContactActivity extends AppCompatActivity {
     private void tapImageView() {
         imgAvatar = findViewById(R.id.imgAvatar);
         imgAvatar.setOnClickListener(view -> {
-            ChoosePictureDialog choosePictureDialog = new ChoosePictureDialog(this);
+            ChoosePictureDialog choosePictureDialog = new ChoosePictureDialog(this, new CheckPermission() {
+
+                @Override
+                public void checkPermission() {
+                    checkPermissionLibrary();
+                }
+            });
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 choosePictureDialog.openDialog();
             }
@@ -146,9 +144,6 @@ public class AddContactActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 break;
-            case R.id.nav_cancel:
-                Toast.makeText(this, "cancel", Toast.LENGTH_SHORT).show();
-                break;
             default:
                 onBackPressed();
                 finish();
@@ -157,6 +152,7 @@ public class AddContactActivity extends AppCompatActivity {
     }
 
     private void addContact() throws MalformedURLException {
+        String path = "object";
         OdooConnect odooConnect = new OdooConnect(url, path);
         //get data edittext
         getDataEditText();
@@ -211,37 +207,6 @@ public class AddContactActivity extends AppCompatActivity {
                 street2, zip, country, country_id, website, phone, mobile, comment, company_type);
     }
 
-    private void getDataIntent() {
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            Contact contact = (Contact) bundle.getSerializable("contact_temp");
-            edtName.setText((String) contact.getName());
-
-            edtEmail.setText((String) contact.getEmail());
-            edtStreet.setText((String) contact.getStreet());
-            edtStreet2.setText((String) contact.getStreet2());
-            edtZip.setText((String) contact.getZip());
-            edtWebsite.setText((String) contact.getWebsite());
-            edtPhone.setText((String) contact.getPhone());
-            edtMobile.setText((String) contact.getMobile());
-            edtComment.setText((String) contact.getComment());
-            edtCompany.setText((String) contact.getCompany_name());
-            edtCountry.setText((String) contact.getCountry());
-            edtComment.setText((String) contact.getComment());
-
-            company_name = bundle.getString("company_name", null);
-            if (company_name != null) {
-                edtCompany.setText(company_name);
-            }
-            country = bundle.getString("country", null);
-            if (country != null) {
-                edtCountry.setText(country);
-                country_id = bundle.getInt("id", -1);
-            }
-        }
-    }
-
-
     private void mappingView() {
         edtName = findViewById(R.id.edtName);
         chkIsCompany = findViewById(R.id.chkCompany);
@@ -279,7 +244,7 @@ public class AddContactActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void checkPermission() {
+    public void checkPermissionLibrary() {
         int check = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
         if (check == PackageManager.PERMISSION_GRANTED) {
             openGallery();
@@ -301,11 +266,24 @@ public class AddContactActivity extends AppCompatActivity {
                                     return;
                                 }
                                 Uri uri = intent.getData();
-                                try {
-                                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                                    imgAvatar.setImageBitmap(bitmap);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                                if(uri != null){
+                                    try {
+                                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                                        imgAvatar.setImageBitmap(bitmap);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                //get company name
+                                String company_name = intent.getStringExtra("company_name");
+                                if (company_name != null) {
+                                    edtCompany.setText(company_name);
+                                }
+                                //get country_id
+                                country_id = intent.getIntExtra("country_id", -1);
+                                String country_name = intent.getStringExtra("country_name");
+                                if (country_name != null) {
+                                    edtCountry.setText(country_name);
                                 }
                             }
                         }

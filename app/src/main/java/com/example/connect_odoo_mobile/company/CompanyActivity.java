@@ -38,16 +38,11 @@ public class CompanyActivity extends AppCompatActivity {
         //handle thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        getDataIntent();
         try {
             getCompany();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-    }
-    private void getDataIntent(){
-        Bundle bundle = getIntent().getExtras();
-        contact = (Contact) bundle.getSerializable("contact_temp");
     }
 
     private void getCompany() throws MalformedURLException {
@@ -72,11 +67,8 @@ public class CompanyActivity extends AppCompatActivity {
             @Override
             public void onClickCompanyItemRecyclerView(Company company) {
                 Intent intent = new Intent(CompanyActivity.this,AddContactActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("contact_temp",contact);
-                bundle.putString("company_name", String.valueOf(company.getName()));
-                intent.putExtras(bundle);
-                startActivity(intent);
+                intent.putExtra("company_name", company.getName());
+                setResult(RESULT_OK,intent);
                 finish();
             }
         });

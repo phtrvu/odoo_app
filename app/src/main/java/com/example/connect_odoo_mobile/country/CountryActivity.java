@@ -38,16 +38,11 @@ public class CountryActivity extends AppCompatActivity {
         //handle thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        getDataIntent();
         try {
             getCountry();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-    }
-    private void getDataIntent(){
-        Bundle bundle = getIntent().getExtras();
-        contact = (Contact) bundle.getSerializable("contact_temp");
     }
     private void getCountry() throws MalformedURLException {
         String db, url, pass,path = "object";
@@ -71,12 +66,9 @@ public class CountryActivity extends AppCompatActivity {
             @Override
             public void onClickCountryItemRecyclerView(Country country) {
                 Intent intent = new Intent(CountryActivity.this, AddContactActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("contact_temp",contact);
-                bundle.putString("country", String.valueOf(country.getName()));
-                bundle.putInt("id", country.getId());
-                intent.putExtras(bundle);
-                startActivity(intent);
+                intent.putExtra("country_name", country.getName());
+                intent.putExtra("country_id", country.getId());
+                setResult(RESULT_OK,intent);
                 finish();
             }
         });

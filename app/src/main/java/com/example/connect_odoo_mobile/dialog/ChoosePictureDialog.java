@@ -1,31 +1,27 @@
 package com.example.connect_odoo_mobile.dialog;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.view.Gravity;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.example.connect_odoo_mobile.R;
-import com.example.connect_odoo_mobile.contact.AddContactActivity;
+import com.example.connect_odoo_mobile.handle.CheckPermission;
 
 public class ChoosePictureDialog {
-    private final AddContactActivity context;
+    private final Context context;
+    private final CheckPermission checkPermission;
 
-    public ChoosePictureDialog(AddContactActivity context) {
+    public ChoosePictureDialog(Context context, CheckPermission checkPermission) {
         this.context = context;
+        this.checkPermission = checkPermission;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -56,7 +52,7 @@ public class ChoosePictureDialog {
         //event choose picture from the library
         txtLibrary.setOnClickListener(view -> {
             dialog.cancel();
-            context.checkPermission();
+            checkPermission.checkPermission();
         });
         //show dialog
         dialog.show();
