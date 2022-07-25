@@ -72,21 +72,22 @@ public class OdooConnect {
                     db, uid, password,
                     "res.partner", "write",
                     asList(
-                            asList(contact.getId())),
-                    new HashMap() {{
-                        put("name", contact.getName());
-                        put("image_1920", contact.getImage());
-                        put("email", contact.getEmail());
-                        put("company_name", contact.getCompany_name());
-                        put("street", contact.getStreet());
-                        put("street2", contact.getStreet2());
-                        put("zip", contact.getZip());
-                        put("country_id", contact.getCountry_id());
-                        put("website", contact.getWebsite());
-                        put("phone", contact.getPhone());
-                        put("mobile", contact.getMobile());
-                        put("comment", contact.getComment());
-                    }})
+                            asList(contact.getId()),
+                            new HashMap() {{
+                                put("name", contact.getName());
+                                put("image_1920", contact.getImage());
+                                put("email", contact.getEmail());
+                                put("company_name", contact.getCompany_name());
+                                put("street", contact.getStreet());
+                                put("street2", contact.getStreet2());
+                                put("zip", contact.getZip());
+                                put("country_id", contact.getCountry_id());
+                                put("website", contact.getWebsite());
+                                put("phone", contact.getPhone());
+                                put("mobile", contact.getMobile());
+                                put("comment", contact.getComment());
+                                put("company_type", contact.getCompany_type());
+                            }}))
             );
         } catch (XmlRpcException e) {
             e.printStackTrace();
@@ -101,19 +102,19 @@ public class OdooConnect {
                     db, uid, password,
                     "res.company", "write",
                     asList(
-                            asList(contact.getId())),
-                    new HashMap() {{
-                        put("name", contact.getName());
-                        put("logo", contact.getImage());
-                        put("email", contact.getEmail());
-                        put("street", contact.getStreet());
-                        put("street2", contact.getStreet2());
-                        put("zip", contact.getZip());
-                        put("country_id", contact.getCountry_id());
-                        put("website", contact.getWebsite());
-                        put("phone", contact.getPhone());
-                        put("mobile", contact.getMobile());
-                    }})
+                            asList(contact.getId()),
+                            new HashMap() {{
+                                put("name", contact.getName());
+                                put("logo", contact.getImage());
+                                put("email", contact.getEmail());
+                                put("street", contact.getStreet());
+                                put("street2", contact.getStreet2());
+                                put("zip", contact.getZip());
+                                put("country_id", contact.getCountry_id());
+                                put("website", contact.getWebsite());
+                                put("phone", contact.getPhone());
+                                put("mobile", contact.getMobile());
+                            }}))
             );
         } catch (XmlRpcException e) {
             e.printStackTrace();

@@ -179,8 +179,8 @@ public class EditContactActivity extends AppCompatActivity {
             company_name = "";
         }
         //init Contact
-        contact = new Contact(id, name, email, image, company_name, street,
-                street2, zip, country, website, phone, mobile, comment, company_type, country_id);
+        contact = new Contact(id, name, email, image, company_name,company_type, street,
+                street2, zip, country, website, phone, mobile, comment, country_id);
     }
 
     private void mappingView() {
@@ -230,6 +230,8 @@ public class EditContactActivity extends AppCompatActivity {
                         Boolean check = odooConnect.editCompany(db, uid, pass, contact);
                         if (check = true) {
                             Toast.makeText(this, "Edit successful!", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                            finish();
                         } else {
                             Toast.makeText(this, "Edit fail!", Toast.LENGTH_SHORT).show();
                         }
@@ -237,6 +239,8 @@ public class EditContactActivity extends AppCompatActivity {
                         Boolean check = odooConnect.editContact(db, uid, pass, contact);
                         if (check = true) {
                             Toast.makeText(this, "Edit successful!", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                            finish();
                         } else {
                             Toast.makeText(this, "Edit fail!", Toast.LENGTH_SHORT).show();
                         }
