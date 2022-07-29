@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -53,6 +54,9 @@ public class ChoosePictureDialog {
         txtLibrary.setOnClickListener(view -> {
             dialog.cancel();
             checkPermission.checkPermission();
+        });
+        txtCamera.setOnClickListener(view -> {
+            Toast.makeText(context, "Evolving functionality!", Toast.LENGTH_SHORT).show();
         });
         //show dialog
         dialog.show();

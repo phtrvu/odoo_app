@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.connect_odoo_mobile.R;
 import com.example.connect_odoo_mobile.handle.OdooConnect;
@@ -57,13 +58,13 @@ public class SignInActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                db = spinDB.getSelectedItem().toString();
-//                user = edtUser.getText().toString();
-//                pass = edtPassword.getText().toString();
-                db = "bitnami_odoo";
-                user = "vunpt@t4tek.co";
-                pass = "12062001";
-                url = "https://android.t4erp.cf";
+                db = spinDB.getSelectedItem().toString();
+                user = edtUser.getText().toString();
+                pass = edtPassword.getText().toString();
+//                db = "bitnami_odoo";
+//                user = "vunpt@t4tek.co";
+//                pass = "12062001";
+//                url = "https://android.t4erp.cf";
                 String path = "common";
                 try {
                     odooConnect = new OdooConnect(url, path);
@@ -76,7 +77,7 @@ public class SignInActivity extends AppCompatActivity {
                     edtUser.setError("Enter your username or email!");
                 } else if (pass.equals("")) {
                     edtPassword.setError("Enter your password!");
-                } else {
+                }else  if(isCheckDB){
                     try {
                         int uid = (int) odooConnect.signIn(db, user, pass);
                         if (uid > 0) {
@@ -87,6 +88,8 @@ public class SignInActivity extends AppCompatActivity {
                     } catch (XmlRpcException e) {
                         e.printStackTrace();
                     }
+                } else {
+                    Toast.makeText(SignInActivity.this, "An error has occurred, please restart the application!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -121,9 +124,9 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void eventEdittextUrl() {
-        listDB = new ArrayList<>();
         edtUrl.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus && listDB != null) {
+            if (!hasFocus) {
+                listDB = new ArrayList<>();
                 pbLoading.setVisibility(View.VISIBLE);
                 imgCheck.setVisibility(View.INVISIBLE);
                 checkServer();
@@ -131,13 +134,13 @@ public class SignInActivity extends AppCompatActivity {
         });
         edtUrl.setOnEditorActionListener((v, actionId, event) -> {
             //key enter and key next
-            if (event != null && listDB != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+            if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
                     || actionId == EditorInfo.IME_ACTION_NEXT) {
+                listDB = new ArrayList<>();
                 pbLoading.setVisibility(View.VISIBLE);
                 imgCheck.setVisibility(View.INVISIBLE);
                 checkServer();
             }
-
             return false;
         });
     }
@@ -154,8 +157,8 @@ public class SignInActivity extends AppCompatActivity {
         //Check server
         try {
             odooConnect = new OdooConnect(serverURL.toString(), path);
-            Object[] objects = (Object[]) odooConnect.checkServer();
-            if (objects.length > 0) {
+            Object[] objects  = (Object[]) odooConnect.checkServer();
+            if (objects != null) {
                 for (Object i : objects) {
                     listDB.add(i.toString());
                 }
@@ -163,6 +166,7 @@ public class SignInActivity extends AppCompatActivity {
             pbLoading.setVisibility(View.INVISIBLE);
             if (listDB == null) {
                 edtUrl.setError("The server could not be found!");
+                spinDB.setVisibility(View.GONE);
             } else if (listDB.size() > 1) {
                 spinDB.setVisibility(View.VISIBLE);
                 //dump data spinner
@@ -177,6 +181,7 @@ public class SignInActivity extends AppCompatActivity {
                 isCheckDB = true;
             } else {
                 edtUrl.setError("The server could not be found!");
+                spinDB.setVisibility(View.GONE);
             }
             url = serverURL.toString();
         } catch (MalformedURLException e) {

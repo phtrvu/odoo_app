@@ -57,7 +57,8 @@ public class EditContactActivity extends AppCompatActivity {
     private CheckBox chkIsCompany;
     private Contact contact;
     private TextInputLayout layoutCompany;
-    private TextInputEditText edtCompany, edtStreet, edtStreet2, edtZip, edtCountry, edtEmail, edtPhone, edtMobile, edtWebsite, edtComment;
+    private TextInputEditText edtCompany, edtStreet, edtStreet2, edtZip, edtCountry,
+            edtEmail, edtPhone, edtMobile, edtWebsite, edtComment;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -233,7 +234,7 @@ public class EditContactActivity extends AppCompatActivity {
                             onBackPressed();
                             finish();
                         } else {
-                            Toast.makeText(this, "Edit fail!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Edit failed!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Boolean check = odooConnect.editContact(db, uid, pass, contact);
@@ -242,7 +243,7 @@ public class EditContactActivity extends AppCompatActivity {
                             onBackPressed();
                             finish();
                         } else {
-                            Toast.makeText(this, "Edit fail!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Edit failed!", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -250,9 +251,10 @@ public class EditContactActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 break;
-            default:
-                onBackPressed();
-                finish();
+            case R.id.nav_cancel:
+               onBackPressed();
+               finish();
+                break;
         }
         return true;
     }

@@ -7,24 +7,37 @@
     android:layout_centerVertical="true"
     tools:context=".authenticate.SignInActivity">
 
+    <ImageView
+        android:id="@+id/imgBanner"
+        android:src="@drawable/ic_login_v2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintHeight_percent="0.3"
+        android:contentDescription="@string/img_description" />
+
     <EditText
         android:id="@+id/edtHttps"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
         android:hint="@string/txt_sign_in_url"
         android:imeOptions="actionNext"
         android:importantForAutofill="no"
         android:inputType="textUri"
         android:minHeight="48dp"
-        android:paddingStart="5dp"
+        android:paddingStart="10dp"
         android:paddingEnd="5dp"
+        android:background="@drawable/bg_edt_corner_8dp"
         android:textColorHint="#78909C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/imgBanner" />
 
     <ProgressBar
         android:id="@+id/pbLoading"
@@ -53,35 +66,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
-        android:minHeight="48dp"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:imeOptions="actionNext"
-        android:inputType="text"
+        android:layout_marginEnd="20dp"
         android:hint="@string/txt_sign_in_username"
+        android:imeOptions="actionNext"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="5dp"
+        android:textColorHint="#78909C"
+        android:background="@drawable/bg_edt_corner_8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtHttps"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/edtHttps" />
+
     <EditText
         android:id="@+id/edtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
-        android:minHeight="48dp"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:imeOptions="actionNext"
-        android:inputType="textPassword"
+        android:layout_marginEnd="20dp"
         android:hint="@string/txt_sign_in_password"
+        android:imeOptions="actionNext"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="5dp"
+        android:textColorHint="#78909C"
+        android:background="@drawable/bg_edt_corner_8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtUser"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/edtUser" />
 
     <Spinner
         android:id="@+id/spinDB"
@@ -92,6 +110,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/bg_edt_corner_8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
@@ -101,7 +120,9 @@
         android:id="@+id/btnSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:minHeight="48dp"
         android:text="@string/txt_sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
